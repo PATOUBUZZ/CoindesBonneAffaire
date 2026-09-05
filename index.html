@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  
+  <!-- Balises SEO & Titre -->
+  <title>Le Coin des Bonnes Affaires</title>
+  <meta name="description" content="Découvrez nos pépites et accessoires aux meilleurs prix : lunettes anti-lumière bleue, filtres d'eau, tableaux sur-mesure et plus encore !">
+
+  <!-- Balises Open Graph (Facebook, WhatsApp, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Le Coin des Bonnes Affaires">
+  <meta property="og:description" content="Produits de qualité aux meilleurs prix avec paiement à la livraison. Découvrez nos offres du moment !">
+  <meta property="og:image" content="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg">
+  <meta property="og:url" content="https://lecoindesbonnesaffaires.vercel.app">
+
+  <!-- FontAwesome & Style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="boutique-wrapper">
+    
+    <!-- En-tête FIXE et moderne -->
+    <div class="fixed-header">
+      <div class="header">
+        <div class="logo-area">
+          <i class="fas fa-store-alt"></i>
+          <h1>LE COIN DES BONNES AFFAIRES</h1>
+        </div>
+        <!-- Bouton Flottant du Panier -->
+        <button id="cart-toggle-btn" class="cart-icon-btn" aria-label="Voir le panier">
+          <i class="fas fa-shopping-basket"></i>
+          <span id="cart-count" class="cart-badge">0</span>
+        </button>
+      </div>
+
+      <!-- Navigation catégories -->
+      <div class="category-nav">
+        <button class="cat-btn active" data-category="lunettes"><i class="fas fa-glasses"></i> Lunettes</button>
+        <button class="cat-btn" data-category="filtre"><i class="fas fa-faucet"></i> Filtre d'eau</button>
+        <button class="cat-btn" data-category="tableau"><i class="fas fa-image"></i> Tableaux</button>
+        <button class="cat-btn" data-category="stand"><i class="fas fa-laptop"></i> Stands PC</button>
+        <button class="cat-btn" data-category="otg"><i class="fas fa-usb"></i> OTG</button>
+        <button class="cat-btn" data-category="ecouteurs"><i class="fas fa-headphones"></i> Écouteurs</button>
+        <button class="cat-btn" data-category="hub"><i class="fas fa-network-wired"></i> Hub</button>
+      </div>
+    </div>
+
+    <!-- Zone de contenu scrollable -->
+    <div class="content-area">
+      
+      <!-- Badges de rassurance haut de page -->
+      <div class="trust-badges-bar">
+        <div class="trust-badge-item"><i class="fas fa-truck-loading"></i> Paiement à la livraison</div>
+        <div class="trust-badge-item"><i class="fas fa-search-location"></i> Vérification avant paiement</div>
+        <div class="trust-badge-item"><i class="fas fa-headset"></i> Support 7j/7</div>
+      </div>
+
+      <!-- SECTION LUNETTES -->
+      <div class="category-section active" id="cat-lunettes">
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        
+        <!--  LUNETTES 02 -->
+        <div class="product-card" data-id="lunette-2" data-name="Lunette Photochromique Outdoor" data-price="8000">
+        <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+          <div class="product-title">Lunette Photochromique Outdoor <span class="price">8 000 FCFA</span></div>
+          <div class="description">S'adapte à la luminosité, idéale extérieur.</div>
+          <button class="features-toggle" data-target="feat-lunette2"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette2">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Verres photochromiques actifs</li>
+              <li><i class="fas fa-check-circle"></i> Anti-reflet & anti-rayures</li>
+              <li><i class="fas fa-check-circle"></i> Monture métal flexible</li>
+              <li><i class="fas fa-check-circle"></i> Étui cuir inclus</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette photochromique 8000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 03-->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue Classique <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-3" data-name="Lunette Premium Anti-fatigue" data-price="10000">
+          <div class="product-img"><i class="fas fa-glasses"></i><span>Image modèle premium</span></div>
+          <div class="product-title">Lunette Premium Anti-fatigue <span class="price">10 000 FCFA</span></div>
+          <div class="description">Confort optimal, branches ajustables.</div>
+          <button class="features-toggle" data-target="feat-lunette3"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette3">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Blocage lumière bleue 99%</li>
+              <li><i class="fas fa-check-circle"></i> Verres dégradés élégants</li>
+              <li><i class="fas fa-check-circle"></i> Plaquettes en silicone doux</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette premium 10000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!--  LUNETTES 04 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue Classique <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        
+      <!-- AUTRES CATÉGORIES -->
+      <div class="category-section" id="cat-filtre">
+        <div class="product-card" data-id="filtre-1" data-name="Filtre d'eau de cuisine" data-price="3000">
+          <div class="product-img"><i class="fas fa-faucet"></i><span>Image filtre eau</span></div>
+          <div class="product-title">Filtre d'eau de cuisine <span class="price">3 000 FCFA</span></div>
+          <div class="description">Eau pure, élimine chlore et impuretés. 3 pour 6000F.</div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Filtre eau cuisine"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div><!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+        <!--  LUNETTES 01 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">          <div class="carousel">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 1">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 2">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 3">
+  <img src="https://s.alicdn.com/@sc04/kf/H1fe0281206a94e54b932e08d401dcb7bg.png_350x350.jpg" alt="Produit 4">
+</div>
+        <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+              <li><i class="fas fa-check-circle"></i> Étui premium + chiffon</li>
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Commander Maintenant</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 5000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+      <div class="category-section" id="cat-tableau">
+        <div class="product-card" data-id="tableau-1" data-name="Tableau mural personnalisé" data-price="6000">
+          <div class="product-img"><i class="fas fa-image"></i><span>Image tableau</span></div>
+          <div class="product-title">Tableau mural personnalisé <span class="price">À partir de 6 000 FCFA</span></div>
+          <div class="description">Cadre noir, plaque dorée, plexiglas. Sur mesure.</div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Tableau personnalisé"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-section" id="cat-stand">
+        <div class="product-card" data-id="stand-1" data-name="Stand PC ergonomique" data-price="3500">
+          <div class="product-img"><i class="fas fa-laptop"></i><span>Image stand PC</span></div>
+          <div class="product-title">Stand PC ergonomique <span class="price">3 500 FCFA</span></div>
+          <div class="description">Réglable, améliore la posture.</div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Stand PC"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-section" id="cat-otg">
+        <div class="product-card" data-id="otg-1" data-name="Adaptateur OTG" data-price="2000">
+          <div class="product-img"><i class="fas fa-usb"></i><span>Image adaptateur OTG</span></div>
+          <div class="product-title">Adaptateur OTG <span class="price">2 000 FCFA</span></div>
+          <div class="description">Connectez clé USB au téléphone.</div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Adaptateur OTG"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-section" id="cat-ecouteurs">
+        <div class="product-card" data-id="ecouteurs-1" data-name="Écouteur sans fil" data-price="5000">
+          <div class="product-img"><i class="fas fa-headphones"></i><span>Image écouteurs</span></div>
+          <div class="product-title">Écouteur sans fil <span class="price">5 000 FCFA</span></div>
+          <div class="description">Bluetooth 5.0, autonomie longue.</div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Écouteurs sans fil"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-section" id="cat-hub">
+        <div class="product-card" data-id="hub-1" data-name="Hub PC multi-ports" data-price="3500">
+          <div class="product-img"><i class="fas fa-network-wired"></i><span>Image hub PC</span></div>
+          <div class="product-title">Hub PC multi-ports <span class="price">3 500 FCFA</span></div>
+          <div class="description">USB 3.0, compact et rapide.</div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Hub PC"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION TÉMOIGNAGES & AVIS CLIENTS -->
+      <div class="testimonials-section">
+        <h3><i class="fas fa-star stars-icon"></i> Avis de nos Clients</h3>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <strong>Kévin A.</strong>
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+          </div>
+          <p>"Lunettes anti-lumière bleue super efficaces ! Mes maux de tête ont disparu. Livraison rapide sur Cotonou."</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <strong>Sonia T.</strong>
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+          </div>
+          <p>"Commande facile par WhatsApp, produit vérifié sur place avant de payer le livreur. Vraiment très pro !"</p>
+        </div>
+      </div>
+
+      <!-- Note de bas de page -->
+      <div class="footer-note">
+        <i class="fas fa-lock"></i> Paiement à la livraison · <i class="fas fa-headset"></i> Service client réactif<br>
+        © Le coin des Bonnes Affaires
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL / PANNEAU DE COMMANDE & PANIER -->
+  <div id="modal-commande" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <h3 class="modal-title"><i class="fas fa-shopping-bag"></i> Finaliser la commande</h3>
+      
+      <!-- Zone de liste des articles dans le panier -->
+      <div id="cart-summary" class="cart-summary-box">
+        <!-- Rempli en JS dynamique -->
+      </div>
+
+      <form id="form-commande">
+        <!-- Champ : Nom et Prénoms -->
+        <div class="form-group">
+          <label for="cmd-nom"><i class="fas fa-user"></i> Nom & Prénoms :</label>
+          <input type="text" id="cmd-nom" placeholder="Ex: Jean Dupont" required>
+        </div>
+
+        <!-- Champ : Téléphone -->
+        <div class="form-group">
+          <label for="cmd-tel"><i class="fas fa-phone"></i> Numéro de Téléphone / WhatsApp :</label>
+          <input type="tel" id="cmd-tel" placeholder="Ex: 61 00 00 00" required>
+        </div>
+
+        <!-- Champ : Adresse -->
+        <div class="form-group">
+          <label for="cmd-adresse"><i class="fas fa-map-marker-alt"></i> Adresse ou Ville de livraison :</label>
+          <input type="text" id="cmd-adresse" placeholder="Ex: Cotonou, Akpakpa..." required>
+        </div>
+
+        <button type="submit" class="btn-submit-cmd">
+          <i class="fab fa-whatsapp"></i> Confirmer sur WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
