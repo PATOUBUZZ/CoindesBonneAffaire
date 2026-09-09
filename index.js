@@ -1,5 +1,5 @@
 (function() {
-  const phoneNumber = "+22961196907"; // Numéro WhatsApp du vendeur
+  const phoneNumber = "+22961196907"; // Numéro WhatsApp
   let cart = []; // Structure : [{id, name, price, qty}]
 
   // Éléments DOM
@@ -24,20 +24,25 @@
       if (activeSec) activeSec.classList.add('active');
     });
   });
-const carousels = document.querySelectorAll('.carousel'); // sélectionne TOUS les carrousels
-const scrollAmount = 350;
 
-carousels.forEach(carousel => {
-  setInterval(() => {
-    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  // 2. Gestionnaire de Galerie d'images avec Vignettes (Thumbnails)
+  document.querySelectorAll('.product-gallery').forEach(gallery => {
+    const mainImg = gallery.querySelector('.main-img');
+    const thumbs = gallery.querySelectorAll('.thumb');
 
-    // Quand on dépasse la moitié (fin du premier set), revenir au début
-    if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
-      carousel.scrollTo({ left: 0, behavior: 'instant' });
-    }
-  }, 2000);
-});
-  // 2. Panneau de caractéristiques déroulant
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', function() {
+        // Mettre à jour la source de l'image principale
+        mainImg.src = this.src;
+
+        // Mise à jour de la classe active
+        thumbs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  });
+
+  // 3. Panneau de caractéristiques déroulant
   document.querySelectorAll('.features-toggle').forEach(toggle => {
     toggle.addEventListener('click', function() {
       const targetId = this.dataset.target;
@@ -49,7 +54,7 @@ carousels.forEach(carousel => {
     });
   });
 
-  // 3. Gestion du Panier (Ajout)
+  // 4. Gestion du Panier (Ajout)
   document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       const card = this.closest('.product-card');
@@ -70,13 +75,13 @@ carousels.forEach(carousel => {
     });
   });
 
-  // Mise à jour du compteur sur le header
+  // Mise à jour du compteur sur l'en-tête
   function updateCartBadge() {
     const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
     cartCountEl.textContent = totalCount;
   }
 
-  // Rendu dynamique du panier dans le modal
+  // Rendu dynamique du panier dans la modale
   function renderCartModal() {
     if (cart.length === 0) {
       cartSummaryEl.innerHTML = '<p style="text-align:center; color:#64748b; font-size:0.85rem;">Votre panier est vide.</p>';
@@ -114,7 +119,7 @@ carousels.forEach(carousel => {
 
     cartSummaryEl.innerHTML = html;
 
-    // Attacher les événements +/-
+    // Attacher les événements + / -
     cartSummaryEl.querySelectorAll('.qty-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         const id = this.dataset.id;
@@ -137,7 +142,7 @@ carousels.forEach(carousel => {
     });
   }
 
-  // 4. Gestion de la Fenêtre Modal
+  // 5. Gestion de la Fenêtre Modal
   function openModal() {
     modal.style.display = "flex";
   }
@@ -159,7 +164,7 @@ carousels.forEach(carousel => {
     }
   });
 
-  // 5. Liens secondaires directs (WhatsApp direct & Appel direct)
+  // 6. Liens secondaires directs (WhatsApp direct & Appel direct)
   document.querySelectorAll('.wa-link').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
@@ -175,7 +180,7 @@ carousels.forEach(carousel => {
     });
   });
 
-  // 6. Envoi Groupé de la commande via WhatsApp
+  // 7. Envoi Groupé de la commande via WhatsApp
   formCommande.addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -188,7 +193,6 @@ carousels.forEach(carousel => {
     const tel = document.getElementById('cmd-tel').value.trim();
     const adresse = document.getElementById('cmd-adresse').value.trim();
 
-    // Construction du récapitulatif des produits
     let detailsProduits = "";
     let totalGeneral = 0;
 
@@ -198,7 +202,6 @@ carousels.forEach(carousel => {
       detailsProduits += `• ${item.name} (x${item.qty}) - ${lineTotal.toLocaleString('fr-FR')} FCFA\n`;
     });
 
-    // Message WhatsApp structuré et propre
     const summary = "🛍️ *NOUVELLE COMMANDE MULTI-PRODUITS*\n\n" +
                     "📦 *Articles commandés :*\n" + detailsProduits + "\n" +
                     "💰 *TOTAL :* " + totalGeneral.toLocaleString('fr-FR') + " FCFA\n\n" +
@@ -208,7 +211,6 @@ carousels.forEach(carousel => {
 
     window.open('https://wa.me/' + phoneNumber + '?text=' + encodeURIComponent(summary), '_blank');
 
-    // Réinitialisation après envoi
     formCommande.reset();
     cart = [];
     updateCartBadge();
