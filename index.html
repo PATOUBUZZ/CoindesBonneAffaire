@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  
+  <!-- Balises SEO & Titre -->
+  <title>Le Coin des Bonnes Affaires</title>
+  <meta name="description" content="Découvrez nos pépites et accessoires aux meilleurs prix : lunettes anti-lumière bleue, filtres d'eau, tableaux sur-mesure et plus encore !">
+
+  <!-- Balises Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Le Coin des Bonnes Affaires">
+  <meta property="og:description" content="Produits de qualité aux meilleurs prix avec paiement à la livraison. Découvrez nos offres du moment !">
+  <meta property="og:image" content="https://coindes-bonne-affaire.vercel.app/OpenGraph/OG-image.webp">
+  <meta property="og:url" content="https://coindes-bonne-affaire.vercel.app/">
+
+  <!-- FontAwesome & Style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="boutique-wrapper">
+    
+    <!-- En-tête FIXE et moderne -->
+    <div class="fixed-header">
+      <div class="header">
+        <div class="logo-area">
+          <i class="fas fa-store-alt"></i>
+          <h1>LE COIN DES BONNES AFFAIRES</h1>
+        </div>
+        <!-- Bouton Flottant du Panier -->
+        <button id="cart-toggle-btn" class="cart-icon-btn" aria-label="Voir le panier">
+          <i class="fas fa-shopping-basket"></i>
+          <span id="cart-count" class="cart-badge">0</span>
+        </button>
+      </div>
+
+      <!-- Navigation catégories -->
+      <div class="category-nav">
+        <button class="cat-btn active" data-category="lunettes"><i class="fas fa-glasses"></i> Lunettes</button>
+        <button class="cat-btn" data-category="tableau"><i class="fas fa-image"></i> Tableaux</button>
+        <button class="cat-btn" data-category="stand"><i class="fas fa-laptop"></i> Stands PC</button>
+        <button class="cat-btn" data-category="filtre"><i class="fas fa-faucet"></i> Filtre d'eau</button>
+        <button class="cat-btn" data-category="otg"><i class="fas fa-usb"></i> OTG</button>
+        <button class="cat-btn" data-category="ecouteurs"><i class="fas fa-headphones"></i> Écouteurs</button>
+        <button class="cat-btn" data-category="hub"><i class="fas fa-network-wired"></i> Hub</button>
+      </div>
+    </div>
+
+    <!-- Zone de contenu scrollable -->
+    <div class="content-area">
+      
+      <!-- Badges de rassurance haut de page -->
+      <div class="trust-badges-bar">
+        <div class="trust-badge-item"><i class="fas fa-truck-loading"></i> Paiement à la livraison</div>
+        <div class="trust-badge-item"><i class="fas fa-search-location"></i> Vérification avant paiement</div>
+        <div class="trust-badge-item"><i class="fas fa-headset"></i> Support 7j/7</div>
+      </div>
+
+      <!-- SECTION LUNETTES -->
+      <div class="category-section active" id="cat-lunettes">
+        <!-- Modèle 1 -->
+        <div class="product-card" data-id="lunette-1" data-name="Lunette Anti-lumière bleue Classique" data-price="8000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Lunette01/1767399301442.png" alt="Lunette Classique" class="main-img">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Lunette01/1767399301442.png" class="thumb active" alt="Vue 1">
+              <img src="Lunette01/PXL_20260626_150225444.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Lunette01/PXL_20260626_151232192.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Lunette01/PXL_20260626_151305628.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Lunette Anti-lumière bleue <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection écrans, UV, soleil. Avec étui.</div>
+          <button class="features-toggle" data-target="feat-lunette1"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette1">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Filtre lumière bleue 90%</li>
+              <li><i class="fas fa-check-circle"></i> Protection UV400</li>
+              <li><i class="fas fa-check-circle"></i> Monture légère en acétate</li>
+              <li><i class="fas fa-check-circle"></i> Livrée avec étui rigide</li>
+            </ul>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette classique 8000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 2 -->
+        <div class="product-card" data-id="lunette-2" data-name="Lunette Photochromique Outdoor" data-price="8000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Lunette02/54645451216.webp" alt="Lunette Photochromique" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Lunette02/54645451216.webp" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Lunette02/20260819_163958.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Lunette02/20260819_164056_compressed.jpeg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Lunette02/20260819_164056.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Lunette Photochromique Outdoor <span class="price">8 000 FCFA</span></div>
+          <div class="description">S'adapte à la luminosité, idéale extérieur.</div>
+          <button class="features-toggle" data-target="feat-lunette2"><i class="fas fa-chevron-down"></i> Caractéristiques</button>
+          <div class="features-panel" id="feat-lunette2">
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Verres photochromiques actifs</li>
+              <li><i class="fas fa-check-circle"></i> Anti-reflet & anti-rayures</li>
+              <li><i class="fas fa-check-circle"></i> Monture métal flexible</li>
+            </ul>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette photochromique 8000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 3 -->
+        <div class="product-card" data-id="lunette-3" data-name="Lunette Premium Anti-fatigue" data-price="10000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Lunette03/1555526558.webp" alt="Lunette Premium" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Lunette03/1555526558.webp" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Lunette03/20260819_163045.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Lunette03/20260819_163237.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Lunette03/20260819_163313.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Lunette Premium Anti-fatigue <span class="price">10 000 FCFA</span></div>
+          <div class="description">Confort optimal, branches ajustables.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette premium 10000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 4 -->
+        <div class="product-card" data-id="lunette-4" data-name="Lunette Anti-lumière bleue Pro" data-price="8000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Lunette04/1789129833714_compressed.webp" alt="Lunette Pro" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Lunette04/1789129833714_compressed.webp" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Lunette04/1787445416117.png" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Lunette04/20260819_164152.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Lunette04/20260819_164221.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Lunette Anti-lumière bleue Pro <span class="price">8 000 FCFA</span></div>
+          <div class="description">Protection professionnelle pour développeurs & gamers.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette pro 8000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 5 -->
+        <div class="product-card" data-id="lunette-5" data-name="Lunette Solaire Polarisée" data-price="9000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Lunette05/image1.jpg" alt="Lunette Solaire" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Lunette05/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Lunette05/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Lunette05/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Lunette05/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Lunette Solaire Polarisée <span class="price">9 000 FCFA</span></div>
+          <div class="description">Verres polarisés HD anti-éblouissement.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Lunette solaire 9000F"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION FILTRE D'EAU -->
+      <div class="category-section" id="cat-filtre">
+        <!-- Modèle 1 -->
+        <div class="product-card" data-id="filtre-1" data-name="Filtre d'eau de cuisine" data-price="3000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Filtre01/image1.jpg" alt="Filtre Cuisine" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Filtre01/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Filtre01/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Filtre01/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Filtre01/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Filtre d'eau de cuisine <span class="price">3 000 FCFA</span></div>
+          <div class="description">Eau pure, élimine chlore et impuretés. 3 pour 6000F.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Filtre eau cuisine"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 2 -->
+        <div class="product-card" data-id="filtre-2" data-name="Filtre d'eau sur Robinet" data-price="3000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Filtre02/image1.jpg" alt="Filtre Robinet" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Filtre02/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Filtre02/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Filtre02/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Filtre02/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Filtre d'eau sur Robinet <span class="price">3 000 FCFA</span></div>
+          <div class="description">Installation rapide, purification instantanée.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Filtre robinet"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 3 -->
+        <div class="product-card" data-id="filtre-3" data-name="Cartouche Filtre à Charbon" data-price="2500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Filtre03/image1.jpg" alt="Cartouche Filtre" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Filtre03/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Filtre03/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Filtre03/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Filtre03/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Cartouche Filtre à Charbon <span class="price">2 500 FCFA</span></div>
+          <div class="description">Recharge filtre charbon actif longue durée.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Cartouche filtre"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 4 -->
+        <div class="product-card" data-id="filtre-4" data-name="Purificateur d'eau Compact" data-price="4000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Filtre04/image1.jpg" alt="Purificateur Compact" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Filtre04/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Filtre04/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Filtre04/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Filtre04/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Purificateur d'eau Compact <span class="price">4 000 FCFA</span></div>
+          <div class="description">Système multi-couches anti-bactérien.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Purificateur d eau"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 5 -->
+        <div class="product-card" data-id="filtre-5" data-name="Pommeau de Douche Filtrant" data-price="5000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Filtre05/image1.jpg" alt="Pommeau Filtrant" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Filtre05/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Filtre05/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Filtre05/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Filtre05/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Pommeau de Douche Filtrant <span class="price">5 000 FCFA</span></div>
+          <div class="description">Billes céramiques purifiantes pour une peau douce.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Pommeau filtrant"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION TABLEAUX -->
+      <div class="category-section" id="cat-tableau">
+        <!-- Modèle 1 -->
+        <div class="product-card" data-id="tableau-1" data-name="Tableau mural personnalisé" data-price="6000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Tableau01/image1.jpg" alt="Tableau mural" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Tableau01/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Tableau01/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Tableau01/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Tableau01/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Tableau mural personnalisé <span class="price">6 000 FCFA</span></div>
+          <div class="description">Cadre noir, plaque dorée, plexiglas. Sur mesure.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Tableau personnalisé"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 2 -->
+        <div class="product-card" data-id="tableau-2" data-name="Tableau Portrait Plexiglas" data-price="8000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Tableau02/image1.jpg" alt="Tableau Plexiglas" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Tableau02/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Tableau02/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Tableau02/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Tableau02/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Tableau Portrait Plexiglas <span class="price">8 000 FCFA</span></div>
+          <div class="description">Finition brillante luxe avec support métallique.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Tableau plexiglas"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 3 -->
+        <div class="product-card" data-id="tableau-3" data-name="Cadre Photo Lumineux LED" data-price="10000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Tableau03/image1.jpg" alt="Cadre LED" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Tableau03/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Tableau03/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Tableau03/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Tableau03/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Cadre Photo Lumineux LED <span class="price">10 000 FCFA</span></div>
+          <div class="description">Éclairage LED intégré pour mettre vos photos en valeur.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Cadre LED"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 4 -->
+        <div class="product-card" data-id="tableau-4" data-name="Plaque Acrylique Décorative" data-price="7000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Tableau04/image1.jpg" alt="Plaque Acrylique" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Tableau04/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Tableau04/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Tableau04/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Tableau04/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Plaque Acrylique Décorative <span class="price">7 000 FCFA</span></div>
+          <div class="description">Impression HD directe sur plaque acrylique haute qualité.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Plaque acrylique"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 5 -->
+        <div class="product-card" data-id="tableau-5" data-name="Tableau Triptyque Moderne" data-price="12000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Tableau05/image1.jpg" alt="Tableau Triptyque" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Tableau05/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Tableau05/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Tableau05/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Tableau05/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Tableau Triptyque 3 Pièces <span class="price">12 000 FCFA</span></div>
+          <div class="description">Ensemble de 3 panneaux pour une décoration grand format.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Tableau triptyque"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION STANDS PC -->
+      <div class="category-section" id="cat-stand">
+        <!-- Modèle 1 -->
+        <div class="product-card" data-id="stand-1" data-name="Stand PC ergonomique" data-price="3500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Stand01/image1.jpg" alt="Stand PC ergonomique" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Stand01/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Stand01/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Stand01/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Stand01/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Stand PC ergonomique <span class="price">3 500 FCFA</span></div>
+          <div class="description">Réglable, améliore la posture.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Stand PC"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 2 -->
+        <div class="product-card" data-id="stand-2" data-name="Support PC Aluminium" data-price="5000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Stand02/image1.jpg" alt="Support PC Aluminium" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Stand02/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Stand02/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Stand02/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Stand02/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Support PC Aluminium <span class="price">5 000 FCFA</span></div>
+          <div class="description">Structure alu pliable et refroidissante.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Stand PC alu"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 3 -->
+        <div class="product-card" data-id="stand-3" data-name="Support Ventilée USB" data-price="6000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Stand03/image1.jpg" alt="Support Ventilé" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Stand03/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Stand03/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Stand03/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Stand03/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Support Ventilée USB <span class="price">6 000 FCFA</span></div>
+          <div class="description">Double ventilateur silencieux alimenté par USB.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Stand PC ventile"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 4 -->
+        <div class="product-card" data-id="stand-4" data-name="Stand Téléphone / Tablette" data-price="2500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Stand04/image1.jpg" alt="Stand Telephone" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Stand04/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Stand04/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Stand04/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Stand04/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Stand Téléphone / Tablette <span class="price">2 500 FCFA</span></div>
+          <div class="description">Support universel réglable de bureau.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Stand telephone"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 5 -->
+        <div class="product-card" data-id="stand-5" data-name="Support Vertical Double PC" data-price="4500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Stand05/image1.jpg" alt="Support Vertical" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Stand05/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Stand05/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Stand05/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Stand05/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Support Vertical Double PC <span class="price">4 500 FCFA</span></div>
+          <div class="description">Rangement vertical gain de place pour 2 ordinateurs.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Support vertical PC"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION OTG -->
+      <div class="category-section" id="cat-otg">
+        <!-- Modèle 1 -->
+        <div class="product-card" data-id="otg-1" data-name="Adaptateur OTG Type-C" data-price="2000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Otg01/image1.jpg" alt="OTG Type-C" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Otg01/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Otg01/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Otg01/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Otg01/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Adaptateur OTG Type-C <span class="price">2 000 FCFA</span></div>
+          <div class="description">Connectez clé USB à votre téléphone Android.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="OTG Type C"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 2 -->
+        <div class="product-card" data-id="otg-2" data-name="Adaptateur OTG iPhone/Lightning" data-price="2500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Otg02/image1.jpg" alt="OTG iPhone" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Otg02/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Otg02/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Otg02/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Otg02/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Adaptateur OTG iPhone <span class="price">2 500 FCFA</span></div>
+          <div class="description">Transférez vos fichiers facilement sur iPhone/iPad.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="OTG iPhone"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 3 -->
+        <div class="product-card" data-id="otg-3" data-name="Câble OTG Tressé Ultra-Résistant" data-price="2500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Otg03/image1.jpg" alt="Cable OTG Tresce" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Otg03/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Otg03/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Otg03/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Otg03/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Câble OTG Tressé <span class="price">2 500 FCFA</span></div>
+          <div class="description">Câble renforcé en nylon anti-torsion.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Cable OTG tresse"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 4 -->
+        <div class="product-card" data-id="otg-4" data-name="Adaptateur OTG 2-en-1 Micro/Type-C" data-price="3000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Otg04/image1.jpg" alt="OTG 2-en-1" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Otg04/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Otg04/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Otg04/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Otg04/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Adaptateur OTG 2-en-1 <span class="price">3 000 FCFA</span></div>
+          <div class="description">Compatible Micro-USB et USB Type-C simultanément.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="OTG 2 en 1"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 5 -->
+        <div class="product-card" data-id="otg-5" data-name="Hub Mini OTG 3 Ports" data-price="3500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Otg05/image1.jpg" alt="Mini Hub OTG" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Otg05/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Otg05/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Otg05/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Otg05/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Hub Mini OTG 3 Ports <span class="price">3 500 FCFA</span></div>
+          <div class="description">Connectez jusqu'à 3 périphériques USB en même temps sur smartphone.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Mini Hub OTG"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION ÉCOUTEURS -->
+      <div class="category-section" id="cat-ecouteurs">
+        <!-- Modèle 1 -->
+        <div class="product-card" data-id="ecouteurs-1" data-name="Écouteurs sans fil TWS" data-price="5000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Ecouteurs01/image1.jpg" alt="Ecouteurs TWS" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Ecouteurs01/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Ecouteurs01/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Ecouteurs01/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Ecouteurs01/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Écouteurs sans fil TWS <span class="price">5 000 FCFA</span></div>
+          <div class="description">Bluetooth 5.0, autonomie longue durée.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Ecouteurs TWS"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 2 -->
+        <div class="product-card" data-id="ecouteurs-2" data-name="Écouteurs Pro ANC" data-price="8000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Ecouteurs02/image1.jpg" alt="Ecouteurs Pro ANC" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Ecouteurs02/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Ecouteurs02/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Ecouteurs02/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Ecouteurs02/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Écouteurs Pro ANC <span class="price">8 000 FCFA</span></div>
+          <div class="description">Réduction active du bruit et son HD stéréo.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Ecouteurs Pro ANC"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 3 -->
+        <div class="product-card" data-id="ecouteurs-3" data-name="Casque Bluetooth Pliable" data-price="7000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Ecouteurs03/image1.jpg" alt="Casque Bluetooth" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Ecouteurs03/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Ecouteurs03/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Ecouteurs03/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Ecouteurs03/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Casque Bluetooth Pliable <span class="price">7 000 FCFA</span></div>
+          <div class="description">Basses puissantes et coussinets grand confort.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Casque bluetooth"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 4 -->
+        <div class="product-card" data-id="ecouteurs-4" data-name="Écouteurs Sport Magnétiques" data-price="4500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Ecouteurs04/image1.jpg" alt="Ecouteurs Sport" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Ecouteurs04/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Ecouteurs04/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Ecouteurs04/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Ecouteurs04/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Écouteurs Sport Magnétiques <span class="price">4 500 FCFA</span></div>
+          <div class="description">Idéal pour le sport, résistant à la transpiration.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Ecouteurs sport"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 5 -->
+        <div class="product-card" data-id="ecouteurs-5" data-name="Écouteurs Filaire Jack 3.5mm" data-price="2000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Ecouteurs05/image1.jpg" alt="Ecouteurs Filaire" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Ecouteurs05/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Ecouteurs05/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Ecouteurs05/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Ecouteurs05/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Écouteurs Filaire Jack <span class="price">2 000 FCFA</span></div>
+          <div class="description">Son clair et micro intégré pour appels.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Ecouteurs filaires"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION HUB -->
+      <div class="category-section" id="cat-hub">
+        <!-- Modèle 1 -->
+        <div class="product-card" data-id="hub-1" data-name="Hub PC 4 Ports USB 3.0" data-price="3500">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Hub01/image1.jpg" alt="Hub USB 3.0" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Hub01/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Hub01/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Hub01/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Hub01/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Hub PC 4 Ports USB 3.0 <span class="price">3 500 FCFA</span></div>
+          <div class="description">USB 3.0 ultra rapide, compact et résistant.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Hub PC 4 ports"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 2 -->
+        <div class="product-card" data-id="hub-2" data-name="Hub Type-C HDMI 4K" data-price="7000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Hub02/image1.jpg" alt="Hub HDMI 4K" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Hub02/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Hub02/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Hub02/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Hub02/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Hub Type-C HDMI 4K <span class="price">7 000 FCFA</span></div>
+          <div class="description">Sortie HDMI 4K, USB 3.0, port de charge PD.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Hub Type C HDMI"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 3 -->
+        <div class="product-card" data-id="hub-3" data-name="Hub Lecteur Carte SD/TF" data-price="3000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Hub03/image1.jpg" alt="Hub Lecteur Carte" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Hub03/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Hub03/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Hub03/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Hub03/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Hub Lecteur Carte SD/TF <span class="price">3 000 FCFA</span></div>
+          <div class="description">Double fente SD et Micro SD transfert rapide.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Hub lecteur carte"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 4 -->
+        <div class="product-card" data-id="hub-4" data-name="Hub USB Interrupteurs LED" data-price="5000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Hub04/image1.jpg" alt="Hub Interrupteurs" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Hub04/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Hub04/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Hub04/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Hub04/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Hub USB Interrupteurs LED <span class="price">5 000 FCFA</span></div>
+          <div class="description">Boutons On/Off pour chaque port avec voyant LED.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Hub interrupteurs"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modèle 5 -->
+        <div class="product-card" data-id="hub-5" data-name="Station d'accueil 8-en-1 USB-C" data-price="10000">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img src="Hub05/image1.jpg" alt="Station d'accueil 8-en-1" class="main-img" loading="lazy">
+            </div>
+            <div class="thumbnails-container">
+              <img src="Hub05/image1.jpg" class="thumb active" alt="Vue 1" loading="lazy">
+              <img src="Hub05/image2.jpg" class="thumb" alt="Vue 2" loading="lazy">
+              <img src="Hub05/image3.jpg" class="thumb" alt="Vue 3" loading="lazy">
+              <img src="Hub05/image4.jpg" class="thumb" alt="Vue 4" loading="lazy">
+            </div>
+          </div>
+          <div class="product-title">Station d'accueil 8-en-1 <span class="price">10 000 FCFA</span></div>
+          <div class="description">HDMI 4K, RJ45, Ethernet, USB 3.0, Lecteur SD.</div>
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
+            <div class="secondary-actions">
+              <a href="#" class="btn btn-subtle wa-link" data-msg="Station d accueil 8 en 1"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="#" class="btn btn-subtle call-link"><i class="fas fa-phone-alt"></i> Appel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION TÉMOIGNAGES & AVIS CLIENTS -->
+      <div class="testimonials-section">
+        <h3><i class="fas fa-star stars-icon"></i> Avis de nos Clients</h3>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <strong>Kévin A.</strong>
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+          </div>
+          <p>"Lunettes anti-lumière bleue super efficaces ! Mes maux de tête ont disparu. Livraison rapide sur Cotonou."</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <strong>Sonia T.</strong>
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+          </div>
+          <p>"Commande facile par WhatsApp, produit vérifié sur place avant de payer le livreur. Vraiment très pro !"</p>
+        </div>
+      </div>
+
+      <!-- Note de bas de page -->
+      <div class="footer-note">
+        <i class="fas fa-lock"></i> Paiement à la livraison · <i class="fas fa-headset"></i> Service client réactif<br>
+        © Le coin des Bonnes Affaires
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL / PANNEAU DE COMMANDE & PANIER -->
+  <div id="modal-commande" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <h3 class="modal-title"><i class="fas fa-shopping-bag"></i> Finaliser la commande</h3>
+      
+      <div id="cart-summary" class="cart-summary-box">
+        <!-- Rempli en JS dynamique -->
+      </div>
+
+      <form id="form-commande">
+        <div class="form-group">
+          <label for="cmd-nom"><i class="fas fa-user"></i> Nom & Prénoms :</label>
+          <input type="text" id="cmd-nom" placeholder="Ex: Jean Dupont" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cmd-tel"><i class="fas fa-phone"></i> Numéro de Téléphone / WhatsApp :</label>
+          <input type="tel" id="cmd-tel" placeholder="Ex: 61 00 00 00" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cmd-adresse"><i class="fas fa-map-marker-alt"></i> Adresse ou Ville de livraison :</label>
+          <input type="text" id="cmd-adresse" placeholder="Ex: Cotonou, Akpakpa..." required>
+        </div>
+
+        <button type="submit" class="btn-submit-cmd">
+          <i class="fab fa-whatsapp"></i> Confirmer sur WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
