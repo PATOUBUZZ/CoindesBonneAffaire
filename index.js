@@ -1,5 +1,6 @@
 (function() {
   const phoneNumber = "+22961196907"; // Numéro WhatsApp
+  const formspreeEndpoint = "https://formspree.io/f/xljdrejq"; // URL de réception Formspree
   let cart = []; // Structure : [{id, name, price, qty}]
 
   // Éléments DOM
@@ -9,6 +10,59 @@
   const closeModalBtn = document.getElementById('close-modal');
   const cartSummaryEl = document.getElementById('cart-summary');
   const formCommande = document.getElementById('form-commande');
+
+  // -------------------------------------------------------------
+  // CAPTURE DES PROSPECTS / COMMANDES EN ABANDON EN TEMPS RÉEL
+  // -------------------------------------------------------------
+  function capturerEtEnvoyerDonnees(statutCommande) {
+    const nom = document.getElementById('cmd-nom')?.value.trim() || '';
+    const tel = document.getElementById('cmd-tel')?.value.trim() || '';
+    const adresse = document.getElementById('cmd-adresse')?.value.trim() || '';
+
+    // Ne rien envoyer si aucun nom ni numéro n'a été saisi
+    if (!nom && !tel) return;
+
+    let detailsProduits = "";
+    let totalGeneral = 0;
+
+    cart.forEach(item => {
+      const lineTotal = item.price * item.qty;
+      totalGeneral += lineTotal;
+      detailsProduits += `${item.name} (x${item.qty}) - ${lineTotal} FCFA; `;
+    });
+
+    const payload = {
+      nom: nom,
+      telephone: tel,
+      adresse: adresse,
+      statut: statutCommande, // "Abandon / En attente" ou "Confirmé WhatsApp"
+      panier: detailsProduits || "Aucun article sélectionné",
+      total: totalGeneral + " FCFA",
+      date: new Date().toLocaleString("fr-FR")
+    };
+
+    // Utilisation de sendBeacon pour un envoi en arrière-plan sans ralentissement
+    if (navigator.sendBeacon) {
+      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      navigator.sendBeacon(formspreeEndpoint, blob);
+    } else {
+      fetch(formspreeEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    }
+  }
+
+  // Écoute des champs de saisie dès que l'utilisateur passe au champ suivant
+  ['cmd-nom', 'cmd-tel', 'cmd-adresse'].forEach(fieldId => {
+    const el = document.getElementById(fieldId);
+    if (el) {
+      el.addEventListener('blur', function() {
+        capturerEtEnvoyerDonnees("Abandon / En attente");
+      });
+    }
+  });
 
   // 1. Navigation entre les catégories
   const catButtons = document.querySelectorAll('.cat-btn');
@@ -189,6 +243,9 @@
       return;
     }
 
+    // Capture finale marquée comme "Confirmé WhatsApp"
+    capturerEtEnvoyerDonnees("Confirmé WhatsApp");
+
     const nom = document.getElementById('cmd-nom').value.trim();
     const tel = document.getElementById('cmd-tel').value.trim();
     const adresse = document.getElementById('cmd-adresse').value.trim();
@@ -202,7 +259,7 @@
       detailsProduits += `• ${item.name} (x${item.qty}) - ${lineTotal.toLocaleString('fr-FR')} FCFA\n`;
     });
 
-    const summary = "🛍️ *NOUVELLE COMMANDE MULTI-PRODUITS*\n\n" +
+    const summary = "🛍️ *NOUVELLE COMMANDE*\n\n" +
                     "📦 *Articles commandés :*\n" + detailsProduits + "\n" +
                     "💰 *TOTAL :* " + totalGeneral.toLocaleString('fr-FR') + " FCFA\n\n" +
                     "👤 *Nom & Prénom :* " + nom + "\n" +
