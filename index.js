@@ -1,7 +1,26 @@
 (function() {
   const phoneNumber = "+22961196907"; // Numéro WhatsApp
-  const formspreeEndpoint = "https://formspree.io/f/xljdrejq"; // URL de réception Formspree
   let cart = []; // Structure : [{id, name, price, qty}]
+
+  // --- Configuration Telegram (capture des commandes) ---
+  const TELEGRAM_BOT_TOKEN = "8605139398:AAHMkn4MdRdx1RgO9Kgk1ZXM174-kmqAYGw";
+  const TELEGRAM_CHAT_ID = "1279801985";
+
+  // Envoie un message sur ton Telegram. Ne bloque jamais la suite du processus
+  // (même si l'envoi échoue, le client est quand même redirigé vers WhatsApp).
+  function sendToTelegram(text) {
+    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: text,
+        parse_mode: 'Markdown'
+      })
+    }).catch(function(err) {
+      console.error('Erreur envoi Telegram:', err);
+    });
+  }
 
   // Éléments DOM
   const cartToggleBtn = document.getElementById('cart-toggle-btn');
@@ -10,59 +29,6 @@
   const closeModalBtn = document.getElementById('close-modal');
   const cartSummaryEl = document.getElementById('cart-summary');
   const formCommande = document.getElementById('form-commande');
-
-  // -------------------------------------------------------------
-  // CAPTURE DES PROSPECTS / COMMANDES EN ABANDON EN TEMPS RÉEL
-  // -------------------------------------------------------------
-  function capturerEtEnvoyerDonnees(statutCommande) {
-    const nom = document.getElementById('cmd-nom')?.value.trim() || '';
-    const tel = document.getElementById('cmd-tel')?.value.trim() || '';
-    const adresse = document.getElementById('cmd-adresse')?.value.trim() || '';
-
-    // Ne rien envoyer si aucun nom ni numéro n'a été saisi
-    if (!nom && !tel) return;
-
-    let detailsProduits = "";
-    let totalGeneral = 0;
-
-    cart.forEach(item => {
-      const lineTotal = item.price * item.qty;
-      totalGeneral += lineTotal;
-      detailsProduits += `${item.name} (x${item.qty}) - ${lineTotal} FCFA; `;
-    });
-
-    const payload = {
-      nom: nom,
-      telephone: tel,
-      adresse: adresse,
-      statut: statutCommande, // "Abandon / En attente" ou "Confirmé WhatsApp"
-      panier: detailsProduits || "Aucun article sélectionné",
-      total: totalGeneral + " FCFA",
-      date: new Date().toLocaleString("fr-FR")
-    };
-
-    // Utilisation de sendBeacon pour un envoi en arrière-plan sans ralentissement
-    if (navigator.sendBeacon) {
-      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-      navigator.sendBeacon(formspreeEndpoint, blob);
-    } else {
-      fetch(formspreeEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    }
-  }
-
-  // Écoute des champs de saisie dès que l'utilisateur passe au champ suivant
-  ['cmd-nom', 'cmd-tel', 'cmd-adresse'].forEach(fieldId => {
-    const el = document.getElementById(fieldId);
-    if (el) {
-      el.addEventListener('blur', function() {
-        capturerEtEnvoyerDonnees("Abandon / En attente");
-      });
-    }
-  });
 
   // 1. Navigation entre les catégories
   const catButtons = document.querySelectorAll('.cat-btn');
@@ -243,9 +209,6 @@
       return;
     }
 
-    // Capture finale marquée comme "Confirmé WhatsApp"
-    capturerEtEnvoyerDonnees("Confirmé WhatsApp");
-
     const nom = document.getElementById('cmd-nom').value.trim();
     const tel = document.getElementById('cmd-tel').value.trim();
     const adresse = document.getElementById('cmd-adresse').value.trim();
@@ -259,12 +222,16 @@
       detailsProduits += `• ${item.name} (x${item.qty}) - ${lineTotal.toLocaleString('fr-FR')} FCFA\n`;
     });
 
-    const summary = "🛍️ *NOUVELLE COMMANDE*\n\n" +
+    const summary = "🛍️ *NOUVELLE COMMANDE MULTI-PRODUITS*\n\n" +
                     "📦 *Articles commandés :*\n" + detailsProduits + "\n" +
                     "💰 *TOTAL :* " + totalGeneral.toLocaleString('fr-FR') + " FCFA\n\n" +
                     "👤 *Nom & Prénom :* " + nom + "\n" +
                     "📞 *Téléphone :* " + tel + "\n" +
                     "📍 *Adresse :* " + adresse;
+
+    // Capture de la commande sur Telegram, même si le client
+    // n'envoie jamais réellement le message WhatsApp
+    sendToTelegram(summary);
 
     window.open('https://wa.me/' + phoneNumber + '?text=' + encodeURIComponent(summary), '_blank');
 
