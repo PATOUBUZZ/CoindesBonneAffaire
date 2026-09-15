@@ -2,21 +2,16 @@
   const phoneNumber = "+22961196907"; // Numéro WhatsApp
   let cart = []; // Structure : [{id, name, price, qty}]
 
-  // --- Configuration Telegram (capture des commandes) ---
-  const TELEGRAM_BOT_TOKEN = "8605139398:AAHMkn4MdRdx1RgO9Kgk1ZXM174-kmqAYGw";
-  const TELEGRAM_CHAT_ID = "1279801985";
+  // --- Capture des commandes (Telegram) ---
+  // Le jeton du bot n'est plus ici : il est caché côté serveur (Vercel).
 
-  // Envoie un message sur ton Telegram. Ne bloque jamais la suite du processus
-  // (même si l'envoi échoue, le client est quand même redirigé vers WhatsApp).
+  // Envoie un message via la fonction Vercel. Ne bloque jamais la suite du
+  // processus (même si l'envoi échoue, le client est quand même redirigé vers WhatsApp).
   function sendToTelegram(text) {
-    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    fetch('/api/telegram', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: text,
-        parse_mode: 'Markdown'
-      })
+      body: JSON.stringify({ text: text })
     }).catch(function(err) {
       console.error('Erreur envoi Telegram:', err);
     });
