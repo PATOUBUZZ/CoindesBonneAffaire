@@ -6,8 +6,7 @@
   const TELEGRAM_BOT_TOKEN = "8605139398:AAHMkn4MdRdx1RgO9Kgk1ZXM174-kmqAYGw";
   const TELEGRAM_CHAT_ID = "1279801985";
 
-  // Envoie un message sur ton Telegram. Ne bloque jamais la suite du processus
-  // (même si l'envoi échoue, le client est quand même redirigé vers WhatsApp).
+  // Envoie un message sur ton Telegram. Ne bloque jamais la suite du processus.
   function sendToTelegram(text) {
     fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: 'POST',
@@ -20,6 +19,73 @@
     }).catch(function(err) {
       console.error('Erreur envoi Telegram:', err);
     });
+  }
+
+  // Envoie les données du client vers Formspree (deuxième copie des commandes).
+  const FORMSPREE_URL = "https://formspree.io/f/xljdrejq";
+
+  function sendToFormspree(data) {
+    fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).catch(function(err) {
+      console.error('Erreur envoi Formspree:', err);
+    });
+  }
+
+  // Construit un résumé à partir de ce que le client a déjà rempli, même
+  // s'il n'a pas terminé. Retourne null s'il n'y a vraiment rien à envoyer.
+  let orderAlreadySent = false; // évite un double envoi après une commande confirmée
+
+  function buildPartialSummary() {
+    const nom = (document.getElementById('cmd-nom').value || '').trim();
+    const tel = (document.getElementById('cmd-tel').value || '').trim();
+    const adresse = (document.getElementById('cmd-adresse').value || '').trim();
+
+    if (!nom && !tel && !adresse && cart.length === 0) return null;
+
+    let detailsProduits = "";
+    let totalGeneral = 0;
+    cart.forEach(item => {
+      const lineTotal = item.price * item.qty;
+      totalGeneral += lineTotal;
+      detailsProduits += `• ${item.name} (x${item.qty}) - ${lineTotal.toLocaleString('fr-FR')} FCFA\n`;
+    });
+
+    const text = "⚠️ *FORMULAIRE QUITTÉ SANS ENVOI WHATSAPP*\n\n" +
+      (detailsProduits ? "📦 *Panier :*\n" + detailsProduits + "\n" : "") +
+      (totalGeneral ? "💰 *Total :* " + totalGeneral.toLocaleString('fr-FR') + " FCFA\n\n" : "") +
+      "👤 *Nom & Prénom :* " + (nom || "-") + "\n" +
+      "📞 *Téléphone :* " + (tel || "-") + "\n" +
+      "📍 *Adresse :* " + (adresse || "-");
+
+    const data = {
+      statut: "Formulaire quitté sans envoi WhatsApp",
+      nom: nom || "-",
+      telephone: tel || "-",
+      adresse: adresse || "-",
+      produits: detailsProduits || "-",
+      total: totalGeneral ? totalGeneral.toLocaleString('fr-FR') + " FCFA" : "-"
+    };
+
+    return { text, data };
+  }
+
+  // Capture ce qui a été rempli si le client ferme/quitte sans confirmer.
+  function captureIfAbandoned() {
+    if (orderAlreadySent) {
+      orderAlreadySent = false; // on réinitialise pour la prochaine ouverture
+      return;
+    }
+    const partial = buildPartialSummary();
+    if (partial) {
+      sendToTelegram(partial.text);
+      sendToFormspree(partial.data);
+    }
   }
 
   // Éléments DOM
@@ -176,10 +242,14 @@
     openModal();
   });
 
-  closeModalBtn.addEventListener('click', closeModal);
+  closeModalBtn.addEventListener('click', function() {
+    captureIfAbandoned();
+    closeModal();
+  });
 
   window.addEventListener('click', function(e) {
     if (e.target === modal) {
+      captureIfAbandoned();
       closeModal();
     }
   });
@@ -222,16 +292,25 @@
       detailsProduits += `• ${item.name} (x${item.qty}) - ${lineTotal.toLocaleString('fr-FR')} FCFA\n`;
     });
 
-    const summary = "🛍️ *NOUVELLE COMMANDE*\n\n" +
+    const summary = "🛍️ *NOUVELLE COMMANDE MULTI-PRODUITS*\n\n" +
                     "📦 *Articles commandés :*\n" + detailsProduits + "\n" +
                     "💰 *TOTAL :* " + totalGeneral.toLocaleString('fr-FR') + " FCFA\n\n" +
                     "👤 *Nom & Prénom :* " + nom + "\n" +
                     "📞 *Téléphone :* " + tel + "\n" +
                     "📍 *Adresse :* " + adresse;
 
-    // Capture de la commande sur Telegram, même si le client
+    // Capture de la commande sur Telegram et Formspree, même si le client
     // n'envoie jamais réellement le message WhatsApp
+    orderAlreadySent = true;
     sendToTelegram(summary);
+    sendToFormspree({
+      statut: "Commande confirmée (envoyée sur WhatsApp)",
+      nom: nom,
+      telephone: tel,
+      adresse: adresse,
+      produits: detailsProduits,
+      total: totalGeneral.toLocaleString('fr-FR') + " FCFA"
+    });
 
     window.open('https://wa.me/' + phoneNumber + '?text=' + encodeURIComponent(summary), '_blank');
 
