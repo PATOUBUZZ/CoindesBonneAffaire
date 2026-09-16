@@ -222,7 +222,7 @@
       detailsProduits += `• ${item.name} (x${item.qty}) - ${lineTotal.toLocaleString('fr-FR')} FCFA\n`;
     });
 
-    const summary = "🛍️ *NOUVELLE COMMANDE MULTI-PRODUITS*\n\n" +
+    const summary = "🛍️ *NOUVELLE COMMANDE*\n\n" +
                     "📦 *Articles commandés :*\n" + detailsProduits + "\n" +
                     "💰 *TOTAL :* " + totalGeneral.toLocaleString('fr-FR') + " FCFA\n\n" +
                     "👤 *Nom & Prénom :* " + nom + "\n" +
