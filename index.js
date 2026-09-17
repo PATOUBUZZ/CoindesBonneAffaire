@@ -37,56 +37,9 @@
     });
   }
 
-  // Construit un résumé à partir de ce que le client a déjà rempli, même
-  // s'il n'a pas terminé. Retourne null s'il n'y a vraiment rien à envoyer.
-  let orderAlreadySent = false; // évite un double envoi après une commande confirmée
-
-  function buildPartialSummary() {
-    const nom = (document.getElementById('cmd-nom').value || '').trim();
-    const tel = (document.getElementById('cmd-tel').value || '').trim();
-    const adresse = (document.getElementById('cmd-adresse').value || '').trim();
-
-    if (!nom && !tel && !adresse && cart.length === 0) return null;
-
-    let detailsProduits = "";
-    let totalGeneral = 0;
-    cart.forEach(item => {
-      const lineTotal = item.price * item.qty;
-      totalGeneral += lineTotal;
-      detailsProduits += `• ${item.name} (x${item.qty}) - ${lineTotal.toLocaleString('fr-FR')} FCFA\n`;
-    });
-
-    const text = "⚠️ *FORMULAIRE QUITTÉ SANS ENVOI WHATSAPP*\n\n" +
-      (detailsProduits ? "📦 *Panier :*\n" + detailsProduits + "\n" : "") +
-      (totalGeneral ? "💰 *Total :* " + totalGeneral.toLocaleString('fr-FR') + " FCFA\n\n" : "") +
-      "👤 *Nom & Prénom :* " + (nom || "-") + "\n" +
-      "📞 *Téléphone :* " + (tel || "-") + "\n" +
-      "📍 *Adresse :* " + (adresse || "-");
-
-    const data = {
-      statut: "Formulaire quitté sans envoi WhatsApp",
-      nom: nom || "-",
-      telephone: tel || "-",
-      adresse: adresse || "-",
-      produits: detailsProduits || "-",
-      total: totalGeneral ? totalGeneral.toLocaleString('fr-FR') + " FCFA" : "-"
-    };
-
-    return { text, data };
-  }
-
-  // Capture ce qui a été rempli si le client ferme/quitte sans confirmer.
-  function captureIfAbandoned() {
-    if (orderAlreadySent) {
-      orderAlreadySent = false; // on réinitialise pour la prochaine ouverture
-      return;
-    }
-    const partial = buildPartialSummary();
-    if (partial) {
-      sendToTelegram(partial.text);
-      sendToFormspree(partial.data);
-    }
-  }
+  // Remarque : il n'y a plus d'envoi automatique tant que le client n'a
+  // pas cliqué sur "Confirmer sur WhatsApp". L'envoi Telegram + Formspree
+  // se déclenche uniquement au moment de la confirmation (voir plus bas).
 
   // Éléments DOM
   const cartToggleBtn = document.getElementById('cart-toggle-btn');
@@ -243,13 +196,11 @@
   });
 
   closeModalBtn.addEventListener('click', function() {
-    captureIfAbandoned();
     closeModal();
   });
 
   window.addEventListener('click', function(e) {
     if (e.target === modal) {
-      captureIfAbandoned();
       closeModal();
     }
   });
@@ -299,9 +250,8 @@
                     "📞 *Téléphone :* " + tel + "\n" +
                     "📍 *Adresse :* " + adresse;
 
-    // Capture de la commande sur Telegram et Formspree, même si le client
-    // n'envoie jamais réellement le message WhatsApp
-    orderAlreadySent = true;
+    // Envoi simultané vers Telegram ET Formspree, déclenché uniquement
+    // au clic sur "Confirmer sur WhatsApp", avant l'ouverture de WhatsApp.
     sendToTelegram(summary);
     sendToFormspree({
       statut: "Commande confirmée (envoyée sur WhatsApp)",
@@ -319,4 +269,206 @@
     updateCartBadge();
     closeModal();
   });
+})();
+
+/* ============================================================
+   AJOUTS — Partage produit + Recherche en temps réel
+   (nouveau bloc indépendant, le code ci-dessus n'est pas modifié)
+   ============================================================ */
+(function() {
+
+  // ------------------------------------------------------------
+  // 1. Injection du bouton "Partager" sur chaque carte produit
+  //    (juste après "Commander Maintenant", sur la même ligne)
+  // ------------------------------------------------------------
+  document.querySelectorAll('.product-card').forEach(function(card) {
+    const actionButtons = card.querySelector('.action-buttons');
+    if (!actionButtons) return;
+
+    const addToCartBtn = actionButtons.querySelector('.add-to-cart-btn');
+    if (!addToCartBtn) return;
+
+    const productId = card.dataset.id || '';
+    const productName = card.dataset.name || 'ce produit';
+
+    // Ligne conteneur : Commander Maintenant + Partager, côte à côte
+    const primaryRow = document.createElement('div');
+    primaryRow.className = 'primary-row';
+
+    const shareBtn = document.createElement('button');
+    shareBtn.type = 'button';
+    shareBtn.className = 'btn btn-share-product';
+    shareBtn.setAttribute('aria-label', 'Partager ' + productName);
+    shareBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
+
+    shareBtn.addEventListener('click', function() {
+      shareProduct(productId, productName);
+    });
+
+    // On déplace le bouton existant (ses écouteurs restent intacts)
+    // dans la nouvelle ligne, sans le recréer.
+    addToCartBtn.parentNode.insertBefore(primaryRow, addToCartBtn);
+    primaryRow.appendChild(addToCartBtn);
+    primaryRow.appendChild(shareBtn);
+  });
+
+  function buildProductUrl(productId) {
+    return window.location.origin + window.location.pathname + '#' + productId;
+  }
+
+  function shareProduct(productId, productName) {
+    const url = buildProductUrl(productId);
+    const shareData = {
+      title: 'Le Coin des Bonnes Affaires',
+      text: productName,
+      url: url
+    };
+
+    if (navigator.share) {
+      // Mobile : partage natif
+      navigator.share(shareData).catch(function() {
+        /* utilisateur a annulé, on ne fait rien */
+      });
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      // Ordinateur / non supporté : copie presse-papiers
+      navigator.clipboard.writeText(url).then(function() {
+        showShareToast('Lien copié dans le presse-papiers !');
+      }).catch(function() {
+        window.prompt('Copiez ce lien :', url);
+      });
+    } else {
+      window.prompt('Copiez ce lien :', url);
+    }
+  }
+
+  function showShareToast(message) {
+    let toast = document.getElementById('share-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'share-toast';
+      toast.className = 'share-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toast._hideTimeout);
+    toast._hideTimeout = setTimeout(function() {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+
+  // ------------------------------------------------------------
+  // 2. Ouverture directe sur un produit via le lien de partage (#id)
+  // ------------------------------------------------------------
+  function activateProductFromHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+
+    let targetCard;
+    try {
+      targetCard = document.querySelector('.product-card[data-id="' + CSS.escape(hash) + '"]');
+    } catch (e) {
+      targetCard = null;
+    }
+    if (!targetCard) return;
+
+    // Si une recherche est en cours, on la réinitialise pour être sûr
+    // que le produit ciblé soit visible.
+    const searchInputEl = document.getElementById('product-search');
+    if (searchInputEl && searchInputEl.value) {
+      searchInputEl.value = '';
+      applySearch('');
+    }
+
+    // Affiche la bonne catégorie (même logique que le clic sur cat-btn)
+    const parentSection = targetCard.closest('.category-section');
+    if (parentSection) {
+      document.querySelectorAll('.category-section').forEach(function(sec) {
+        sec.classList.remove('active');
+      });
+      parentSection.classList.add('active');
+
+      const category = parentSection.id.replace('cat-', '');
+      document.querySelectorAll('.cat-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.category === category);
+      });
+    }
+
+    // Défilement fluide + encadrement temporaire
+    setTimeout(function() {
+      targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetCard.classList.add('product-highlight-flash');
+      setTimeout(function() {
+        targetCard.classList.remove('product-highlight-flash');
+      }, 2200);
+    }, 150);
+  }
+
+  window.addEventListener('hashchange', activateProductFromHash);
+  activateProductFromHash(); // au chargement initial de la page
+
+  // ------------------------------------------------------------
+  // 3. Barre de recherche en temps réel
+  // ------------------------------------------------------------
+  const searchInput = document.getElementById('product-search');
+  const searchClearBtn = document.getElementById('search-clear-btn');
+
+  function applySearch(query) {
+    const q = (query || '').trim().toLowerCase();
+    const allSections = document.querySelectorAll('.category-section');
+    const allCards = document.querySelectorAll('.product-card');
+
+    if (searchClearBtn) {
+      searchClearBtn.style.display = q ? 'flex' : 'none';
+    }
+
+    if (!q) {
+      // Champ vidé : on retire les états forcés, l'affichage
+      // classique par catégorie (géré par .active) reprend la main.
+      allSections.forEach(function(sec) {
+        sec.classList.remove('search-force-active');
+      });
+      allCards.forEach(function(card) {
+        card.classList.remove('search-hidden');
+      });
+      return;
+    }
+
+    const sectionsWithMatch = new Set();
+
+    allCards.forEach(function(card) {
+      const name = (card.dataset.name || '').toLowerCase();
+      const descEl = card.querySelector('.description');
+      const desc = descEl ? descEl.textContent.toLowerCase() : '';
+      const matches = name.indexOf(q) !== -1 || desc.indexOf(q) !== -1;
+
+      card.classList.toggle('search-hidden', !matches);
+
+      if (matches) {
+        const parentSection = card.closest('.category-section');
+        if (parentSection) sectionsWithMatch.add(parentSection);
+      }
+    });
+
+    allSections.forEach(function(sec) {
+      sec.classList.toggle('search-force-active', sectionsWithMatch.has(sec));
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      applySearch(this.value);
+    });
+  }
+
+  if (searchClearBtn) {
+    searchClearBtn.addEventListener('click', function() {
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+      }
+      applySearch('');
+    });
+  }
+
 })();
