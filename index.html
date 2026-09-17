@@ -18,6 +18,14 @@
   <!-- FontAwesome & Style -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+    <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1CLTZT6L6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T1CLTZT6L6');
+  </script>
 </head>
 <body>
   <div class="boutique-wrapper">
@@ -34,6 +42,17 @@
           <i class="fas fa-shopping-basket"></i>
           <span id="cart-count" class="cart-badge">0</span>
         </button>
+      </div>
+
+      <!-- Barre de recherche (juste en dessous du nom du site) -->
+      <div class="header-search">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="product-search" placeholder="Rechercher un produit..." autocomplete="off">
+          <button type="button" id="search-clear-btn" class="search-clear-btn" aria-label="Effacer la recherche" style="display:none;">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       </div>
 
       <!-- Navigation catégories -->
