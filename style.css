@@ -722,3 +722,12 @@ body {
     border-color: #e2e8f0;
   }
 }
+/* RÈGLE 1 : Masque l'onglet du menu s'il porte la classe hidden */
+.cat-btn.hidden {
+  display: none !important;
+}
+
+/* RÈGLE 2 : Masque automatiquement la section de catégorie si elle n'a pas de carte produit */
+.category-section:not(:has(.product-card)) {
+  display: none !important;
+}
