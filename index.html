@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+  <!-- Balises SEO & Titre -->
+  <title>
+   Le Coin des Bonnes Affaires — Marketplace
+  </title>
+  <meta content="Découvrez nos pépites et accessoires aux meilleurs prix : lunettes anti-lumière bleue, filtres d'eau, tableaux sur-mesure et plus encore !" name="description"/>
+  <!-- Balises Open Graph -->
+  <meta content="website" property="og:type"/>
+  <meta content="Le Coin des Bonnes Affaires" property="og:title"/>
+  <meta content="Produits de qualité aux meilleurs prix avec paiement à la livraison. Découvrez nos offres du moment !" property="og:description"/>
+  <meta content="https://coindes-bonne-affaire.vercel.app/OpenGraph/Og-image.webp" property="og:image"/>
+  <meta content="https://coindes-bonne-affaire.vercel.app/" property="og:url"/>
+  <!-- FontAwesome & Style -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <div class="boutique-wrapper">
+   <!-- En-tête FIXE et moderne -->
+   <div class="fixed-header">
+    <div class="header">
+     <div class="logo-area">
+      <i class="fas fa-store-alt">
+      </i>
+      <h1>
+       LE COIN DES BONNES AFFAIRES
+      </h1>
+     </div>
+     <!-- Bouton Flottant du Panier -->
+     <button aria-label="Voir le panier" class="cart-icon-btn" id="cart-toggle-btn">
+      <i class="fas fa-shopping-basket">
+      </i>
+      <span class="cart-badge" id="cart-count">
+       0
+      </span>
+     </button>
+    </div>
+    <!-- Barre de recherche (juste en dessous du nom du site) -->
+    <div class="header-search">
+     <div class="search-bar">
+      <i class="fas fa-search">
+      </i>
+      <input autocomplete="off" id="product-search" placeholder="Rechercher un produit..." type="text"/>
+      <button aria-label="Effacer la recherche" class="search-clear-btn" id="search-clear-btn" style="display:none;" type="button">
+       <i class="fas fa-times">
+       </i>
+      </button>
+     </div>
+    </div>
+    <!-- Navigation catégories -->
+    <div class="category-nav">
+     <div class="category-nav-list" id="category-nav-list">
+     </div>
+    </div>
+   </div>
+   <!-- Zone de contenu scrollable -->
+   <div class="content-area">
+    <div class="marketplace-root" id="marketplace-root">
+     <div aria-live="polite" class="marketplace-status" id="marketplace-status">
+      <span aria-hidden="true" class="loading-spinner">
+      </span>
+      Chargement des produits…
+     </div>
+     <div id="vendor-sections">
+     </div>
+     <div class="empty-state" id="empty-search-state" style="display:none;">
+      <i class="fas fa-search">
+      </i>
+      <h3>
+       Aucun produit trouvé
+      </h3>
+      <p>
+       Essayez un autre mot-clé.
+      </p>
+     </div>
+    </div>
+    <!-- Badges de rassurance haut de page -->
+    <div class="trust-badges-bar">
+     <div class="trust-badge-item">
+      <i class="fas fa-truck-loading">
+      </i>
+      Paiement à la livraison
+     </div>
+     <div class="trust-badge-item">
+      <i class="fas fa-search-location">
+      </i>
+      Vérification avant paiement
+     </div>
+     <div class="trust-badge-item">
+      <i class="fas fa-headset">
+      </i>
+      Support 7j/7
+     </div>
+    </div>
+    <div class="marketplace-intro">
+     <div>
+      <span class="marketplace-kicker">
+       <i class="fas fa-store">
+       </i>
+       Marketplace
+      </span>
+      <h2>
+       Découvrez les produits de nos vendeurs
+      </h2>
+      <p>
+       Un seul espace, plusieurs boutiques. Choisissez vos produits et contactez directement le vendeur concerné sur WhatsApp.
+      </p>
+     </div>
+    </div>
+    <!-- SECTION LUNETTES -->
+    <!-- SECTION FILTRE D'EAU -->
+    <!-- SECTION TABLEAUX -->
+    <!-- SECTION STANDS PC -->
+    <!-- SECTION OTG -->
+    <!-- SECTION ÉCOUTEURS -->
+    <!-- SECTION HUB -->
+    <!-- SECTION TÉMOIGNAGES & AVIS CLIENTS -->
+    <div class="testimonials-section">
+     <h3>
+      <i class="fas fa-star stars-icon">
+      </i>
+      Avis de nos Clients
+     </h3>
+     <div class="testimonial-card">
+      <div class="testimonial-header">
+       <strong>
+        Kévin ADJASSA.
+       </strong>
+       <span class="stars">
+        ⭐⭐⭐⭐⭐
+       </span>
+      </div>
+      <p>
+       "Lunettes anti-lumière bleue super efficaces ! Mes maux de tête ont disparu. Livraison rapide sur Cotonou."
+      </p>
+     </div>
+     <div class="testimonial-card">
+      <div class="testimonial-header">
+       <strong>
+        Sonia T.
+       </strong>
+       <span class="stars">
+        ⭐⭐⭐⭐⭐
+       </span>
+      </div>
+      <p>
+       "Commande facile par WhatsApp, produit vérifié sur place avant de payer le livreur. Vraiment très pro !"
+      </p>
+     </div>
+    </div>
+    <!-- Note de bas de page -->
+    <div class="footer-note">
+     <i class="fas fa-lock">
+     </i>
+     Paiement à la livraison ·
+     <i class="fas fa-headset">
+     </i>
+     Service client réactif
+     <br/>
+     © Le coin des Bonnes Affaires
+    </div>
+   </div>
+  </div>
+  <!-- MODAL / PANNEAU DE COMMANDE & PANIER -->
+  <div class="modal-overlay" id="modal-commande">
+   <div class="modal-content">
+    <span class="close-btn" id="close-modal">
+     ×
+    </span>
+    <h3 class="modal-title">
+     <i class="fas fa-shopping-bag">
+     </i>
+     Finaliser la commande
+    </h3>
+    <div class="checkout-vendor-note" id="checkout-vendor-note" style="display:none;">
+    </div>
+    <div class="cart-summary-box" id="cart-summary">
+     <!-- Rempli en JS dynamique -->
+    </div>
+    <form id="form-commande">
+     <div class="form-group">
+      <label for="cmd-nom">
+       <i class="fas fa-user">
+       </i>
+       Nom &amp; Prénoms :
+      </label>
+      <input id="cmd-nom" placeholder="Ex: DOSSOU Jean" required="" type="text"/>
+     </div>
+     <div class="form-group">
+      <label for="cmd-tel">
+       <i class="fas fa-phone">
+       </i>
+       Numéro de Téléphone / WhatsApp :
+      </label>
+      <input id="cmd-tel" placeholder="Ex: 01 61 19 69 07" required="" type="tel"/>
+     </div>
+     <div class="form-group">
+      <label for="cmd-adresse">
+       <i class="fas fa-map-marker-alt">
+       </i>
+       Adresse ou Ville de livraison :
+      </label>
+      <input id="cmd-adresse" placeholder="Ex: Cotonou, Akpakpa..." required="" type="text"/>
+      <button class="btn-gps" id="gps-btn" type="button">
+       📍 Utiliser ma position GPS
+      </button>
+      <span class="gps-status" id="gps-status">
+      </span>
+     </div>
+     <button class="btn-submit-cmd" type="submit">
+      <i class="fab fa-whatsapp">
+      </i>
+      Confirmer sur WhatsApp
+     </button>
+    </form>
+   </div>
+  </div>
+  <div aria-hidden="true" class="modal-overlay" id="multi-vendor-modal">
+   <div class="modal-content multi-vendor-content">
+    <span class="close-btn" id="close-multi-vendor-modal">
+     ×
+    </span>
+    <h3 class="modal-title">
+     <i class="fab fa-whatsapp">
+     </i>
+     Envoyer les commandes
+    </h3>
+    <p class="multi-vendor-lead">
+     Votre panier contient des produits de plusieurs vendeurs. Envoyez chaque partie de la commande au vendeur concerné.
+    </p>
+    <div id="multi-vendor-list">
+    </div>
+    <button class="btn-submit-cmd secondary-close-btn" id="close-multi-vendor" type="button">
+     Terminer
+    </button>
+   </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="index.js"></script>
+ </body>
+</html>
