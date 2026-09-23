@@ -12,11 +12,14 @@ Platform.registerVendor({
     {
       id: 'mi01-1',
       category: 'lunettes',
-      name: 'tablette',
+      name: 'Etui Lunette resistant au choc',
       price: 5000,
-      description: "bonne resolution d'ecran.",
+      description: "Bon pour vos lunette.",
       images: [
         'Lunette01/PXL_20260626_151232192.jpg'
+         'Lunette01/PXL_20260626_151232192.jpg'
+         'Lunette01/PXL_20260626_151232192.jpg'
+         'Lunette01/PXL_20260626_151232192.jpg'
         // VÉRIFIEZ ce 2e chemin avant de le remettre :
         // 'Lunette01/1767399301442.png/1-b.jpg'
       ]
