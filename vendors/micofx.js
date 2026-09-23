@@ -17,9 +17,7 @@ Platform.registerVendor({
       description: "Bon pour vos lunette.",
       images: [
         'Lunette01/PXL_20260626_151232192.jpg'
-         'Lunette01/PXL_20260626_151232192.jpg'
-         'Lunette01/PXL_20260626_151232192.jpg'
-         'Lunette01/PXL_20260626_151232192.jpg'
+      
         // VÉRIFIEZ ce 2e chemin avant de le remettre :
         // 'Lunette01/1767399301442.png/1-b.jpg'
       ]
@@ -27,7 +25,7 @@ Platform.registerVendor({
     // ---------- EMPLACEMENT 2 ----------
     {
       id: 'mi01-2',
-      category: 'hub',
+      category: 'VETEMENT',
       name: 'Meilleur lunette',
       price: 5000,
       description: 'Une phrase qui donne envie.',
