@@ -15,8 +15,8 @@ window.PLATFORM_CONFIG = {
   // (celle-là donne un accès total à la base, elle doit rester strictement
   // secrète et ne JAMAIS apparaître dans un fichier envoyé au navigateur).
   supabase: {
-    url: '',      // ex: 'https://abcdefghijklmno.supabase.co'
-    anonKey: ''   // la clé "anon public" (Project Settings -> API)
+    url: 'https://gezpfixiznuxldosxqqr.supabase.co',      // ex: 'https://abcdefghijklmno.supabase.co'
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlenBmaXhpem51eGxkb3N4cXFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzNDM3NzYsImV4cCI6MjEwNTkxOTc3Nn0.EAWBxuUewSKqPk1bs0mqpj9TRL-oD2wKF1nxSWiYUdo'   // la clé "anon public" (Project Settings -> API)
   },
 
   // Nombre d'emplacements produits par vendeur partenaire.
