@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  
+  <!-- Balises SEO & Titre -->
+  <title>Le Coin des Bonnes Affaires</title>
+  <meta name="description" content="Découvrez nos pépites et accessoires aux meilleurs prix : lunettes anti-lumière bleue, filtres d'eau, tableaux sur-mesure et plus encore !">
+
+  <!-- Balises Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Le Coin des Bonnes Affaires">
+  <meta property="og:description" content="Produits de qualité aux meilleurs prix avec paiement à la livraison. Découvrez nos offres du moment !">
+  <meta property="og:image" content="https://coindes-bonne-affaire.vercel.app/OpenGraph/Og-image.webp">
+  <meta property="og:url" content="https://coindes-bonne-affaire.vercel.app/">
+
+  <!-- FontAwesome & Style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="boutique-wrapper">
+    
+    <!-- En-tête FIXE et moderne -->
+    <div class="fixed-header">
+      <div class="header">
+        <div class="logo-area">
+          <i class="fas fa-store-alt"></i>
+          <h1>LE COIN DES BONNES AFFAIRES</h1>
+        </div>
+        <!-- Bouton Flottant du Panier -->
+        <button id="cart-toggle-btn" class="cart-icon-btn" aria-label="Voir le panier">
+          <i class="fas fa-shopping-basket"></i>
+          <span id="cart-count" class="cart-badge">0</span>
+        </button>
+      </div>
+
+      <!-- Barre de recherche (juste en dessous du nom du site) -->
+      <div class="header-search">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="product-search" placeholder="Rechercher un produit..." autocomplete="off">
+          <button type="button" id="search-clear-btn" class="search-clear-btn" aria-label="Effacer la recherche" style="display:none;">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation catégories -->
+      <div class="category-nav" id="category-nav"></div>
+    </div>
+
+    <!-- Zone de contenu scrollable -->
+    <div class="content-area">
+      
+      <!-- Badges de rassurance haut de page -->
+      <div class="trust-badges-bar">
+        <div class="trust-badge-item"><i class="fas fa-truck-loading"></i> Paiement à la livraison</div>
+        <div class="trust-badge-item"><i class="fas fa-search-location"></i> Vérification avant paiement</div>
+        <div class="trust-badge-item"><i class="fas fa-headset"></i> Support 7j/7</div>
+      </div>
+
+      <!-- CATALOGUE : généré automatiquement depuis vendors/*.js (voir platform.js) -->
+      <div id="catalogue"></div>
+
+      <!-- SECTION TÉMOIGNAGES & AVIS CLIENTS -->
+      <div class="testimonials-section">
+        <h3><i class="fas fa-star stars-icon"></i> Avis de nos Clients</h3>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <strong>Kévin ADJASSA.</strong>
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+          </div>
+          <p>"Lunettes anti-lumière bleue super efficaces ! Mes maux de tête ont disparu. Livraison rapide sur Cotonou."</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <strong>Sonia T.</strong>
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+          </div>
+          <p>"Commande facile par WhatsApp, produit vérifié sur place avant de payer le livreur. Vraiment très pro !"</p>
+        </div>
+      </div>
+
+      <!-- Note de bas de page -->
+      <div class="footer-note">
+        <i class="fas fa-lock"></i> Paiement à la livraison · <i class="fas fa-headset"></i> Service client réactif<br>
+        © Le coin des Bonnes Affaires
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL / PANNEAU DE COMMANDE & PANIER -->
+  <div id="modal-commande" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <h3 class="modal-title"><i class="fas fa-shopping-bag"></i> Finaliser la commande</h3>
+      
+      <div id="cart-summary" class="cart-summary-box">
+        <!-- Rempli en JS dynamique -->
+      </div>
+
+      <form id="form-commande">
+        <div class="form-group">
+          <label for="cmd-nom"><i class="fas fa-user"></i> Nom & Prénoms :</label>
+          <input type="text" id="cmd-nom" placeholder="Ex: DOSSOU Jean" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cmd-tel"><i class="fas fa-phone"></i> Numéro de Téléphone / WhatsApp :</label>
+          <input type="tel" id="cmd-tel" placeholder="Ex: 01 61 19 69 07" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cmd-adresse"><i class="fas fa-map-marker-alt"></i> Adresse ou Ville de livraison :</label>
+          <input type="text" id="cmd-adresse" placeholder="Ex: Cotonou, Akpakpa..." required>
+          <button type="button" id="gps-btn" class="btn-gps">📍 Utiliser ma position GPS</button>
+          <span id="gps-status" class="gps-status"></span>
+        </div>
+
+        <button type="submit" class="btn-submit-cmd">
+          <i class="fab fa-whatsapp"></i> Confirmer sur WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Plateforme multi-vendeurs -->
+  <script src="config.js"></script>
+  <script src="platform.js"></script>
+
+  <!-- [MULTI-VENDEURS] Tous les vendeurs et leurs produits sont dans
+       vendors.json (un seul fichier, voir sa clé "_lisezmoi"). Pour
+       ajouter un vendeur : modifier vendors.json UNIQUEMENT, rien à
+       changer ici. -->
+  <script>
+    Platform.init('vendors.json').then(function () {
+      // index.js suppose que les cartes produit existent déjà : on ne le
+      // charge donc qu'une fois le catalogue affiché.
+      var s = document.createElement('script');
+      s.src = 'index.js';
+      document.body.appendChild(s);
+    });
+  </script>
+</body>
+</html>
