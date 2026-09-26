@@ -21,7 +21,7 @@ window.PLATFORM_CONFIG = {
 
   // Nombre d'emplacements produits par vendeur partenaire.
   // (La boutique principale, marquée "house: true", n'est pas limitée.)
-  maxSlotsPerVendor: 6,
+  maxSlotsPerVendor: 10,
 
   // Afficher "Vendu par ..." aussi sur les produits de la boutique principale ?
   showHouseTag: false,
