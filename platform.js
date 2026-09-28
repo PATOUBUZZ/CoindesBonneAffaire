@@ -82,6 +82,14 @@
       phone: phone,
       house: !!v.house,
       active: v.active !== false,
+      // [TOUS] true par défaut : ses produits apparaissent dans la grille
+      // "Tous". Mettre à false (vendors.json) ou décocher la case
+      // (Supabase) pour qu'un vendeur reste visible dans SA boutique mais
+      // JAMAIS mélangé à la grille globale.
+      includeInTous: v.includeInTous !== false,
+      // [HEADER] true (facultatif, défaut false) : sa boutique est TOUJOURS
+      // en dernière position du menu horizontal, jamais mélangée au début.
+      pinLast: !!v.pinLast,
       products: valid
     };
     valid.forEach(function (p) { productIndex[p.id] = { product: p, vendor: vendor }; });
@@ -217,7 +225,16 @@
     // d'être vu en premier. POUR BLOQUER CET ALÉATOIRE (ordre stable, dans
     // l'ordre du fichier vendors.json) : mettre shuffleVendorNav: false
     // dans config.js.
-    var ordered = (cfg.shuffleVendorNav === false) ? actives.slice() : shuffle(actives.slice());
+    // [HEADER] Un vendeur marqué "pinLast" (voir registerVendor) est TOUJOURS
+    // placé en dernière position du menu horizontal, quel que soit le tirage
+    // au sort — il ne profite jamais de la mise en avant du début/milieu.
+    // S'il y en a plusieurs, ils sont malgré tout mélangés ENTRE EUX (pour
+    // rester équitables les uns par rapport aux autres dans ce groupe).
+    var normalVendors = actives.filter(function (v) { return !v.pinLast; });
+    var lastVendors = actives.filter(function (v) { return v.pinLast; });
+    var shuffleOn = cfg.shuffleVendorNav !== false;
+    var ordered = (shuffleOn ? shuffle(normalVendors.slice()) : normalVendors.slice())
+      .concat(shuffleOn ? shuffle(lastVendors.slice()) : lastVendors.slice());
 
     // Bouton "Tous" TOUJOURS en premier au chargement de la page. Une fois
     // qu'un visiteur clique sur une boutique, index.js déplace ce bouton
@@ -238,6 +255,7 @@
     // grille "Tous" doit toujours être équitable, à chaque chargement.
     var allItems = [];
     actives.forEach(function (v) {
+      if (!v.includeInTous) return; // vendeur exclu de "Tous" : sa boutique reste normale
       v.products.forEach(function (p) { allItems.push({ p: p, v: v }); });
     });
     allItems = shuffle(allItems.slice());
@@ -363,6 +381,8 @@
         whatsapp: v.whatsapp,
         house: !!v.house,
         active: v.active !== false,
+        includeInTous: v.include_in_tous !== false,
+        pinLast: !!v.pin_last,
         products: produits.map(function (p) {
           var imgs = (Array.isArray(p.images) ? p.images.slice() : [])
             .sort(function (a, b) { return (a.position || 1) - (b.position || 1); })
