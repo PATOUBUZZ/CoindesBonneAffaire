@@ -21,19 +21,19 @@ const AFFICHER_BANNIERE_PROMO = true;
 //   texte     : (facultatif) la petite phrase sous le titre.
 const SLIDES_BANNIERE_PROMO = [
   {
-    image: 'promo-banner/1.jpg',
+    image: 'BANNIERE/Og-image.webp',
     titre: 'Offres Électroniques & Lunettes Anti-Lumière Bleue',
     surligner: 'Lunettes Anti-Lumière Bleue',
     texte: 'Économisez dès maintenant !'
   },
   {
-    image: 'promo-banner/2.jpg',
+    image: 'BANNIERE/1555526558_compressed.webp',
     titre: 'Livraison rapide sur Cotonou et environs',
     surligner: 'Livraison rapide',
     texte: 'Commandez, on s\'occupe du reste'
   },
   {
-    image: 'promo-banner/3.jpg',
+    image: 'BANNIERE/1767399301442_compressed.webp',
     titre: 'Nouveaux produits chaque semaine',
     surligner: 'Nouveaux produits',
     texte: 'Revenez régulièrement pour ne rien manquer'
