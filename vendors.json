@@ -1,0 +1,639 @@
+{
+  "_lisezmoi": [
+    "Sauvegarde complète générée le 2026-10-02 23:27",
+    "Les photos de ce fichier pointent vers le DOSSIER produits-vendeurs/ inclus dans ce",
+    "même zip (chemins locaux), PAS vers Supabase — ce fichier fonctionne donc même",
+    "si Supabase est indisponible. Pour l'utiliser en secours : remplacez votre",
+    "vendors.json par celui-ci ET copiez le dossier produits-vendeurs/ à la racine du site."
+  ],
+  "vendeurs": [
+    {
+      "id": "mico",
+      "name": "Safe Vision",
+      "whatsapp": "+22961196907",
+      "house": true,
+      "active": true,
+      "created_at": "2026-09-27T01:30:19.970186+00:00",
+      "pin_last": false,
+      "include_in_tous": true,
+      "produits": [
+        {
+          "id": "mico-1",
+          "alt": null,
+          "moq": 1,
+          "name": "Lunette anti-lumière & photochromique",
+          "price": 8000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 36,
+              "position": 1,
+              "image_url": "produits-vendeurs/MicoFX/Lunette01/1767399301442_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-1"
+            },
+            {
+              "id": 37,
+              "position": 2,
+              "image_url": "produits-vendeurs/MicoFX/Lunette01/PXL_20260626_150225444_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-1"
+            },
+            {
+              "id": 38,
+              "position": 3,
+              "image_url": "produits-vendeurs/MicoFX/Lunette01/PXL_20260626_151305628_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-1"
+            },
+            {
+              "id": 39,
+              "position": 4,
+              "image_url": "produits-vendeurs/MicoFX/Lunette01/PXL_20260626_151200402_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-1"
+            }
+          ],
+          "category": "sante",
+          "features": [
+            "Protection contre les lumières bleu provenant des écrans téléphone, ordinateur etc.. Se teinte au soleil"
+          ],
+          "created_at": "2026-09-27T01:30:19.970186+00:00",
+          "vendeur_id": "mico",
+          "description": "Lunette anti-lumière bleu",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "mico-2",
+          "alt": null,
+          "moq": 1,
+          "name": "Lunette anti-lumière & photochromique",
+          "price": 6000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 40,
+              "position": 1,
+              "image_url": "produits-vendeurs/MicoFX/lunette02/1555526558_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-2"
+            },
+            {
+              "id": 41,
+              "position": 2,
+              "image_url": "produits-vendeurs/MicoFX/lunette02/20260819_163313_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-2"
+            },
+            {
+              "id": 42,
+              "position": 3,
+              "image_url": "produits-vendeurs/MicoFX/lunette02/20260819_163237_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-2"
+            },
+            {
+              "id": 43,
+              "position": 4,
+              "image_url": "produits-vendeurs/MicoFX/lunette02/20260819_163045_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-2"
+            }
+          ],
+          "category": "sante",
+          "features": [
+            "Protection contre les lumières bleu provenant des écrans téléphone, ordinateur etc.. Se teinte a la Soleil"
+          ],
+          "created_at": "2026-09-27T01:30:19.970186+00:00",
+          "vendeur_id": "mico",
+          "description": "Monture en métal et résitant",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "mico-3",
+          "alt": null,
+          "moq": 1,
+          "name": "Lunette anti-lumière & photochromique",
+          "price": 7000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 46,
+              "position": 3,
+              "image_url": "produits-vendeurs/MicoFX/Lunette3/20260819_163958_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-3"
+            },
+            {
+              "id": 45,
+              "position": 2,
+              "image_url": "produits-vendeurs/MicoFX/Lunette3/20260819_164056_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-3"
+            },
+            {
+              "id": 44,
+              "position": 1,
+              "image_url": "produits-vendeurs/MicoFX/Lunette3/54645451216_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-3"
+            },
+            {
+              "id": 47,
+              "position": 4,
+              "image_url": "produits-vendeurs/MicoFX/Lunette3/20260819_163958_compressed.webp",
+              "created_at": "2026-09-27T01:30:19.970186+00:00",
+              "produit_id": "mico-3"
+            }
+          ],
+          "category": "sante",
+          "features": [
+            "Protection contre les lumières bleu provenant des écrans téléphone, ordinateur etc.. Se teinte a la lumière"
+          ],
+          "created_at": "2026-09-27T01:30:19.970186+00:00",
+          "vendeur_id": "mico",
+          "description": "Monture élégant et résistant",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "mico-4",
+          "alt": null,
+          "moq": 1,
+          "name": "Bras articulé( Support d'écran moniteur)",
+          "price": 37000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 53,
+              "position": 1,
+              "image_url": "produits-vendeurs/MicoFX/SUPPORTE%201BRAS/1788156671475.png",
+              "created_at": "2026-09-29T00:00:42.135297+00:00",
+              "produit_id": "mico-4"
+            },
+            {
+              "id": 54,
+              "position": 2,
+              "image_url": "produits-vendeurs/MicoFX/SUPPORTE%201BRAS/1789426308554_compressed.webp",
+              "created_at": "2026-09-29T00:00:42.135297+00:00",
+              "produit_id": "mico-4"
+            },
+            {
+              "id": 55,
+              "position": 3,
+              "image_url": "produits-vendeurs/MicoFX/SUPPORTE%201BRAS/1789426482931_compressed.webp",
+              "created_at": "2026-09-29T00:00:42.135297+00:00",
+              "produit_id": "mico-4"
+            },
+            {
+              "id": 56,
+              "position": 4,
+              "image_url": "produits-vendeurs/MicoFX/SUPPORTE%201BRAS/1789426502102_compressed.webp",
+              "created_at": "2026-09-29T00:00:42.135297+00:00",
+              "produit_id": "mico-4"
+            }
+          ],
+          "category": "bureau",
+          "features": [
+            "En métal résistant",
+            "S'adapte a tout type de table. Supportant jusqu'à 15kg stable"
+          ],
+          "created_at": "2026-09-29T00:00:42.135297+00:00",
+          "vendeur_id": "mico",
+          "description": "Support d'écran moniteur en métal, mouvement 360 degrés et d'autre mouvement pour offrir du confort.",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "mico-5",
+          "alt": null,
+          "moq": 1,
+          "name": "Bras articulé( Support d'écran moniteur)",
+          "price": 41000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 57,
+              "position": 1,
+              "image_url": "produits-vendeurs/MicoFX/SUPPORT%202BRAS/1762677939124.png",
+              "created_at": "2026-09-29T00:00:42.135297+00:00",
+              "produit_id": "mico-5"
+            },
+            {
+              "id": 58,
+              "position": 2,
+              "image_url": "produits-vendeurs/MicoFX/SUPPORT%202BRAS/1762677942373.png",
+              "created_at": "2026-09-29T00:00:42.135297+00:00",
+              "produit_id": "mico-5"
+            },
+            {
+              "id": 59,
+              "position": 3,
+              "image_url": "produits-vendeurs/MicoFX/SUPPORT%202BRAS/1762677948195.png",
+              "created_at": "2026-09-29T00:00:42.135297+00:00",
+              "produit_id": "mico-5"
+            },
+            {
+              "id": 60,
+              "position": 4,
+              "image_url": "produits-vendeurs/MicoFX/SUPPORT%202BRAS/1762677914834.png",
+              "created_at": "2026-09-29T00:00:42.135297+00:00",
+              "produit_id": "mico-5"
+            }
+          ],
+          "category": "bureau",
+          "features": [
+            "En métal résistant",
+            "S'adapte a tout type de table. Supportant  simultanément 02 écran de 15\" à 32\""
+          ],
+          "created_at": "2026-09-29T00:00:42.135297+00:00",
+          "vendeur_id": "mico",
+          "description": "Support d'écran moniteur en métal, mouvement 360 degrés et d'autre mouvement d'inclinaison pour offrir du confort.",
+          "masquer_dans_tous": false
+        }
+      ]
+    },
+    {
+      "id": "modestina",
+      "name": "Modesta Style",
+      "whatsapp": "+22961622854",
+      "house": false,
+      "active": true,
+      "created_at": "2026-09-26T12:35:34.834706+00:00",
+      "pin_last": false,
+      "include_in_tous": true,
+      "produits": [
+        {
+          "id": "chemise-blanche-en-coton-modestina",
+          "alt": null,
+          "moq": 1,
+          "name": "Chemise Blanche en Coton",
+          "price": 15000,
+          "stock": 50,
+          "title": "Chemise homme.",
+          "images": [
+            {
+              "id": 2,
+              "position": 2,
+              "image_url": "produits-vendeurs/Modesta/CHEMISE/IMG-20260926-WA0020.jpg",
+              "created_at": "2026-09-26T12:35:34.834706+00:00",
+              "produit_id": "chemise-blanche-en-coton-modestina"
+            },
+            {
+              "id": 3,
+              "position": 3,
+              "image_url": "produits-vendeurs/Modesta/CHEMISE/IMG-20260926-WA0018.jpg",
+              "created_at": "2026-09-26T12:35:34.834706+00:00",
+              "produit_id": "chemise-blanche-en-coton-modestina"
+            },
+            {
+              "id": 4,
+              "position": 1,
+              "image_url": "produits-vendeurs/Modesta/CHEMISE/IMG-20260926-WA0017.jpg",
+              "created_at": "2026-09-26T12:35:34.834706+00:00",
+              "produit_id": "chemise-blanche-en-coton-modestina"
+            },
+            {
+              "id": 1,
+              "position": 4,
+              "image_url": "produits-vendeurs/Modesta/CHEMISE/IMG-20260926-WA0026.jpg",
+              "created_at": "2026-09-26T12:35:34.834706+00:00",
+              "produit_id": "chemise-blanche-en-coton-modestina"
+            }
+          ],
+          "category": "CHEMISE",
+          "features": null,
+          "created_at": "2026-09-26T12:35:34.834706+00:00",
+          "vendeur_id": "modestina",
+          "description": "Chemise homme pour les sorties  et les  sortie entre amis",
+          "masquer_dans_tous": true
+        },
+        {
+          "id": "pull-noir-col-roule-modestina",
+          "alt": null,
+          "moq": 1,
+          "name": "Sacs chic de sortie",
+          "price": 15000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 5,
+              "position": 1,
+              "image_url": "produits-vendeurs/Modesta/Sacshomme/IMG-20260926-WA0049.jpg",
+              "created_at": "2026-09-26T12:35:34.834706+00:00",
+              "produit_id": "pull-noir-col-roule-modestina"
+            },
+            {
+              "id": 6,
+              "position": 2,
+              "image_url": "produits-vendeurs/Modesta/Sacshomme/IMG-20260926-WA0048.jpg",
+              "created_at": "2026-09-26T12:35:34.834706+00:00",
+              "produit_id": "pull-noir-col-roule-modestina"
+            },
+            {
+              "id": 7,
+              "position": 3,
+              "image_url": "produits-vendeurs/Modesta/Sacshomme/IMG-20260926-WA0047(1).jpg",
+              "created_at": "2026-09-26T12:35:34.834706+00:00",
+              "produit_id": "pull-noir-col-roule-modestina"
+            }
+          ],
+          "category": "SACS",
+          "features": null,
+          "created_at": "2026-09-26T12:35:34.834706+00:00",
+          "vendeur_id": "modestina",
+          "description": "En coton avec une epaisseur350g",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "modestina-1",
+          "alt": null,
+          "moq": 1,
+          "name": "Chaussure Crep",
+          "price": 22000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 16,
+              "position": 1,
+              "image_url": "produits-vendeurs/Modesta/CREPchaussure/IMG-20260926-WA0044_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-1"
+            },
+            {
+              "id": 17,
+              "position": 2,
+              "image_url": "produits-vendeurs/Modesta/CREPchaussure/IMG-20260926-WA0045_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-1"
+            },
+            {
+              "id": 18,
+              "position": 3,
+              "image_url": "produits-vendeurs/Modesta/CREPchaussure/IMG-20260926-WA0046_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-1"
+            },
+            {
+              "id": 19,
+              "position": 4,
+              "image_url": "produits-vendeurs/Modesta/CREPchaussure/IMG-20260926-WA0043_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-1"
+            }
+          ],
+          "category": "vetement",
+          "features": [
+            "Idéale pour les sorties et pour la salles de sport"
+          ],
+          "created_at": "2026-09-26T18:05:08.941175+00:00",
+          "vendeur_id": "modestina",
+          "description": "Idéale pour les sorties et pour la salles de sport",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "modestina-2",
+          "alt": null,
+          "moq": 1,
+          "name": "Chaussure Cui",
+          "price": 35000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 23,
+              "position": 4,
+              "image_url": "produits-vendeurs/Modesta/ChaussureHomme/IMG-20260926-WA0034_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-2"
+            },
+            {
+              "id": 20,
+              "position": 1,
+              "image_url": "produits-vendeurs/Modesta/ChaussureHomme/IMG-20260926-WA0039_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-2"
+            },
+            {
+              "id": 21,
+              "position": 2,
+              "image_url": "produits-vendeurs/Modesta/ChaussureHomme/IMG-20260926-WA0036_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-2"
+            },
+            {
+              "id": 22,
+              "position": 3,
+              "image_url": "produits-vendeurs/Modesta/ChaussureHomme/IMG-20260926-WA0035_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-2"
+            }
+          ],
+          "category": "vetement",
+          "features": [
+            "Matière en cuir"
+          ],
+          "created_at": "2026-09-26T18:05:08.941175+00:00",
+          "vendeur_id": "modestina",
+          "description": "Idéale pour les sorties",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "modestina-3",
+          "alt": null,
+          "moq": 1,
+          "name": "JEANS Femme",
+          "price": 12000,
+          "stock": 1,
+          "title": null,
+          "images": [
+            {
+              "id": 24,
+              "position": 1,
+              "image_url": "produits-vendeurs/Modesta/Dames/IMG-20260926-WA0070_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-3"
+            },
+            {
+              "id": 25,
+              "position": 2,
+              "image_url": "produits-vendeurs/Modesta/Dames/IMG-20260926-WA0069_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-3"
+            },
+            {
+              "id": 26,
+              "position": 3,
+              "image_url": "produits-vendeurs/Modesta/Dames/IMG-20260926-WA0066_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-3"
+            },
+            {
+              "id": 27,
+              "position": 4,
+              "image_url": "produits-vendeurs/Modesta/Dames/IMG-20260926-WA0071_compressed.webp",
+              "created_at": "2026-09-26T18:05:08.941175+00:00",
+              "produit_id": "modestina-3"
+            }
+          ],
+          "category": "vetement",
+          "features": [
+            "Satisfait ou remboursement"
+          ],
+          "created_at": "2026-09-26T18:05:08.941175+00:00",
+          "vendeur_id": "modestina",
+          "description": null,
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "modestina-4",
+          "alt": null,
+          "moq": 1,
+          "name": "Montre Homme",
+          "price": 35000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 28,
+              "position": 1,
+              "image_url": "produits-vendeurs/Modesta/MontreHomme/IMG-20260926-WA0084_compressed.webp",
+              "created_at": "2026-09-26T18:42:46.209596+00:00",
+              "produit_id": "modestina-4"
+            },
+            {
+              "id": 29,
+              "position": 2,
+              "image_url": "produits-vendeurs/Modesta/MontreHomme/IMG-20260926-WA0079_compressed.webp",
+              "created_at": "2026-09-26T18:42:46.209596+00:00",
+              "produit_id": "modestina-4"
+            },
+            {
+              "id": 30,
+              "position": 3,
+              "image_url": "produits-vendeurs/Modesta/MontreHomme/IMG-20260926-WA0080_compressed.webp",
+              "created_at": "2026-09-26T18:42:46.209596+00:00",
+              "produit_id": "modestina-4"
+            },
+            {
+              "id": 31,
+              "position": 4,
+              "image_url": "produits-vendeurs/Modesta/MontreHomme/IMG-20260926-WA0081_compressed.webp",
+              "created_at": "2026-09-26T18:42:46.209596+00:00",
+              "produit_id": "modestina-4"
+            }
+          ],
+          "category": "vetement",
+          "features": [
+            "Idéale pour les sorties et pour la salles de sport"
+          ],
+          "created_at": "2026-09-26T18:42:46.209596+00:00",
+          "vendeur_id": "modestina",
+          "description": "Style élégant , haut qualité",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "modestina-5",
+          "alt": null,
+          "moq": 1,
+          "name": "Sacs au dos en Cui",
+          "price": 3000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 32,
+              "position": 1,
+              "image_url": "produits-vendeurs/Modesta/SacsAuDOS/IMG-20260926-WA0061.jpg",
+              "created_at": "2026-09-26T18:42:46.209596+00:00",
+              "produit_id": "modestina-5"
+            },
+            {
+              "id": 33,
+              "position": 2,
+              "image_url": "produits-vendeurs/Modesta/SacsAuDOS/IMG-20260926-WA0062.jpg",
+              "created_at": "2026-09-26T18:42:46.209596+00:00",
+              "produit_id": "modestina-5"
+            },
+            {
+              "id": 34,
+              "position": 3,
+              "image_url": "produits-vendeurs/Modesta/SacsAuDOS/IMG-20260926-WA0063.jpg",
+              "created_at": "2026-09-26T18:42:46.209596+00:00",
+              "produit_id": "modestina-5"
+            },
+            {
+              "id": 35,
+              "position": 4,
+              "image_url": "produits-vendeurs/Modesta/SacsAuDOS/IMG-20260926-WA0064.jpg",
+              "created_at": "2026-09-26T18:42:46.209596+00:00",
+              "produit_id": "modestina-5"
+            }
+          ],
+          "category": "vetement",
+          "features": [
+            "Matière en cuir"
+          ],
+          "created_at": "2026-09-26T18:42:46.209596+00:00",
+          "vendeur_id": "modestina",
+          "description": "Idéale pour les sorties",
+          "masquer_dans_tous": false
+        },
+        {
+          "id": "modestina-8",
+          "alt": null,
+          "moq": 1,
+          "name": "Habits complet pour homme",
+          "price": 14000,
+          "stock": null,
+          "title": null,
+          "images": [
+            {
+              "id": 49,
+              "position": 1,
+              "image_url": "produits-vendeurs/Modesta/Chemise%20homme%20complet/IMG-20260927-WA0013.jpg",
+              "created_at": "2026-09-28T23:29:51.195989+00:00",
+              "produit_id": "modestina-8"
+            },
+            {
+              "id": 50,
+              "position": 2,
+              "image_url": "produits-vendeurs/Modesta/Chemise%20homme%20complet/IMG-20260927-WA0014.jpg",
+              "created_at": "2026-09-28T23:29:51.195989+00:00",
+              "produit_id": "modestina-8"
+            },
+            {
+              "id": 51,
+              "position": 3,
+              "image_url": "produits-vendeurs/Modesta/Chemise%20homme%20complet/IMG-20260927-WA0012.jpg",
+              "created_at": "2026-09-28T23:29:51.195989+00:00",
+              "produit_id": "modestina-8"
+            },
+            {
+              "id": 52,
+              "position": 4,
+              "image_url": "produits-vendeurs/Modesta/Chemise%20homme%20complet/IMG-20260927-WA0011.jpg",
+              "created_at": "2026-09-28T23:29:51.195989+00:00",
+              "produit_id": "modestina-8"
+            }
+          ],
+          "category": "vetements",
+          "features": [
+            "Meilleur",
+            "élégant",
+            "durable"
+          ],
+          "created_at": "2026-09-28T23:29:51.195989+00:00",
+          "vendeur_id": "modestina",
+          "description": "complet américain de luxe ,fait à base de tissu coton et leurs mélanges, meilleur qualité pour de simples sortie et réunion.",
+          "masquer_dans_tous": false
+        }
+      ]
+    }
+  ]
+}
