@@ -8,7 +8,7 @@
 // [BANNIÈRE PROMO] Interrupteur unique : true = bannière affichée,
 // false = bannière ET son espace vertical totalement absents du DOM
 // (rien n'est créé, donc rien ne peut laisser un espace vide).
-const AFFICHER_BANNIERE_PROMO = true;
+const AFFICHER_BANNIERE_PROMO = false;
 
 // [BANNIÈRE PROMO] Les 3 diapositives (photo + texte), une par bloc.
 // Modifiez uniquement ceci pour changer le contenu — rien d'autre à toucher.
