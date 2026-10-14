@@ -27,7 +27,7 @@ const SLIDES_BANNIERE_PROMO = [
     texte: 'Économisez dès maintenant !'
   },
   {
-    image: 'BANNIERE/2F1555526558_compressed.webp',
+    image: 'BANNIERE/1555526558_compressed.webp',
     titre: 'Livraison rapide sur Cotonou et environs',
     surligner: 'Livraison rapide',
     texte: 'Commandez, on s\'occupe du reste'
