@@ -1473,3 +1473,22 @@ img {
 }
 .boutiques-item:active { background: #eff6ff; }
 .boutiques-empty { text-align: center; color: #64748b; font-size: 0.85rem; padding: 16px 0; }
+
+
+/* Désactivation stricte de la sélection et du zoom par appui long sur tout le corps */
+body, p, span, h1, h2, h3, h4, h5, h6, a, li, label {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent; /* Supprime le flash gris/bleu au clic sur mobile */
+}
+
+/* S'assurer que les champs de saisie restent modifiables et sélectionnables */
+input, textarea, select {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
+}
