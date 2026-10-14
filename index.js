@@ -21,7 +21,7 @@ const AFFICHER_BANNIERE_PROMO = true;
 //   texte     : (facultatif) la petite phrase sous le titre.
 const SLIDES_BANNIERE_PROMO = [
   {
-    image: 'promo-banner/1.jpg',
+    image: 'BANNIERE/Og-image.webp',
     titre: 'Offres Électroniques & Lunettes Anti-Lumière Bleue',
     surligner: 'Lunettes Anti-Lumière Bleue',
     texte: 'Économisez dès maintenant !'
