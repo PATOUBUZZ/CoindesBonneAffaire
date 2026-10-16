@@ -33,7 +33,7 @@ const SLIDES_BANNIERE_PROMO = [
     texte: 'Commandez, on s\'occupe du reste'
   },
   {
-    image: 'promo-banner/3.jpg',
+    image: 'BANNIERE/Livraison.jpg',
     titre: 'Nouveaux produits chaque semaine',
     surligner: 'Nouveaux produits',
     texte: 'Revenez régulièrement pour ne rien manquer'
