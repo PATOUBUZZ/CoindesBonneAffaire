@@ -153,5 +153,19 @@
       document.body.appendChild(s);
     });
   </script>
+<!-- Pop-up Conseils de Sécurité -->
+<div id="cgu-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; padding: 20px;">
+  <div style="background: #ffffff; max-width: 450px; width: 100%; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); text-align: left; font-family: sans-serif;">
+    <h3 style="margin-top: 0; color: #1a202c; font-size: 18px; border-bottom: 2px solid #edf2f7; padding-bottom: 10px;">🛡️ Conseils de sécurité</h3>
+    
+    <ul style="font-size: 14px; color: #4a5568; line-height: 1.6; padding-left: 20px; margin: 15px 0;">
+      <li>Payez uniquement à la livraison après avoir vérifié le produit.</li>
+      <li>Donnez toujours rendez-vous dans un lieu public et fréquenté.</li>
+      <li>N'envoyez jamais d'argent à distance (Mobile Money, virement) avant d'avoir vu l'article.</li>
+    </ul>
+
+    <button id="accept-cgu" style="width: 100%; background: #3182ce; color: white; border: none; padding: 12px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer;">J'ai compris</button>
+  </div>
+</div>
 </body>
 </html>
