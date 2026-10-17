@@ -1267,3 +1267,15 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.style.display = 'none';
   });
 });
+// Ferme les autres questions quand une nouvelle est ouverte
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('toggle', event => {
+    if (item.open) {
+      document.querySelectorAll('.faq-item').forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.removeAttribute('open');
+        }
+      });
+    }
+  });
+});
