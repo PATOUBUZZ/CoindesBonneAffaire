@@ -1252,3 +1252,18 @@ document.addEventListener('dragstart', function (e) {
     clearBtn.addEventListener('click', function () { runOverlaySearch(''); });
   }
 })();
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('cgu-modal');
+  const acceptBtn = document.getElementById('accept-cgu');
+
+  // Afficher la pop-up uniquement si l'utilisateur ne l'a jamais validée
+  if (!localStorage.getItem('cgu_accepted')) {
+    modal.style.display = 'flex';
+  }
+
+  // Fermer la pop-up et sauvegarder le choix
+  acceptBtn.addEventListener('click', function() {
+    localStorage.setItem('cgu_accepted', 'true');
+    modal.style.display = 'none';
+  });
+});
