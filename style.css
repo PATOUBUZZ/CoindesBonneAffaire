@@ -1492,3 +1492,84 @@ input, textarea, select {
   user-select: text !important;
   -webkit-touch-callout: default !important;
 }
+/* --- STYLES FAQ DROPDOWN / ACCORDÉON --- */
+.faq-section {
+  padding: 20px 15px;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Bloc d'une question */
+.faq-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease;
+}
+
+.faq-item[open] {
+  border-color: #3182ce; /* Bordure mise en valeur à l'ouverture */
+}
+
+/* Entête cliquable (Question) */
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1a202c;
+  cursor: pointer;
+  list-style: none; /* Supprime la flèche CSS par défaut */
+  user-select: none;
+}
+
+.faq-question::-webkit-details-marker {
+  display: none; /* Masque la flèche native sur Safari/iOS */
+}
+
+.faq-question i.fas {
+  color: #3182ce;
+  margin-right: 8px;
+}
+
+/* Flèche d'ouverture/fermeture */
+.faq-icon {
+  font-size: 0.85rem;
+  color: #718096;
+  transition: transform 0.3s ease;
+}
+
+/* Rotation de la flèche lors de l'ouverture */
+.faq-item[open] .faq-icon {
+  transform: rotate(180deg);
+  color: #3182ce;
+}
+
+/* Contenu de la réponse */
+.faq-answer {
+  padding: 0 16px 14px 16px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #4a5568;
+  border-top: 1px dashed #edf2f7;
+  margin-top: 4px;
+  padding-top: 10px;
+}
