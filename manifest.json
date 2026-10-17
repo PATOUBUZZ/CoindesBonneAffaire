@@ -1,7 +1,7 @@
 {
   "name": "Le Coin des Bonnes Affaires",
   "short_name": "Bonnes Affaires",
-  "description": "Plateforme d'annonces et de mise en relation entre vendeurs et acheteurs",
+  "description": "Plateforme d'annonces et de mise en relation entre vendeurs  et acheteurs",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
