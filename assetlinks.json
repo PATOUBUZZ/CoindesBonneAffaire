@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.coindes_bonne_affaire.twa",
+        "sha256_cert_fingerprints": ["EF:D1:5E:A7:BE:97:48:08:5E:C9:3B:FF:91:04:64:3F:FE:19:CD:1A:C4:1D:39:60:E0:AC:FE:73:FA:69:35:7D"]
+      }
+    }]
