@@ -1,0 +1,10 @@
+{
+  "name": "le-coin-des-bonnes-affaires",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site statique + fonctions serverless Vercel (/api)",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}
