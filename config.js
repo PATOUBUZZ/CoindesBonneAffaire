@@ -33,7 +33,7 @@ window.PLATFORM_CONFIG = {
   // code ; la clé PRIVÉE, elle, reste dans les variables Vercel). Laissez "" pour
   // désactiver complètement les notifications (la cloche n'apparaît pas).
   push: {
-    vapidPublicKey: 'BDRKlbNZLDFQpNs0rIdG-vSm_zCa7uoqH4mEvW73sBcJ2lzjLSPbpqd6zIQAMjBTbBWLJ4QsBf8g5LzV8yHPkG8'   // ex: 'BOr7...' (voir GUIDE-CONFIGURATION.md, étape 3)
+    vapidPublicKey: 'BP70bPHmdzX7dJ8HizWN0TesVEW2DI8JKLH6AALavdOj0q3vwDyTPlOWZOfxxtPZ7XfRVcy0aJLoT8NntduwxqQ'   // ex: 'BOr7...' (voir GUIDE-CONFIGURATION.md, étape 3)
   },
 
   // Nombre d'emplacements produits par vendeur partenaire.
