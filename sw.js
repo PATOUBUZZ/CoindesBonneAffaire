@@ -7,7 +7,7 @@
    ("push" et "notificationclick") au lieu de remplacer votre fichier.
    ============================================================ */
 
-var DEFAULT_ICON = '/icon-192.png';   // adaptez au nom réel de votre icône (facultatif)
+var DEFAULT_ICON = '/img/launchericon-192x192.png';   // adaptez au nom réel de votre icône (facultatif)
 var DEFAULT_URL = '/';
 
 self.addEventListener('install', function () { self.skipWaiting(); });
