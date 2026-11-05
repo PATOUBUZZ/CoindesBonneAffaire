@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   
   <!-- Balises SEO & Titre -->
-  <title>Le Coin des Bonnes Affaires</title>
+  <title>Nya-Market</title>
   <meta name="description" content="Découvrez nos pépites et accessoires aux meilleurs prix : lunettes anti-lumière bleue, filtres d'eau, tableaux sur-mesure et plus encore !">
 
   <!-- Balises Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Le Coin des Bonnes Affaires">
+  <meta property="og:title" content="Nya-Market">
   <meta property="og:description" content="Produits de qualité aux meilleurs prix avec paiement à la livraison. Découvrez nos offres du moment !">
   <meta property="og:image" content="https://coindes-bonne-affaire.vercel.app/OpenGraph/Opeenqgraph.webp">
   <meta property="og:url" content="https://coindes-bonne-affaire.vercel.app/">
@@ -18,6 +18,9 @@
   <!-- FontAwesome & Style -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cba-upgrade.css">
+  <!-- [ASSISTANT] Fenêtre du chatbot (additif, classes "nmc-") -->
+  <link rel="stylesheet" href="chat.css">
 
   <!-- [PWA] Manifeste d'installation + couleur de la barre du navigateur -->
   <link rel="manifest" href="manifest.json">
@@ -27,7 +30,7 @@
   <!-- [LOADER] Écran de chargement (retiré par index.js une fois le site prêt) -->
   <div id="app-loader" class="app-loader" role="status" aria-live="polite" aria-label="Chargement en cours">
     <div class="app-loader-spinner" aria-hidden="true"></div>
-    <p class="app-loader-text"><strong>Le Coin des Bonnes Affaires</strong> — Plate-forme de mise en relation vendeurs et acheteurs. Exposez vos produits ici.</p>
+    <p class="app-loader-text"><strong>Nya-Market</strong> — Plate-forme de mise en relation vendeurs et acheteurs. Exposez vos produits ici.</p>
   </div>
 
   <div class="boutique-wrapper">
@@ -42,8 +45,8 @@
 
       <div class="header">
         <div class="logo-area">
-          <i class="fas fa-store-alt"></i>
-          <h1>LE COIN DES BONNES AFFAIRES</h1>
+          <i class="fas fa-store-alt" data-brand-logo></i><!-- [LOGO] remplacé par brand.js si config.js > brand.logo est renseigné -->
+          <h1>Nya-Market</h1>
         </div>
         <div class="header-actions">
           <!-- [NOTIFICATIONS] Cloche d'activation (masquée si non supportée, gérée par push.js) -->
@@ -116,7 +119,7 @@
         <div class="faq-list">
         <details class="faq-item" name="faq">
           <summary class="faq-question">
-            <span>Comment passer une commande sur Le Coin des Bonnes Affaires ?</span>
+            <span>Comment passer une commande sur Nya-Market ?</span>
             <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
           </summary>
           <div class="faq-answer">
@@ -130,7 +133,7 @@
             <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
           </summary>
           <div class="faq-answer">
-            <p>Non, pour votre sécurité, la plateforme recommande d'effectuer le paiement directement à la livraison après inspection de l'article.</p>
+            <p>Non, pour votre sécurité, la plateforme recommande d'effectuer le paiement directement en espèces à la livraison après inspection de l'article.</p>
           </div>
         </details>
 
@@ -150,7 +153,7 @@
             <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
           </summary>
           <div class="faq-answer">
-            <p>Contactez l'administration <b>Whath: 0161196907</b> de la plateforme pour enregistrer votre boutique et ajouter vos articles dans le catalogue multi-vendeurs.</p>
+            <p>Contactez l'administration de la plateforme pour enregistrer votre boutique et ajouter vos articles dans le catalogue multi-vendeurs.</p>
           </div>
         </details>
 
@@ -169,12 +172,12 @@
       <!-- Note de bas de page -->
       <div class="footer-note">
         <i class="fas fa-lock"></i> Paiement à la livraison · <i class="fas fa-headset"></i> Service client réactif<br>
-        © Le coin des Bonnes Affaires
+        © Nya-Market
       </div>
 
       <!-- [MENTIONS LÉGALES] Tout en bas de la page -->
       <footer class="legal-notice">
-        <p>Le Coin des Bonnes Affaires — Plateforme d'annonces et de mise en relation. Le site agit en qualité d'intermédiaire technique. Les vendeurs indépendants sont seuls responsables de leurs produits, prix et livraisons. La plateforme décline toute responsabilité en cas de litige entre acheteurs et vendeurs.</p>
+        <p>Nya-Market — Plateforme d'annonces et de mise en relation. Le site agit en qualité d'intermédiaire technique. Les vendeurs indépendants sont seuls responsables de leurs produits, prix et livraisons. La plateforme décline toute responsabilité en cas de litige entre acheteurs et vendeurs.</p>
       </footer>
     </div>
   </div>
@@ -236,11 +239,15 @@
 
   <!-- Plateforme multi-vendeurs -->
   <script src="config.js"></script>
+  <!-- [MARQUE] Logo configurable (config.js > brand) -->
+  <script src="brand.js"></script>
   <script src="platform.js"></script>
   <!-- [ANNONCES] Bandeau défilant piloté par Supabase (indépendant du catalogue) -->
   <script src="announcements.js"></script>
   <!-- [NOTIFICATIONS PUSH] Abonnement + service worker (indépendant du catalogue) -->
   <script src="push.js"></script>
+  <!-- [ASSISTANT] Chatbot : FAQ + recherche produit, appelle /api/chat -->
+  <script src="chat.js"></script>
 
   <!-- [MULTI-VENDEURS] Tous les vendeurs et leurs produits sont dans
        vendors.json (un seul fichier, voir sa clé "_lisezmoi"). Pour

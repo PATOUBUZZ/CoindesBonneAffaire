@@ -7,7 +7,7 @@
    ("push" et "notificationclick") au lieu de remplacer votre fichier.
    ============================================================ */
 
-var DEFAULT_ICON = '/img/launchericon-192x192.png';   // adaptez au nom réel de votre icône (facultatif)
+var DEFAULT_ICON = '/icon-192.png';   // adaptez au nom réel de votre icône (facultatif)
 var DEFAULT_URL = '/';
 
 self.addEventListener('install', function () { self.skipWaiting(); });
@@ -17,9 +17,9 @@ self.addEventListener('activate', function (event) { event.waitUntil(self.client
 self.addEventListener('push', function (event) {
   var data = {};
   try { data = event.data ? event.data.json() : {}; }
-  catch (e) { data = { title: 'Le Coin des Bonnes Affaires', body: event.data ? event.data.text() : '' }; }
+  catch (e) { data = { title: 'Nya-Market', body: event.data ? event.data.text() : '' }; }
 
-  var title = data.title || 'Le Coin des Bonnes Affaires';
+  var title = data.title || 'Nya-Market';
   var options = {
     body: data.body || '',
     icon: data.icon || DEFAULT_ICON,          // petite image d'illustration (style Alibaba)

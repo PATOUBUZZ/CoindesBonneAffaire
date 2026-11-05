@@ -67,7 +67,7 @@ module.exports = async function handler(req, res) {
     var n = claimed[0];
 
     var payload = JSON.stringify({
-      title: String(n.title || 'Le Coin des Bonnes Affaires').slice(0, 120),
+      title: String(n.title || 'Nya-Market').slice(0, 120),
       body: String(n.body || '').slice(0, 300),
       icon: cleanImg(n.image_url),        // petite image (style Alibaba)
       image: cleanImg(n.banner_url),      // grande bannière (facultatif)

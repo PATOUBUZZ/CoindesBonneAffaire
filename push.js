@@ -56,14 +56,15 @@
   function saveSubscription(sub) {
     var j = sub.toJSON();
     if (!j || !j.endpoint || !j.keys) return Promise.resolve();
-    // "ignore-duplicates" : si l'appareil est déjà enregistré, rien ne se passe.
-    return fetch(sb.url.replace(/\/+$/, '') + '/rest/v1/push_subscriptions?on_conflict=endpoint', {
+    // Insertion simple (pas de "on_conflict") : avec on_conflict, Supabase exige le droit de LIRE la table
+    // (RLS) et refuse l'enregistrement. Si l'appareil est déjà enregistré, la base répond 409 : c'est normal.
+    return fetch(sb.url.replace(/\/+$/, '') + '/rest/v1/push_subscriptions', {
       method: 'POST',
       headers: {
         apikey: sb.anonKey,
         Authorization: 'Bearer ' + sb.anonKey,
         'Content-Type': 'application/json',
-        Prefer: 'resolution=ignore-duplicates,return=minimal'
+        Prefer: 'return=minimal'
       },
       body: JSON.stringify({
         endpoint: j.endpoint,
@@ -72,7 +73,7 @@
         role: getRole()
       })
     }).then(function (res) {
-      if (!res.ok) throw new Error('enregistrement HTTP ' + res.status);
+      if (!res.ok && res.status !== 409) throw new Error('enregistrement HTTP ' + res.status);  // 409 = déjà enregistré
     });
   }
 

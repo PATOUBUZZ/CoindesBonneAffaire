@@ -131,7 +131,7 @@ function showShareToast(message) {
 function shareProduct(productId, productName) {
   const url = buildProductUrl(productId);
   const shareData = {
-    title: 'Le Coin des Bonnes Affaires',
+    title: 'Nya-Market',
     text: productName,
     url: url
   };
@@ -315,7 +315,7 @@ function buildBoutiqueUrl(vendorId) {
 function shareBoutique(vendorId, vendorName) {
   const url = buildBoutiqueUrl(vendorId);
   const shareData = {
-    title: 'Le Coin des Bonnes Affaires',
+    title: 'Nya-Market',
     text: 'Découvrez la boutique ' + (vendorName || ''),
     url: url
   };

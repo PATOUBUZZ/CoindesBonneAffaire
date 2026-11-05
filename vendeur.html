@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Espace vendeur — Nya-Market</title>
+  <meta name="description" content="Nya-Market, plate-forme multi-vendeurs : inscrivez-vous pour enregistrer votre boutique.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0B1F4D">
+
+  <!-- Polices + icônes (mêmes que le site principal) -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Tailwind (CDN) + design system "Bonnes Affaires" -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
+        colors: {
+          brand: { DEFAULT: '#2563EB', hi: '#007BFF', navy: '#0B1F4D' },
+          deal:  { DEFAULT: '#F97316', soft: '#FFEDD5' },
+          ok:    '#10B981'
+        }
+      } }
+    };
+  </script>
+  <link rel="stylesheet" href="vendeur.css">
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+
+  <!-- Écran de chargement initial (retiré par vendeur.js) -->
+  <div id="app-loader" class="fixed inset-0 z-[3000] bg-white flex items-center justify-center" role="status" aria-label="Chargement">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="sticky top-0 z-40 bg-gradient-to-br from-brand-hi via-brand to-brand-navy text-white shadow-lg">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 font-extrabold tracking-tight">
+        <i class="fas fa-store-alt text-orange-300" data-brand-logo></i>
+        <span>Nya-Market</span>
+        <span class="hidden sm:inline text-xs font-semibold bg-white/15 rounded-full px-2 py-0.5">Espace vendeur</span>
+      </a>
+      <button id="btn-logout" type="button" class="hidden items-center gap-2 text-sm font-semibold bg-white/15 border border-white/30 rounded-full px-4 min-h-[40px] active:scale-95 transition">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 pt-5 pb-40">
+
+    <!-- ===== VUE 1 : CONNEXION (landing vendeur) ===== -->
+    <section id="view-landing" class="hidden">
+      <div class="rounded-3xl overflow-hidden shadow-xl bg-white border border-slate-200">
+        <div class="hero-bg px-6 pt-10 pb-8 text-center text-white">
+          <div class="mx-auto w-16 h-16 rounded-2xl bg-white/15 border border-white/30 flex items-center justify-center text-3xl mb-5">
+            <i class="fas fa-store text-orange-300"></i>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-extrabold leading-snug text-balance">
+           <span class="text-orange-300"> Nya-Market</span> votre plate-forme <span class="text-green-300">Multi-vendeurs</span>, inscrivez-vous pour enregistrer votre boutique
+          </h1>
+        </div>
+
+        <div class="px-6 py-7">
+          <button id="btn-google" type="button"
+                  class="w-full min-h-[52px] flex items-center justify-center gap-3 rounded-full bg-white border-2 border-slate-200 font-bold text-slate-800 shadow-sm hover:shadow-md active:scale-[.98] transition">
+            <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
+              <path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/>
+              <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+              <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/>
+              <path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/>
+            </svg>
+            Continuer avec Gmail
+          </button>
+
+          <ul class="mt-6 space-y-3 text-sm text-slate-600">
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Jusqu'à 10 produits dans votre boutique</li>
+            
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Aucune commission à l'inscription</li>
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Les clients vous contactent directement sur WhatsApp</li>
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Tout gérer depuis votre smartphone </li>
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Contrôle total de vos livraisons</li>
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Lancez votre activité sans aucune compétence technique.</li>
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Profitez de notre visibilité pour booster vos ventes</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VUE 2 : TABLEAU DE BORD ===== -->
+    <section id="view-dashboard" class="hidden">
+
+      <!-- Carte boutique + compteur -->
+      <div class="rounded-3xl bg-white border border-slate-200 shadow-md p-5">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Ma boutique</p>
+            <h2 id="shop-name" class="text-xl font-extrabold text-brand-navy truncate">—</h2>
+            <p id="shop-account-status" class="mt-1"></p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-xs font-semibold text-slate-500">Produits</p>
+            <p class="text-2xl font-extrabold"><span id="count-current">0</span> <span class="text-slate-400 text-base font-bold">/ <span id="count-max">10</span> max</span></p>
+          </div>
+        </div>
+        <div class="mt-4 h-2.5 rounded-full bg-slate-100 overflow-hidden" aria-hidden="true">
+          <div id="count-bar" class="h-full rounded-full bg-gradient-to-r from-orange-400 to-deal transition-all duration-500" style="width:0%"></div>
+        </div>
+
+        <button id="btn-add-product" type="button"
+                class="mt-5 w-full min-h-[52px] rounded-full font-bold text-white bg-gradient-to-br from-orange-400 to-deal shadow-lg shadow-orange-500/30 active:scale-[.98] transition disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none">
+          <i class="fas fa-plus mr-2"></i><span id="btn-add-label">Ajouter un produit</span>
+        </button>
+      </div>
+
+      <!-- Liste des produits -->
+      <h3 class="mt-7 mb-3 font-extrabold text-brand-navy flex items-center gap-2">
+        <i class="fas fa-box-open text-deal"></i> Mes produits
+      </h3>
+      <div id="products-list" class="space-y-3" aria-live="polite"></div>
+
+      <!-- Message de modération -->
+      <div class="mt-7 rounded-2xl bg-blue-50 border border-blue-200 border-l-4 border-l-brand p-4 text-sm text-blue-900 leading-relaxed">
+        <p class="font-bold mb-1"><i class="fas fa-info-circle mr-1"></i> Produits examinés avant publication</p>
+        <p>Chaque produit est vérifié par notre équipe avant d'apparaître sur Nya-Market.</p>
+        <p class="mt-2 font-bold">Vous recevrez le lien de votre boutique dans les 48h sur votre WhatsApp/Gmail.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== BARRE FIXE : Notifiez-nous / Contactez-nous ===== -->
+  <nav class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t border-slate-200 shadow-[0_-8px_24px_rgba(15,23,42,.08)]"
+       style="padding-bottom: env(safe-area-inset-bottom, 0px)" aria-label="Contact">
+    <div class="max-w-3xl mx-auto px-4 py-3 grid grid-cols-2 gap-3">
+      <a id="btn-notify" href="#" target="_blank" rel="noopener"
+         class="min-h-[50px] flex items-center justify-center gap-2 rounded-full font-bold text-white bg-gradient-to-br from-orange-400 to-deal shadow-md shadow-orange-500/30 active:scale-95 transition">
+        <i class="fas fa-bell"></i> Notifiez-nous
+      </a>
+      <a id="btn-contact" href="#" target="_blank" rel="noopener"
+         class="min-h-[50px] flex items-center justify-center gap-2 rounded-full font-bold text-white bg-[#25D366] shadow-md shadow-green-500/30 active:scale-95 transition">
+        <i class="fab fa-whatsapp text-lg"></i> Contactez-nous
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== MODALE : PROFIL + CONDITIONS (1re connexion, non fermable) ===== -->
+  <div id="modal-profile" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="profile-title">
+    <div class="modal-panel">
+      <h2 id="profile-title" class="text-lg font-extrabold text-brand-navy text-center">Enregistrez votre boutique</h2>
+      <p class="text-center text-sm text-slate-500 mt-1 mb-4">Dernière étape avant d'ajouter vos produits.</p>
+
+      <form id="form-profile" class="space-y-4" novalidate>
+        <div>
+          <label class="field-label" for="p-boutique"><i class="fas fa-store"></i> Nom de la boutique</label>
+          <input class="field" id="p-boutique" type="text" maxlength="60" required placeholder="Ex : Cotonou Tech Shop" autocomplete="organization">
+        </div>
+        <div>
+          <label class="field-label" for="p-nom"><i class="fas fa-user"></i> Nom &amp; Prénom du vendeur</label>
+          <input class="field" id="p-nom" type="text" maxlength="80" required placeholder="Ex : DOSSOU Jean" autocomplete="name">
+        </div>
+        <div>
+          <label class="field-label" for="p-whatsapp"><i class="fab fa-whatsapp"></i> Numéro WhatsApp</label>
+          <input class="field" id="p-whatsapp" type="tel" inputmode="tel" required placeholder="Ex : +229 01 61 19 69 07" autocomplete="tel">
+        </div>
+        <div>
+          <label class="field-label" for="p-email"><i class="fas fa-envelope"></i> Gmail</label>
+          <input class="field bg-slate-100 text-slate-500" id="p-email" type="email" readonly>
+        </div>
+        <div>
+          <label class="field-label" for="p-doc"><i class="fas fa-id-card"></i> Document d'identité 📄 (photo CIP ou carte d'identité)</label>
+          <input class="field file-field" id="p-doc" type="file" accept="image/*,application/pdf" required>
+          <p class="text-xs text-slate-500 mt-1">Image ou PDF (5 Mo max). Visible uniquement par notre équipe de vérification.</p>
+        </div>
+
+        <label class="flex items-start gap-3 rounded-xl bg-slate-50 border border-slate-200 p-3 text-sm text-slate-700 leading-snug cursor-pointer">
+          <input id="p-cgu" type="checkbox" class="mt-1 w-5 h-5 accent-brand shrink-0" required>
+          <span>J'accepte les conditions : je suis seul responsable de mes produits, prix et livraisons ; Nya-Market agit comme intermédiaire technique ; mes informations d'identité servent uniquement à vérifier mon compte.</span>
+        </label>
+
+        <p id="profile-error" class="form-error hidden"></p>
+        <button id="btn-profile-submit" type="submit" class="btn-main">
+          <i class="fas fa-paper-plane mr-2"></i> Envoyer ma demande
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODALE : AJOUT / MODIFICATION DE PRODUIT ===== -->
+  <div id="modal-product" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="product-title">
+    <div class="modal-panel">
+      <button id="btn-product-close" type="button" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-slate-100 text-slate-600 active:scale-90" aria-label="Fermer">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 id="product-title" class="text-lg font-extrabold text-brand-navy text-center pr-6">Ajouter un produit</h2>
+
+      <form id="form-product" class="space-y-4 mt-4" novalidate>
+        <div>
+          <label class="field-label" for="f-nom">Nom du produit</label>
+          <input class="field" id="f-nom" type="text" maxlength="80" required placeholder="Ex : Lunettes anti-lumière bleue">
+        </div>
+        <div>
+          <label class="field-label" for="f-prix">Prix (FCFA)</label>
+          <input class="field" id="f-prix" type="number" inputmode="numeric" min="1" max="100000000" step="1" required placeholder="Ex : 5000">
+        </div>
+        <div>
+          <label class="field-label" for="f-desc">Description</label>
+          <textarea class="field" id="f-desc" rows="3" maxlength="600" required placeholder="Décrivez votre produit en quelques lignes"></textarea>
+        </div>
+        <div>
+          <label class="field-label" for="f-carac">Caractéristiques <span class="font-normal text-slate-400">(une par ligne)</span></label>
+          <textarea class="field" id="f-carac" rows="3" maxlength="600" placeholder="Ex :&#10;Monture légère&#10;Garantie 1 mois"></textarea>
+        </div>
+
+        <div>
+          <p class="field-label"><i class="fas fa-camera"></i> Photos <span id="photo-count" class="font-normal text-slate-400">(0/4)</span></p>
+          <div id="photo-grid" class="grid grid-cols-4 gap-2"></div>
+          <input id="f-photos" type="file" accept="image/*" multiple class="hidden">
+          <p class="text-xs text-slate-500 mt-1">1 à 4 photos. Elles sont automatiquement allégées (WebP).</p>
+        </div>
+
+        <p id="product-warning" class="hidden text-xs rounded-xl bg-amber-50 border border-amber-200 text-amber-800 p-3"></p>
+        <p id="product-error" class="form-error hidden"></p>
+        <button id="btn-product-submit" type="submit" class="btn-main">
+          <i class="fas fa-check mr-2"></i> <span id="btn-product-label">Enregistrer</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Dépendances : config partagée avec le site principal (url + anonKey Supabase) -->
+  <script src="config.js"></script>
+  <script src="brand.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="vendeur.js"></script>
+</body>
+</html>

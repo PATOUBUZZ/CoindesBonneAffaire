@@ -19,6 +19,41 @@ window.PLATFORM_CONFIG = {
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlenBmaXhpem51eGxkb3N4cXFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzNDM3NzYsImV4cCI6MjEwNTkxOTc3Nn0.EAWBxuUewSKqPk1bs0mqpj9TRL-oD2wKF1nxSWiYUdo'   // la clé "anon public" (Project Settings -> API)
   },
 
+  // [MARQUE] Nom et LOGO de la plateforme (utilisés par brand.js sur index.html
+  // ET vendeur.html). Le logo remplace l'icône de boutique à gauche du nom,
+  // dans le header.
+  //   logo : chemin de votre image (ex: 'logo.webp' déposé à côté d'index.html,
+  //          ou une URL https://...). Format conseillé : carré, fond transparent
+  //          (PNG/WebP/SVG), 128×128 px minimum. Laissez "" pour garder l'icône.
+  //   logoAlt : texte alternatif (accessibilité).
+  //   favicon : true = le même logo sert aussi d'icône d'onglet du navigateur.
+  brand: {
+    name: 'Nya-Market',
+    logo: 'img/Logo.png',          // ex: 'logo.webp'
+    logoAlt: 'Logo Nya-Market',
+    favicon: true
+  },
+
+  // [PHOTOS VENDEURS] Niveau de compression appliqué par vendeur.html AVANT
+  // l'envoi des photos produits (côté navigateur du vendeur).
+  //   photoMaxSide  : côté le plus long, en pixels (plus petit = plus léger).
+  //   photoQuality  : qualité WebP de départ, de 0.4 (très compressé) à 0.95 (quasi sans perte).
+  //   photoTargetKB : poids visé par photo, en Ko. Si une photo est plus lourde,
+  //                   la qualité puis la taille sont réduites automatiquement
+  //                   jusqu'à l'atteindre. Mettez 0 pour désactiver (qualité fixe).
+  //   docMaxSide / docQuality : même principe pour la pièce d'identité (gardez-la lisible).
+  // Préréglages :
+  //   Léger     -> maxSide 800,  quality 0.6,  targetKB 40
+  //   Équilibré -> maxSide 1000, quality 0.8,  targetKB 60   (par défaut)
+  //   Qualité   -> maxSide 1400, quality 0.9,  targetKB 150
+  uploads: {
+    photoMaxSide: 1000,
+    photoQuality: 0.8,
+    photoTargetKB: 60,
+    docMaxSide: 1600,
+    docQuality: 0.82
+  },
+
   // [ANNONCES] Bandeau défilant dans le header fixe. Les messages viennent de la
   // table Supabase "announcements" (colonnes : message, link, is_active...).
   //   enabled : INTERRUPTEUR GÉNÉRAL. false = le bandeau n'est jamais affiché,
@@ -35,6 +70,9 @@ window.PLATFORM_CONFIG = {
   push: {
     vapidPublicKey: 'BP70bPHmdzX7dJ8HizWN0TesVEW2DI8JKLH6AALavdOj0q3vwDyTPlOWZOfxxtPZ7XfRVcy0aJLoT8NntduwxqQ'   // ex: 'BOr7...' (voir GUIDE-CONFIGURATION.md, étape 3)
   },
+
+  // [ASSISTANT] Chatbot (FAQ + recherche de produits). enabled:false = bouton masqué.
+  chat: { enabled: true, endpoint: '/api/chat' },
 
   // Nombre d'emplacements produits par vendeur partenaire.
   // (La boutique principale, marquée "house: true", n'est pas limitée.)
