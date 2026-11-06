@@ -18,11 +18,13 @@
    - Limites : taille du message, longueur de l'historique, cadence par IP, délai d'attente.
 
    Variables d'environnement Vercel à ajouter :
-     ANTHROPIC_API_KEY   clé API (console.anthropic.com)            [secrète]
+     AI_PROVIDER         anthropic (défaut) | gemini | openrouter | openai
+     AI_API_KEY          clé API du fournisseur [secrète] (ANTHROPIC_API_KEY accepté pour anthropic)
      SUPABASE_URL        déjà présente
      SUPABASE_ANON_KEY   la clé "anon" publique (celle de config.js)
      ALLOWED_ORIGINS     (facultatif) ex: https://coindes-bonne-affaire.vercel.app
-     CHAT_MODEL          (facultatif) défaut : claude-haiku-5-5
+     CHAT_MODEL          nom du modèle (défaut anthropic : claude-haiku-5-5 ; obligatoire sinon)
+     AI_BASE_URL         (facultatif) adresse de l'API, pour les autres fournisseurs compatibles OpenAI
    ============================================================ */
 'use strict';
 
@@ -219,20 +221,56 @@ async function searchProducts(question) {
   return { products: products, searched: true };
 }
 
-/* ---------- 6. Appel du modèle IA ---------- */
+/* ---------- 6. Appel du modèle IA (au choix : Anthropic, Gemini, OpenRouter, ou toute API "format OpenAI") ----------
+   Variables Vercel :
+     AI_PROVIDER   anthropic (défaut) | gemini | openrouter | openai
+     AI_API_KEY    clé du fournisseur choisi (pour anthropic, ANTHROPIC_API_KEY marche aussi)
+     CHAT_MODEL    nom du modèle (obligatoire pour gemini / openrouter / openai)
+     AI_BASE_URL   (facultatif) adresse de l'API ; sert surtout pour le mode "openai" (Mistral, Groq, DeepSeek...) */
+var PROVIDER = String(process.env.AI_PROVIDER || 'anthropic').toLowerCase();
+var BASE_URLS = {
+  gemini: 'https://generativelanguage.googleapis.com/v1beta/openai',
+  openrouter: 'https://openrouter.ai/api/v1',
+  openai: 'https://api.openai.com/v1'
+};
+
 async function askModel(system, messages) {
-  var key = process.env.ANTHROPIC_API_KEY;
-  if (!key) throw new Error('ANTHROPIC_API_KEY manquante');
-  var res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({ model: MODEL, max_tokens: 400, temperature: 0.3, system: system, messages: messages }),
-    signal: AbortSignal.timeout(AI_TIMEOUT_MS)
-  });
-  if (!res.ok) throw new Error('IA HTTP ' + res.status);
-  var data = await res.json();
-  var text = (data.content || []).filter(function (b) { return b.type === 'text'; })
-    .map(function (b) { return b.text; }).join('\n').trim();
+  var key = process.env.AI_API_KEY || (PROVIDER === 'anthropic' ? process.env.ANTHROPIC_API_KEY : '');
+  if (!key) throw new Error('Clé API manquante (AI_API_KEY)');
+  var res, text;
+
+  if (PROVIDER === 'anthropic') {
+    res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      body: JSON.stringify({ model: MODEL, max_tokens: 400, temperature: 0.3, system: system, messages: messages }),
+      signal: AbortSignal.timeout(AI_TIMEOUT_MS)
+    });
+    if (!res.ok) throw new Error('IA HTTP ' + res.status);
+    var data = await res.json();
+    text = (data.content || []).filter(function (b) { return b.type === 'text'; })
+      .map(function (b) { return b.text; }).join('\n').trim();
+  } else {
+    // Format "OpenAI chat/completions" : Gemini, OpenRouter, Mistral, Groq, DeepSeek...
+    var base = String(process.env.AI_BASE_URL || BASE_URLS[PROVIDER] || '').replace(/\/+$/, '');
+    if (!base) throw new Error('AI_BASE_URL manquante');
+    if (!process.env.CHAT_MODEL) throw new Error('CHAT_MODEL manquant');
+    var headers = { Authorization: 'Bearer ' + key, 'content-type': 'application/json' };
+    if (PROVIDER === 'openrouter') { headers['X-Title'] = 'Nya-Market'; }
+    res = await fetch(base + '/chat/completions', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        model: process.env.CHAT_MODEL, max_tokens: 400, temperature: 0.3,
+        messages: [{ role: 'system', content: system }].concat(messages)
+      }),
+      signal: AbortSignal.timeout(AI_TIMEOUT_MS)
+    });
+    if (!res.ok) throw new Error('IA HTTP ' + res.status);
+    var d = await res.json();
+    var c = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+    text = typeof c === 'string' ? c.trim() : '';
+  }
   if (!text) throw new Error('Réponse IA vide');
   return text;
 }

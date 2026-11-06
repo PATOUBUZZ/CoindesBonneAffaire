@@ -18,7 +18,7 @@
   var CFG = window.PLATFORM_CONFIG || {};
   var SB = CFG.supabase || {};
 
-  var MAX_PRODUITS = 10;
+  var MAX_PRODUITS = 10;                    // valeur par défaut ; remplacée par VOTRE limite réelle (globale ou propre à ce vendeur) via ma_limite_produits()
   var MAX_PHOTOS = 4;
   var ADMIN_WA = '22961196907';              // WhatsApp de l'administrateur (sans +)
   var BUCKET_DOCS = 'vendeur-docs';
@@ -198,9 +198,94 @@
           return;
         }
         state.profile = res.data;
-        return loadProducts().then(function () { showView('dashboard'); renderDashboard(); });
+        return Promise.all([loadProducts(), loadLimit()]).then(function () { showView('dashboard'); renderDashboard(); });
       });
   }
+
+  // Limite de produits de CE vendeur (réglée par l'administrateur : globale ou spécifique).
+  // Si la fonction n'existe pas encore (script SQL 5 non lancé), on garde 10.
+  function loadLimit() {
+    return sb.rpc('ma_limite_produits').then(function (r) {
+      var n = r && !r.error ? Number(r.data) : NaN;
+      if (isFinite(n) && n >= 1) MAX_PRODUITS = Math.floor(n);
+    }).catch(function () { /* non bloquant */ });
+  }
+
+  /* ---------- Selfie de vérification (appareil photo en direct) ---------- */
+  var selfie = { blob: null, previewUrl: null };
+  var camStream = null;
+
+  function setSelfie(blob) {
+    selfie.blob = blob;
+    if (selfie.previewUrl) URL.revokeObjectURL(selfie.previewUrl);
+    selfie.previewUrl = blob ? URL.createObjectURL(blob) : null;
+    var img = $('selfie-preview');
+    if (blob) { img.src = selfie.previewUrl; img.classList.remove('hidden'); } else { img.removeAttribute('src'); img.classList.add('hidden'); }
+    if (blob) showError('profile-error', '');
+    $('btn-selfie').classList.toggle('is-done', !!blob);
+    $('btn-selfie-label').textContent = blob ? 'Reprendre le selfie' : 'Prendre mon selfie';
+    $('selfie-status').textContent = blob
+      ? 'Selfie enregistré ✓ (vous pouvez le reprendre).'
+      : 'Visage de face, bien éclairé, sans lunettes de soleil ni masque. Nous comparerons avec la photo du document.';
+  }
+
+  function stopCamera() {
+    if (camStream) { camStream.getTracks().forEach(function (t) { t.stop(); }); camStream = null; }
+    var v = $('cam-video'); try { v.pause(); } catch (e) {} v.srcObject = null;
+  }
+  function closeCamera() { stopCamera(); $('modal-camera').classList.add('hidden'); }
+
+  function openCamera() {
+    showError('cam-error', '');
+    // Appareil photo non disponible dans ce navigateur : on ouvre l'appareil photo avant du téléphone (champ de secours)
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { $('p-selfie-file').click(); return; }
+    $('btn-cam-shoot').disabled = true;
+    $('modal-camera').classList.remove('hidden');
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false
+    }).then(function (stream) {
+      camStream = stream;
+      var v = $('cam-video');
+      v.srcObject = stream;
+      var pl = v.play(); if (pl && pl.catch) pl.catch(function () {});
+      $('btn-cam-shoot').disabled = false;
+    }).catch(function (err) {
+      var denied = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError');
+      showError('cam-error', denied
+        ? 'Accès à l\'appareil photo refusé. Autorisez la caméra pour ce site dans les réglages du navigateur, puis réessayez.'
+        : 'Appareil photo introuvable ou déjà utilisé par une autre application.');
+    });
+  }
+
+  function shootSelfie() {
+    var v = $('cam-video');
+    if (!v.videoWidth) { showError('cam-error', 'La caméra n\'est pas prête, patientez une seconde.'); return; }
+    var scale = Math.min(1, 1000 / Math.max(v.videoWidth, v.videoHeight));
+    var c = document.createElement('canvas');
+    c.width = Math.round(v.videoWidth * scale);
+    c.height = Math.round(v.videoHeight * scale);
+    c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);     // image NON inversée
+    c.toBlob(function (webp) {
+      if (webp && webp.type === 'image/webp') { setSelfie(webp); closeCamera(); return; }
+      c.toBlob(function (jpg) {
+        if (!jpg) { showError('cam-error', 'Capture impossible, réessayez.'); return; }
+        setSelfie(jpg); closeCamera();
+      }, 'image/jpeg', 0.85);
+    }, 'image/webp', 0.85);
+  }
+
+  $('btn-selfie').addEventListener('click', openCamera);
+  $('btn-cam-cancel').addEventListener('click', closeCamera);
+  $('btn-cam-shoot').addEventListener('click', shootSelfie);
+  window.addEventListener('pagehide', stopCamera);
+  $('p-selfie-file').addEventListener('change', function () {
+    var f = this.files && this.files[0];
+    this.value = '';
+    if (!f) return;
+    if (f.type.indexOf('image/') !== 0) { toast('Le selfie doit être une image.'); return; }
+    compressImage(f, 1000, 0.85, 400 * 1024).then(function (r) { setSelfie(r.blob); })
+      .catch(function () { toast('Selfie illisible, réessayez.'); });
+  });
 
   function validWhatsapp(v) {
     var digits = String(v).replace(/\D/g, '');
@@ -232,18 +317,25 @@
     if (boutique.length < 2) return showError('profile-error', 'Indiquez le nom de votre boutique.');
     if (nom.length < 3) return showError('profile-error', 'Indiquez votre nom et prénom.');
     if (!validWhatsapp(wa)) return showError('profile-error', 'Numéro WhatsApp invalide.');
-    if (!file) return showError('profile-error', 'Ajoutez votre document d\'identité.');
+    if (!file) return showError('profile-error', 'Ajoutez la photo de votre document d\'identité.');
+    if (!selfie.blob) return showError('profile-error', 'Prenez votre selfie 🤳 avec l\'appareil photo.');
     if (!$('p-cgu').checked) return showError('profile-error', 'Vous devez accepter les conditions.');
 
     var btn = $('btn-profile-submit');
     setBusy(btn, true, 'Envoi en cours…');
     var uploadedPath = null;
+    var selfiePath = null;
 
     prepareDoc(file).then(function (doc) {
       uploadedPath = state.uid + '/identite-' + Date.now() + '.' + doc.ext;
       return sb.storage.from(BUCKET_DOCS).upload(uploadedPath, doc.blob, { contentType: doc.type, upsert: false });
     }).then(function (up) {
       if (up.error) throw up.error;
+      var sType = selfie.blob.type === 'image/webp' ? 'image/webp' : 'image/jpeg';
+      selfiePath = state.uid + '/selfie-' + Date.now() + '.' + (sType === 'image/webp' ? 'webp' : 'jpg');
+      return sb.storage.from(BUCKET_DOCS).upload(selfiePath, selfie.blob, { contentType: sType, upsert: false });
+    }).then(function (up2) {
+      if (up2.error) throw up2.error;
       return sb.from('vendeurs_attente').insert({
         user_id: state.uid,
         boutique: boutique,
@@ -251,6 +343,7 @@
         whatsapp: wa,
         email: state.email,
         doc_path: uploadedPath,
+        selfie_path: selfiePath,
         cgu_acceptees_le: new Date().toISOString()
       }).select().single();
     }).then(function (res) {
@@ -259,12 +352,16 @@
       state.products = [];
       closeModal('modal-profile');
       $('form-profile').reset();
-      renderDashboard();
-      updateContactLinks();
-      toast('Demande envoyée ✓');
+      setSelfie(null);
+      return loadLimit().then(function () {
+        renderDashboard();
+        updateContactLinks();
+        toast('Demande envoyée ✓');
+      });
     }).catch(function (err) {
       // Nettoie le fichier si l'enregistrement du profil a échoué
-      if (uploadedPath) sb.storage.from(BUCKET_DOCS).remove([uploadedPath]);
+      var toRemove = [uploadedPath, selfiePath].filter(Boolean);
+      if (toRemove.length) sb.storage.from(BUCKET_DOCS).remove(toRemove);
       showError('profile-error', 'Échec : ' + (err && err.message ? err.message : 'réessayez.'));
     }).then(function () { setBusy(btn, false); });
   });

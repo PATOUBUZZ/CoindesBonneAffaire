@@ -60,7 +60,7 @@
             <i class="fas fa-store text-orange-300"></i>
           </div>
           <h1 class="text-xl sm:text-2xl font-extrabold leading-snug text-balance">
-           <span class="text-orange-300"> Nya-Market</span> votre plate-forme <span class="text-green-300">Multi-vendeurs</span>, inscrivez-vous pour enregistrer votre boutique
+            <span class="text-orange-300">Nya-Market</span> votre plate-forme <span class="text-green-300">Multi-vendeurs</span>, inscrivez-vous pour enregistrer votre boutique
           </h1>
         </div>
 
@@ -78,10 +78,9 @@
 
           <ul class="mt-6 space-y-3 text-sm text-slate-600">
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Jusqu'à 10 produits dans votre boutique</li>
-            
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Aucune commission à l'inscription</li>
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Les clients vous contactent directement sur WhatsApp</li>
-            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Tout gérer depuis votre smartphone </li>
+             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Tout gérer depuis votre smartphone </li>
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Contrôle total de vos livraisons</li>
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Lancez votre activité sans aucune compétence technique.</li>
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Profitez de notre visibilité pour booster vos ventes</li>
@@ -170,9 +169,22 @@
           <input class="field bg-slate-100 text-slate-500" id="p-email" type="email" readonly>
         </div>
         <div>
-          <label class="field-label" for="p-doc"><i class="fas fa-id-card"></i> Document d'identité 📄 (photo CIP ou carte d'identité)</label>
+          <label class="field-label" for="p-doc"><i class="fas fa-id-card"></i> 1) Document d'identité 📄 (photo CIP ou carte d'identité)</label>
           <input class="field file-field" id="p-doc" type="file" accept="image/*,application/pdf" required>
-          <p class="text-xs text-slate-500 mt-1">Image ou PDF (5 Mo max). Visible uniquement par notre équipe de vérification.</p>
+          <p class="text-xs text-slate-500 mt-1">Photo nette, document entier, <strong>votre visage bien visible sur le document</strong>. Image ou PDF (5 Mo max). Visible uniquement par notre équipe de vérification.</p>
+        </div>
+
+        <div id="selfie-box">
+          <span class="field-label"><i class="fas fa-camera"></i> 2) Selfie du visage 🤳 (pris maintenant avec l'appareil photo)</span>
+          <div class="selfie-row">
+            <img id="selfie-preview" class="selfie-preview hidden" alt="Aperçu de votre selfie">
+            <div class="selfie-side">
+              <button type="button" id="btn-selfie" class="selfie-btn"><i class="fas fa-camera"></i> <span id="btn-selfie-label">Prendre mon selfie</span></button>
+              <p id="selfie-status" class="text-xs text-slate-500 mt-1">Visage de face, bien éclairé, sans lunettes de soleil ni masque. Nous comparerons avec la photo du document.</p>
+            </div>
+          </div>
+          <!-- Secours : uniquement si l'appareil photo ne peut pas s'ouvrir dans le navigateur (ouvre l'appareil photo avant du téléphone) -->
+          <input id="p-selfie-file" type="file" accept="image/*" capture="user" class="hidden">
         </div>
 
         <label class="flex items-start gap-3 rounded-xl bg-slate-50 border border-slate-200 p-3 text-sm text-slate-700 leading-snug cursor-pointer">
@@ -185,6 +197,20 @@
           <i class="fas fa-paper-plane mr-2"></i> Envoyer ma demande
         </button>
       </form>
+    </div>
+  </div>
+
+  <!-- ===== MODALE : APPAREIL PHOTO (selfie de vérification) ===== -->
+  <div id="modal-camera" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="camera-title" style="z-index:2100">
+    <div class="modal-panel">
+      <h2 id="camera-title" class="text-lg font-extrabold text-brand-navy text-center">Votre selfie 🤳</h2>
+      <p class="text-center text-sm text-slate-500 mt-1 mb-3">Placez votre visage au centre, face à la lumière, puis appuyez sur « Prendre la photo ».</p>
+      <div class="cam-frame"><video id="cam-video" playsinline muted autoplay></video><div class="cam-oval" aria-hidden="true"></div></div>
+      <p id="cam-error" class="form-error hidden"></p>
+      <div class="grid grid-cols-2 gap-3 mt-4">
+        <button type="button" id="btn-cam-cancel" class="selfie-btn selfie-btn-ghost">Annuler</button>
+        <button type="button" id="btn-cam-shoot" class="btn-main" disabled><i class="fas fa-camera mr-2"></i>Prendre la photo</button>
+      </div>
     </div>
   </div>
 

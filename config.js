@@ -76,7 +76,9 @@ window.PLATFORM_CONFIG = {
 
   // Nombre d'emplacements produits par vendeur partenaire.
   // (La boutique principale, marquée "house: true", n'est pas limitée.)
-  maxSlotsPerVendor: 10,
+  // Plafond d'AFFICHAGE du site par boutique (hors boutique principale). La vraie limite de chaque vendeur se règle
+  // dans admin.html (globale ou par vendeur, de 1 à 100) : gardez cette valeur >= à la plus grande limite que vous autorisez.
+  maxSlotsPerVendor: 100,
 
   // Afficher "Vendu par ..." aussi sur les produits de la boutique principale ?
   showHouseTag: false,
