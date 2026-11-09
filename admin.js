@@ -26,7 +26,7 @@
     auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
   });
 
-  var state = { tab: 'produits', pFilter: 'en_examen', vFilter: 'en_attente', categories: [], busy: false, ready: false, globalLimit: 10 };
+  var state = { tab: 'produits', pFilter: 'en_examen', vFilter: 'en_attente', cityFilter: '', vendors: [], lastVendors: [], msgTo: '', categories: [], busy: false, ready: false, globalLimit: 10 };
 
   /* ---------- outils ---------- */
   function el(tag, cls, text) {
@@ -128,19 +128,25 @@
   function buildFilter() {
     var sel = $('filter');
     sel.textContent = '';
+    var isMsg = state.tab === 'messages';
+    sel.hidden = isMsg; $('filter-label').hidden = isMsg;
+    $('city-filter').hidden = state.tab !== 'vendeurs';
+    if (isMsg) return;
     FILTERS[state.tab].forEach(function (f) {
       var o = el('option', null, f[1]); o.value = f[0]; sel.appendChild(o);
     });
     sel.value = state.tab === 'produits' ? state.pFilter : state.vFilter;
   }
+  function goTab(name) {
+    state.tab = name;
+    document.querySelectorAll('.adm-tab').forEach(function (x) { x.classList.toggle('is-active', x.getAttribute('data-tab') === name); });
+    buildFilter();
+    return refreshAll();
+  }
   document.querySelectorAll('.adm-tab').forEach(function (b) {
-    b.addEventListener('click', function () {
-      state.tab = b.getAttribute('data-tab');
-      document.querySelectorAll('.adm-tab').forEach(function (x) { x.classList.toggle('is-active', x === b); });
-      buildFilter();
-      refreshAll();
-    });
+    b.addEventListener('click', function () { goTab(b.getAttribute('data-tab')); });
   });
+  $('city-filter').addEventListener('change', function () { state.cityFilter = this.value; renderVendors(state.lastVendors); });
   $('filter').addEventListener('change', function () {
     if (state.tab === 'produits') state.pFilter = this.value; else state.vFilter = this.value;
     refreshAll();
@@ -205,12 +211,16 @@
     if (!state.ready) return Promise.resolve();
     var list = $('list');
     $('settings-bar').hidden = !(state.tab === 'vendeurs' && !state.noSettings);
+    $('msg-bar').hidden = state.tab !== 'messages';
     return rpc('admin_compteurs').then(function (c) {
       setCount('count-produits', c.produits_en_examen || 0);
       setCount('count-vendeurs', c.vendeurs_en_attente || 0);
     }).catch(function () { /* non bloquant */ }).then(function () {
       if (state.tab === 'produits') {
         return rpc('admin_produits', { p_statut: state.pFilter }).then(renderProducts);
+      }
+      if (state.tab === 'messages') {
+        return loadVendorOptions().then(function () { return rpc('admin_messages'); }).then(renderMessages);
       }
       return rpc('admin_vendeurs', { p_statut: state.vFilter }).then(renderVendors);
     }).catch(function (e) {
@@ -367,8 +377,30 @@
   function renderVendors(items) {
     var list = $('list');
     list.textContent = '';
+    state.lastVendors = items || [];
+    buildCityFilter(state.lastVendors);
     if (!items || !items.length) { list.appendChild(empty('Aucun vendeur dans cette liste.')); return; }
-    items.forEach(function (v) { list.appendChild(vendorCard(v)); });
+    var c = state.cityFilter;
+    var shown = items.filter(function (v) {
+      return !c || (c === '__none' ? !v.ville : v.ville === c);
+    });
+    if (!shown.length) { list.appendChild(empty('Aucun vendeur dans cette ville.')); return; }
+    shown.forEach(function (v) { list.appendChild(vendorCard(v)); });
+  }
+
+  // Filtre par ville (construit à partir des vendeurs affichés ; ville vide = « Sans ville »)
+  function buildCityFilter(items) {
+    var sel = $('city-filter');
+    var counts = {}, none = 0;
+    items.forEach(function (v) { if (v.ville) counts[v.ville] = (counts[v.ville] || 0) + 1; else none++; });
+    var cities = Object.keys(counts).sort(function (a, b) { return a.localeCompare(b, 'fr'); });
+    if (state.cityFilter && state.cityFilter !== '__none' && !counts[state.cityFilter]) state.cityFilter = '';
+    if (state.cityFilter === '__none' && !none) state.cityFilter = '';
+    sel.textContent = '';
+    var o = el('option', null, 'Toutes les villes (' + items.length + ')'); o.value = ''; sel.appendChild(o);
+    cities.forEach(function (c) { var x = el('option', null, c + ' (' + counts[c] + ')'); x.value = c; sel.appendChild(x); });
+    if (none) { var n = el('option', null, 'Sans ville (' + none + ')'); n.value = '__none'; sel.appendChild(n); }
+    sel.value = state.cityFilter;
   }
 
   function vendorCard(v) {
@@ -385,6 +417,12 @@
     else meta.appendChild(document.createTextNode(v.whatsapp || ''));
     meta.appendChild(document.createTextNode(' — ' + v.email));
     card.appendChild(meta);
+    if (v.ville || v.localisation) {
+      var loc = el('p', 'adm-meta');
+      loc.appendChild(document.createTextNode('📍 '));
+      loc.appendChild(el('span', 'adm-loc', [v.ville, v.localisation].filter(Boolean).join(' — ')));
+      card.appendChild(loc);
+    }
     var limTxt = v.limite != null ? ' / ' + v.limite + ' autorisés' + (v.max_produits != null ? ' (limite propre)' : ' (limite globale)') : '';
     card.appendChild(el('p', 'adm-meta', 'Inscrit le ' + dateFr(v.created_at) + ' — ' + v.nb_produits + ' produit(s) soumis' + limTxt +
       (v.live_vendor_id ? ' — lien : ?vendor=' + v.live_vendor_id : '')));
@@ -426,6 +464,9 @@
       });
       row.appendChild(sp);
     }
+    var wr = el('button', 'adm-btn adm-btn-ghost', '✉️ Écrire à ce vendeur'); wr.type = 'button';
+    wr.addEventListener('click', function () { state.msgTo = v.email; goTab('messages'); });
+    row.appendChild(wr);
     box.appendChild(row);
 
     // Limite de produits propre à ce vendeur
@@ -456,6 +497,88 @@
     }
     card.appendChild(box);
     return card;
+  }
+
+  /* ---------- messages aux vendeurs ---------- */
+  var LINK_RE = /^(https?:\/\/|\/|\?|#)/i;
+  var NIVEAUX = { info: ['Information', 'b-blue'], alerte: ['Alerte', 'b-wait'], succes: ['Bonne nouvelle', 'b-green'] };
+
+  // Liste déroulante des destinataires : « Tous » + chaque vendeur
+  function loadVendorOptions() {
+    return rpc('admin_vendeurs', { p_statut: 'tous' }).then(function (items) {
+      state.vendors = items || [];
+      var sel = $('msg-dest');
+      var keep = state.msgTo || sel.value || '';
+      sel.textContent = '';
+      var all = el('option', null, '📢 TOUS les vendeurs'); all.value = ''; sel.appendChild(all);
+      state.vendors.slice().sort(function (a, b) { return String(a.boutique).localeCompare(String(b.boutique), 'fr'); })
+        .forEach(function (v) {
+          var o = el('option', null, v.boutique + ' — ' + v.email + (v.ville ? ' (' + v.ville + ')' : ''));
+          o.value = v.email; sel.appendChild(o);
+        });
+      sel.value = keep;
+      if (sel.value !== keep) sel.value = '';
+      state.msgTo = '';
+    });
+  }
+
+  $('msg-texte').addEventListener('input', function () { $('msg-count').textContent = this.value.length + ' / 600'; });
+
+  $('btn-msg-send').addEventListener('click', function () {
+    var dest = $('msg-dest').value;
+    var titre = $('msg-titre').value.trim();
+    var texte = $('msg-texte').value.trim();
+    var lien = $('msg-lien').value.trim();
+    var lib = $('msg-libelle').value.trim();
+    var jours = $('msg-jours').value;
+    if (titre.length < 2) { toast('Ajoutez un titre (2 caractères minimum).', true); $('msg-titre').focus(); return; }
+    if (texte.length < 2) { toast('Écrivez votre message.', true); $('msg-texte').focus(); return; }
+    if (lien && !LINK_RE.test(lien)) { toast('Lien invalide : il doit commencer par https://, http://, / ou #.', true); $('msg-lien').focus(); return; }
+    var who = dest ? 'le vendeur ' + dest : 'TOUS les vendeurs';
+    if (!confirm('Envoyer ce message à ' + who + ' ?')) return;
+    act(this, function () {
+      return rpc('admin_envoyer_message', {
+        p_email: dest || null, p_titre: titre, p_message: texte, p_niveau: $('msg-niveau').value,
+        p_lien: lien || null, p_libelle: lib || null, p_jours: jours ? parseInt(jours, 10) : null
+      }).then(function (m) {
+        $('msg-titre').value = ''; $('msg-texte').value = ''; $('msg-lien').value = ''; $('msg-libelle').value = '';
+        $('msg-count').textContent = '0 / 600';
+        return m;
+      });
+    }, 'Message envoyé.');
+  });
+
+  function renderMessages(items) {
+    var list = $('list');
+    list.textContent = '';
+    if (!items || !items.length) { list.appendChild(empty('Aucun message envoyé pour le moment.')); return; }
+    items.forEach(function (m) {
+      var card = el('article', 'adm-card');
+      var top = el('div', 'adm-card-top');
+      top.appendChild(el('h3', null, m.titre));
+      var nv = NIVEAUX[m.niveau] || NIVEAUX.info;
+      top.appendChild(badge(nv[0], nv[1]));
+      card.appendChild(top);
+      var badges = el('div', 'adm-badges');
+      badges.appendChild(m.pour_tous ? badge('Tous les vendeurs', 'b-blue') : badge('Pour : ' + (m.boutique || m.email || '?'), 'b-wait'));
+      if (m.expire) badges.appendChild(badge('Expiré', 'b-red'));
+      card.appendChild(badges);
+      card.appendChild(el('p', 'adm-msg-text', m.message));
+      var meta = '';
+      if (m.lien) meta += 'Lien : ' + m.lien + (m.libelle_lien ? ' (« ' + m.libelle_lien + ' »)' : '') + ' — ';
+      meta += 'envoyé le ' + dateFr(m.created_at) + ' — lu par ' + m.nb_lus + ' vendeur(s)';
+      if (m.expire_le && !m.expire) meta += ' — visible jusqu\'au ' + dateFr(m.expire_le);
+      card.appendChild(el('p', 'adm-meta', meta));
+      var box = el('div', 'adm-actions');
+      var del = el('button', 'adm-btn adm-btn-red adm-btn-sm', 'Supprimer'); del.type = 'button';
+      del.addEventListener('click', function () {
+        if (!confirm('Supprimer ce message ? Il disparaîtra des espaces vendeurs.')) return;
+        act(del, function () { return rpc('admin_retirer_message', { p_id: m.id }); }, 'Message supprimé.');
+      });
+      box.appendChild(del);
+      card.appendChild(box);
+      list.appendChild(card);
+    });
   }
 
   /* ---------- démarrage ---------- */

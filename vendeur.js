@@ -109,6 +109,9 @@
     email: '',
     profile: null,     // ligne vendeurs_attente
     products: [],      // lignes produits_soumis
+    messages: [],      // messages de l'administrateur (fonction mes_messages)
+    showReadMessages: false,
+    lastRefresh: 0,
     editing: null,     // { id|null, photos: [{url?, file?, preview?}] }
     loadedFor: null    // uid pour lequel le chargement a déjà été fait
   };
@@ -136,6 +139,7 @@
         '👤 Vendeur : ' + p.nom_prenom + '\n' +
         '📧 Gmail : ' + p.email + '\n' +
         '📞 WhatsApp : ' + p.whatsapp + '\n' +
+        (p.ville ? '📍 Ville : ' + p.ville + '\n' : '') +
         '📦 Produits soumis : ' + state.products.length + '/' + MAX_PRODUITS + '\n\n' +
         'Merci de vérifier mon dossier.';
       contact = 'Bonjour Nya-Market, je suis le vendeur de la boutique « ' + p.boutique + ' ». J\'aimerais avoir une information.';
@@ -171,7 +175,7 @@
 
   function handleSession(session) {
     if (!session || !session.user) {
-      state.uid = null; state.profile = null; state.products = []; state.loadedFor = null;
+      state.uid = null; state.profile = null; state.products = []; state.messages = []; state.loadedFor = null;
       showView('landing');
       hideLoader();
       return;
@@ -198,7 +202,7 @@
           return;
         }
         state.profile = res.data;
-        return Promise.all([loadProducts(), loadLimit()]).then(function () { showView('dashboard'); renderDashboard(); });
+        return Promise.all([loadProducts(), loadLimit(), loadMessages()]).then(function () { showView('dashboard'); renderDashboard(); });
       });
   }
 
@@ -313,10 +317,14 @@
     var nom = $('p-nom').value.trim();
     var wa = $('p-whatsapp').value.trim();
     var file = $('p-doc').files[0];
+    var ville = $('p-ville').value.trim();
+    var loc = $('p-loc').value.trim();
 
     if (boutique.length < 2) return showError('profile-error', 'Indiquez le nom de votre boutique.');
     if (nom.length < 3) return showError('profile-error', 'Indiquez votre nom et prénom.');
     if (!validWhatsapp(wa)) return showError('profile-error', 'Numéro WhatsApp invalide.');
+    if (ville && (ville.length < 2 || ville.length > 60)) return showError('profile-error', 'La ville doit faire entre 2 et 60 caractères (ou laissez vide).');
+    if (loc && (loc.length < 2 || loc.length > 120)) return showError('profile-error', 'La localisation doit faire entre 2 et 120 caractères (ou laissez vide).');
     if (!file) return showError('profile-error', 'Ajoutez la photo de votre document d\'identité.');
     if (!selfie.blob) return showError('profile-error', 'Prenez votre selfie 🤳 avec l\'appareil photo.');
     if (!$('p-cgu').checked) return showError('profile-error', 'Vous devez accepter les conditions.');
@@ -336,7 +344,7 @@
       return sb.storage.from(BUCKET_DOCS).upload(selfiePath, selfie.blob, { contentType: sType, upsert: false });
     }).then(function (up2) {
       if (up2.error) throw up2.error;
-      return sb.from('vendeurs_attente').insert({
+      var row = {
         user_id: state.uid,
         boutique: boutique,
         nom_prenom: nom,
@@ -345,7 +353,11 @@
         doc_path: uploadedPath,
         selfie_path: selfiePath,
         cgu_acceptees_le: new Date().toISOString()
-      }).select().single();
+      };
+      // Ville / localisation : facultatives, envoyées seulement si remplies
+      if (ville) row.ville = ville;
+      if (loc) row.localisation = loc;
+      return sb.from('vendeurs_attente').insert(row).select().single();
     }).then(function (res) {
       if (res.error) throw res.error;
       state.profile = res.data;
@@ -353,7 +365,7 @@
       closeModal('modal-profile');
       $('form-profile').reset();
       setSelfie(null);
-      return loadLimit().then(function () {
+      return Promise.all([loadLimit(), loadMessages()]).then(function () {
         renderDashboard();
         updateContactLinks();
         toast('Demande envoyée ✓');
@@ -364,6 +376,233 @@
       if (toRemove.length) sb.storage.from(BUCKET_DOCS).remove(toRemove);
       showError('profile-error', 'Échec : ' + (err && err.message ? err.message : 'réessayez.'));
     }).then(function () { setBusy(btn, false); });
+  });
+
+  /* ---------- 8 bis. Boutique en ligne : bouton, lien, partage ---------- */
+  // Lien public de la boutique = page d'accueil + ?vendor=<identifiant> (même format que le bouton « Partager la boutique » du site)
+  function shopUrl(id) {
+    var base = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
+    return base + '?vendor=' + encodeURIComponent(id);
+  }
+  function shopLive() {
+    var p = state.profile;
+    return !!(p && p.statut === 'valide' && p.live_vendor_id);
+  }
+  function renderShopLinks() {
+    var p = state.profile;
+    var live = shopLive();
+    var btn = $('btn-view-shop');
+    btn.classList.toggle('hidden', !live);
+    btn.classList.toggle('flex', live);
+    $('shop-share').classList.toggle('hidden', !live);
+    $('note-lien-48h').classList.toggle('hidden', live);       // le lien est déjà là : la phrase d'attente n'a plus lieu d'être
+    var hint = $('shop-link-hint');
+    if (live) {
+      var url = shopUrl(p.live_vendor_id);
+      btn.href = url;
+      $('shop-link-input').value = url;
+      hint.classList.add('hidden');
+    } else {
+      btn.removeAttribute('href');
+      hint.classList.remove('hidden');
+      hint.textContent = (p && p.statut === 'refuse')
+        ? 'Votre boutique est actuellement suspendue : elle n\'est pas visible sur Nya-Market.'
+        : 'Le bouton « Voir ma boutique » et le lien à partager apparaîtront ici dès que votre boutique sera approuvée et en ligne.';
+    }
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {      // secours (anciens navigateurs / page non sécurisée)
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      ok ? resolve() : reject(new Error('copie impossible'));
+    });
+  }
+
+  var copyTimer = null;
+  $('btn-copy-link').addEventListener('click', function () {
+    if (!shopLive()) return;
+    var url = shopUrl(state.profile.live_vendor_id);
+    copyText(url).then(function () {
+      var l = $('btn-copy-label');
+      l.textContent = 'Lien copié ✓';
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(function () { l.textContent = 'Copier le lien'; }, 2200);
+      toast('Lien copié ✓');
+    }).catch(function () {
+      var inp = $('shop-link-input'); inp.focus(); inp.select();
+      toast('Copie automatique impossible : le lien est sélectionné, copiez-le à la main.');
+    });
+  });
+
+  $('btn-share-link').addEventListener('click', function () {
+    if (!shopLive()) return;
+    var p = state.profile;
+    var url = shopUrl(p.live_vendor_id);
+    var text = 'Découvrez ma boutique « ' + p.boutique + ' » sur Nya-Market 🛍️';
+    if (navigator.share) {                                  // partage natif du téléphone
+      navigator.share({ title: p.boutique + ' — Nya-Market', text: text, url: url }).catch(function () { /* annulé */ });
+      return;
+    }
+    // Pas de partage natif (ordinateur) : on ouvre WhatsApp avec le message prêt
+    window.open('https://wa.me/?text=' + encodeURIComponent(text + '\n' + url), '_blank', 'noopener');
+  });
+
+  /* ---------- 8 ter. Ville / localisation (facultatives) ---------- */
+  function renderLocation() {
+    var p = state.profile;
+    if (!p) return;
+    var parts = [p.ville, p.localisation].filter(Boolean);
+    $('shop-location').textContent = parts.length ? parts.join(' — ') : 'Ville non renseignée';
+    $('btn-edit-loc').textContent = parts.length ? 'Modifier' : 'Ajouter ma ville';
+  }
+  $('btn-edit-loc').addEventListener('click', function () {
+    var p = state.profile || {};
+    $('l-ville').value = p.ville || '';
+    $('l-loc').value = p.localisation || '';
+    showError('loc-error', '');
+    openModal('modal-loc');
+  });
+  $('btn-loc-close').addEventListener('click', function () { closeModal('modal-loc'); });
+  $('form-loc').addEventListener('submit', function (e) {
+    e.preventDefault();
+    showError('loc-error', '');
+    var ville = $('l-ville').value.trim();
+    var loc = $('l-loc').value.trim();
+    if (ville && (ville.length < 2 || ville.length > 60)) return showError('loc-error', 'La ville doit faire entre 2 et 60 caractères (ou laissez vide).');
+    if (loc && (loc.length < 2 || loc.length > 120)) return showError('loc-error', 'La localisation doit faire entre 2 et 120 caractères (ou laissez vide).');
+    var btn = $('btn-loc-submit');
+    setBusy(btn, true, 'Enregistrement…');
+    sb.rpc('maj_ma_localisation', { p_ville: ville || null, p_localisation: loc || null }).then(function (r) {
+      if (r.error) throw r.error;
+      return sb.from('vendeurs_attente').select('*').eq('user_id', state.uid).maybeSingle();
+    }).then(function (res) {
+      if (res.data) state.profile = res.data;
+      renderLocation();
+      closeModal('modal-loc');
+      toast('Localisation enregistrée ✓');
+    }).catch(function (err) {
+      showError('loc-error', 'Échec : ' + (err && err.message ? err.message : 'réessayez.'));
+    }).then(function () { setBusy(btn, false); });
+  });
+
+  /* ---------- 8 quater. Messages de l'administrateur ---------- */
+  // Si le script SQL 6 n'est pas encore lancé, l'appel échoue : on n'affiche simplement rien.
+  function loadMessages() {
+    return sb.rpc('mes_messages').then(function (r) {
+      state.messages = (r && !r.error && Array.isArray(r.data)) ? r.data : [];
+    }).catch(function () { state.messages = []; });
+  }
+  // Lien autorisé : http(s), relatif, ancre ou ?… (jamais javascript:)
+  function safeLink(u) {
+    u = String(u || '').trim();
+    return /^(https?:\/\/|\/|\?|#)/i.test(u) ? u : '';
+  }
+  var MSG_STYLE = {
+    info:   { box: 'bg-blue-50 border-blue-200 border-l-brand text-blue-900',     icon: 'fa-info-circle' },
+    alerte: { box: 'bg-orange-50 border-orange-200 border-l-deal text-orange-900', icon: 'fa-exclamation-triangle' },
+    succes: { box: 'bg-emerald-50 border-emerald-200 border-l-ok text-emerald-900', icon: 'fa-check-circle' }
+  };
+  function renderMessages() {
+    var box = $('messages-box'), list = $('messages-list'), hist = $('btn-messages-history');
+    var all = state.messages || [];
+    var unread = all.filter(function (m) { return !m.lu; });
+    var read = all.length - unread.length;
+    var shown = state.showReadMessages ? all : unread;
+    list.textContent = '';
+    box.classList.toggle('hidden', !all.length);
+    if (!all.length) return;
+
+    hist.classList.toggle('hidden', !read);
+    hist.textContent = state.showReadMessages ? 'Masquer les messages lus' : 'Voir les messages lus (' + read + ')';
+
+    if (!shown.length) {
+      var none = document.createElement('p');
+      none.className = 'text-xs text-slate-500';
+      none.textContent = 'Aucun nouveau message.';
+      list.appendChild(none);
+      return;
+    }
+    shown.forEach(function (m) {
+      var st = MSG_STYLE[m.niveau] || MSG_STYLE.info;
+      var card = document.createElement('article');
+      card.className = 'rounded-2xl border border-l-4 p-3 text-sm leading-relaxed ' + st.box + (m.lu ? ' opacity-70' : '');
+      card.dataset.id = m.id;
+
+      var head = document.createElement('div');
+      head.className = 'flex items-start justify-between gap-2';
+      var t = document.createElement('p');
+      t.className = 'font-extrabold';
+      var ic = document.createElement('i'); ic.className = 'fas ' + st.icon + ' mr-1';
+      t.appendChild(ic); t.appendChild(document.createTextNode(m.titre || ''));
+      head.appendChild(t);
+      var d = document.createElement('span');
+      d.className = 'text-[11px] opacity-70 shrink-0';
+      try { d.textContent = new Date(m.created_at).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' }); } catch (e) {}
+      head.appendChild(d);
+      card.appendChild(head);
+
+      var body = document.createElement('p');
+      body.className = 'mt-1 whitespace-pre-line break-words';
+      body.textContent = m.message || '';           // texte brut : aucun HTML interprété
+      card.appendChild(body);
+
+      var actions = document.createElement('div');
+      actions.className = 'mt-2 flex flex-wrap items-center gap-2';
+      var link = safeLink(m.lien);
+      if (link) {
+        var a = document.createElement('a');
+        a.href = link;
+        if (/^https?:\/\//i.test(link)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+        a.className = 'inline-flex items-center gap-1 rounded-full bg-white/80 border border-current px-3 min-h-[36px] text-xs font-bold';
+        a.textContent = m.libelle_lien || 'En savoir plus';
+        actions.appendChild(a);
+      }
+      if (!m.lu) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.dataset.action = 'msg-read';
+        b.className = 'inline-flex items-center gap-1 rounded-full bg-white/80 border border-current px-3 min-h-[36px] text-xs font-bold';
+        b.textContent = 'J\'ai lu';
+        actions.appendChild(b);
+      }
+      if (actions.childNodes.length) card.appendChild(actions);
+      list.appendChild(card);
+    });
+  }
+  $('messages-list').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-action="msg-read"]');
+    if (!b) return;
+    var id = b.closest('article').dataset.id;
+    var m = state.messages.find(function (x) { return x.id === id; });
+    if (!m) return;
+    m.lu = true;                                   // on masque tout de suite ; la base est mise à jour derrière
+    renderMessages();
+    sb.rpc('marquer_message_lu', { p_id: id }).then(function (r) {
+      if (r && r.error) { m.lu = false; renderMessages(); toast('Impossible d\'enregistrer. Réessayez.'); }
+    });
+  });
+  $('btn-messages-history').addEventListener('click', function () {
+    state.showReadMessages = !state.showReadMessages;
+    renderMessages();
+  });
+
+  // Au retour sur l'onglet (ex. après avoir lu un message WhatsApp), on actualise discrètement
+  // le profil, les produits et les messages (max. 1 fois toutes les 30 s).
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible' || !state.uid || !state.profile) return;
+    if (Date.now() - state.lastRefresh < 30000) return;
+    state.lastRefresh = Date.now();
+    sb.from('vendeurs_attente').select('*').eq('user_id', state.uid).maybeSingle().then(function (res) {
+      if (res && res.data) state.profile = res.data;
+      return Promise.all([loadProducts(), loadMessages()]);
+    }).then(function () { renderDashboard(); }).catch(function () { /* silencieux */ });
   });
 
   /* ---------- 9. Produits : chargement + affichage ---------- */
@@ -385,6 +624,10 @@
     $('shop-account-status').innerHTML = p.statut === 'valide'
       ? '<span class="badge badge-publie"><i class="fas fa-check-circle"></i> Boutique validée</span>'
       : '<span class="badge badge-pending"><i class="fas fa-hourglass-half"></i> Dossier en vérification</span>';
+
+    renderLocation();
+    renderShopLinks();
+    renderMessages();
 
     var n = state.products.length;
     $('count-current').textContent = n;

@@ -133,3 +133,13 @@ button, input, select, textarea { font-family: inherit; }
 @media (min-width: 700px) { .adm-compare-grid { grid-template-columns: 1fr 1fr; } }
 .adm-row-tight { flex-wrap: wrap; }
 .adm-limit-box label { font-weight: 700; font-size: 13px; }
+
+/* Messages vendeurs + filtre ville */
+.adm-form-title { margin: 0 0 10px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.adm-form-title i { color: var(--blue); }
+#msg-bar { display: grid; gap: 12px; }
+.adm-textarea { min-height: 96px; padding: 10px 12px; resize: vertical; width: 100%; line-height: 1.4; }
+.adm-field .adm-input, .adm-field .adm-select { width: 100%; }
+.adm-msg-text { margin: 8px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14.5px; }
+.b-green { background: #D1FAE5; color: #047857; }
+.adm-loc { color: var(--ink); font-weight: 600; }

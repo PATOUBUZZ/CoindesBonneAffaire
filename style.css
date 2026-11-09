@@ -1997,3 +1997,17 @@ a.announce-item:hover { text-decoration: underline; }
 @media (min-width: 1600px) {
   .fixed-header-inner, .content-area { max-width: 1400px; }
 }
+
+
+/* ============================================================
+   AJOUT — Diapositives de la bannière promo cliquables (lien + bouton)
+   ============================================================ */
+a.promo-slide { text-decoration: none; color: inherit; cursor: pointer; -webkit-tap-highlight-color: rgba(255,255,255,.15); }
+a.promo-slide:focus-visible { outline: 3px solid #f59e0b; outline-offset: -3px; }
+.promo-slide-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 10px; padding: 7px 14px; border-radius: 999px;
+  background: #f59e0b; color: #0b1f4d; font-weight: 800; font-size: .78rem; line-height: 1;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+a.promo-slide:hover .promo-slide-cta, a.promo-slide:active .promo-slide-cta { filter: brightness(1.08); }

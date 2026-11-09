@@ -70,6 +70,14 @@ const AFFICHER_BANNIERE_PROMO = true;
 //               orange — recopiez-la telle quelle, elle sera automatiquement
 //               stylée. Laissez "" pour ne rien surligner.
 //   texte     : (facultatif) la petite phrase sous le titre.
+//   lien      : (facultatif) adresse ouverte au clic sur TOUTE la diapositive.
+//               Exemples : 'vendeur.html' (page « devenir vendeur »),
+//               'https://…' (téléchargement de l'application, WhatsApp, Facebook…),
+//               '?vendor=ma-boutique' (une boutique du site), '#catalogue'.
+//               Les liens externes (https://) s'ouvrent dans un nouvel onglet.
+//               Laissez absent ou "" = diapositive non cliquable (comme avant).
+//   bouton    : (facultatif, avec "lien") petit texte d'appel à l'action affiché
+//               dans la diapositive, ex : 'Devenir vendeur'.
 const SLIDES_BANNIERE_PROMO = [
   {
     image: 'BANNIERE/Og-image.webp',
@@ -88,7 +96,23 @@ const SLIDES_BANNIERE_PROMO = [
     titre: 'Nouveaux produits chaque semaine',
     surligner: 'Nouveaux produits',
     texte: 'Revenez régulièrement pour ne rien manquer'
+  },
+  {
+    // Diapositive cliquable : mène à l'espace vendeur (supprimez ce bloc pour la retirer)
+    titre: 'Vendez vos produits sur Nya-Market',
+    surligner: 'Vendez vos produits',
+    texte: 'Ouvrez votre boutique gratuitement',
+    lien: 'vendeur.html',
+    bouton: 'Devenir vendeur'
   }
+  // Exemple « télécharger l'application » (décommentez et mettez votre vrai lien, sans oublier la virgule au-dessus) :
+  // ,{
+  //   titre: 'Installez l\'application Nya-Market',
+  //   surligner: 'l\'application',
+  //   texte: 'Commandez encore plus vite',
+  //   lien: 'https://VOTRE-LIEN-DE-TELECHARGEMENT',
+  //   bouton: 'Télécharger'
+  // }
 ];
 
 // [MULTI-VENDEURS] Fonction PARTAGÉE entre plusieurs blocs du fichier
@@ -215,6 +239,14 @@ function escHtmlBanner(s) {
 // catalogue, puis démarre la rotation automatique entre les diapositives.
 // Si AFFICHER_BANNIERE_PROMO est à false, cette fonction ne crée RIEN :
 // aucun élément, donc aucun espace vide possible dans la page.
+// [BANNIÈRE PROMO] Lien autorisé : http(s)://, relatif (vendeur.html, /page), ?…, #… ou tel:/mailto:.
+// Tout le reste (javascript:, data:…) est ignoré : la diapositive reste alors simplement non cliquable.
+function lienBanniereValide(u) {
+  u = String(u == null ? '' : u).trim();
+  if (!u) return '';
+  return /^(https?:\/\/|tel:|mailto:|\/|\?|#|[a-z0-9][a-z0-9._\/-]*(\?[^\s]*)?(#[^\s]*)?$)/i.test(u) && !/^(javascript|data|vbscript):/i.test(u) ? u : '';
+}
+
 function insertPromoBanner() {
   if (!AFFICHER_BANNIERE_PROMO || !SLIDES_BANNIERE_PROMO.length) return;
   const trustBar = document.querySelector('.trust-badges-bar');
@@ -238,14 +270,22 @@ function insertPromoBanner() {
       var part = escHtmlBanner(slide.surligner);
       titreHtml = titreHtml.replace(part, '<span class="promo-highlight">' + part + '</span>');
     }
+    // [CLIC] Avec un "lien" valide, toute la diapositive devient un vrai lien <a> (clavier + lecteur d'écran inclus).
+    var lien = lienBanniereValide(slide.lien);
+    var externe = /^https?:\/\//i.test(lien) && lien.indexOf(window.location.origin) !== 0;
+    var tag = lien ? 'a' : 'div';
+    var attrs = lien
+      ? ' href="' + escHtmlBanner(lien) + '"' + (externe ? ' target="_blank" rel="noopener noreferrer"' : '') + ' data-promo-link="1"'
+      : '';
     return '' +
-      '<div class="promo-slide">' +
+      '<' + tag + ' class="promo-slide' + (lien ? ' promo-slide-link' : '') + '"' + attrs + '>' +
         '<div class="promo-slide-text">' +
           '<div class="promo-slide-title">' + titreHtml + '</div>' +
           (slide.texte ? '<div class="promo-slide-subtitle">' + escHtmlBanner(slide.texte) + '</div>' : '') +
+          (lien && slide.bouton ? '<span class="promo-slide-cta">' + escHtmlBanner(slide.bouton) + ' <i class="fas fa-arrow-right" aria-hidden="true"></i></span>' : '') +
         '</div>' +
         (slide.image ? '<div class="promo-slide-imgwrap"><img src="' + escHtmlBanner(slide.image) + '" alt="" loading="lazy"></div>' : '') +
-      '</div>';
+      '</' + tag + '>';
   }).join('');
   banner.appendChild(track);
 
@@ -269,7 +309,17 @@ function insertPromoBanner() {
   // seule diapositive (rien à faire tourner).
   if (SLIDES_BANNIERE_PROMO.length > 1) {
     var index = 0;
+    // La rotation se met en pause tant que le visiteur touche / survole la bannière,
+    // pour qu'une diapositive ne glisse pas sous son doigt au moment du clic.
+    var enPause = false;
+    banner.addEventListener('pointerenter', function () { enPause = true; });
+    banner.addEventListener('pointerleave', function () { enPause = false; });
+    banner.addEventListener('touchstart', function () { enPause = true; }, { passive: true });
+    banner.addEventListener('touchend', function () { setTimeout(function () { enPause = false; }, 2500); }, { passive: true });
+    banner.addEventListener('focusin', function () { enPause = true; });
+    banner.addEventListener('focusout', function () { enPause = false; });
     setInterval(function () {
+      if (enPause) return;
       index = (index + 1) % SLIDES_BANNIERE_PROMO.length;
       track.style.transform = 'translateX(-' + (index * 100) + '%)';
       if (dotsEl) {

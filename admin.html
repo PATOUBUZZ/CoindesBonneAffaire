@@ -54,6 +54,9 @@
         <button type="button" class="adm-tab" id="tab-vendeurs" role="tab" data-tab="vendeurs">
           Vendeurs <span class="adm-count" id="count-vendeurs">0</span>
         </button>
+        <button type="button" class="adm-tab" id="tab-messages" role="tab" data-tab="messages">
+          Messages
+        </button>
       </nav>
     </header>
 
@@ -61,6 +64,7 @@
       <div class="adm-bar">
         <label for="filter" class="adm-bar-label" id="filter-label">Afficher</label>
         <select id="filter" class="adm-select"></select>
+        <select id="city-filter" class="adm-select" aria-label="Filtrer par ville" hidden></select>
         <button type="button" id="btn-refresh" class="adm-btn adm-btn-ghost adm-btn-sm">
           <i class="fas fa-sync-alt"></i> Actualiser
         </button>
@@ -72,6 +76,50 @@
           <button type="button" id="btn-global-limit" class="adm-btn adm-btn-blue adm-btn-sm">Enregistrer</button>
         </div>
         <small class="adm-hint">Elle s'applique à tous les vendeurs qui n'ont pas de limite propre (réglable sur chaque fiche vendeur). Entre 1 et 100.</small>
+      </section>
+      <!-- Écrire un message aux vendeurs (onglet Messages) -->
+      <section id="msg-bar" class="adm-card" hidden>
+        <h3 class="adm-form-title"><i class="fas fa-paper-plane"></i> Nouveau message</h3>
+        <div class="adm-field">
+          <label for="msg-dest">Destinataire</label>
+          <select id="msg-dest" class="adm-select"></select>
+        </div>
+        <div class="adm-field">
+          <label for="msg-niveau">Type</label>
+          <select id="msg-niveau" class="adm-select">
+            <option value="info">Information (bleu)</option>
+            <option value="alerte">Alerte / à corriger (orange)</option>
+            <option value="succes">Bonne nouvelle (vert)</option>
+          </select>
+        </div>
+        <div class="adm-field">
+          <label for="msg-titre">Titre</label>
+          <input id="msg-titre" class="adm-input" type="text" maxlength="80" placeholder="Ex : Photos à reprendre">
+        </div>
+        <div class="adm-field">
+          <label for="msg-texte">Message</label>
+          <textarea id="msg-texte" class="adm-input adm-textarea" rows="4" maxlength="600" placeholder="Écrivez votre message (600 caractères max)"></textarea>
+          <small id="msg-count" class="adm-hint">0 / 600</small>
+        </div>
+        <div class="adm-field">
+          <label for="msg-lien">Lien (facultatif)</label>
+          <input id="msg-lien" class="adm-input" type="text" maxlength="300" placeholder="https://… ou /vendeur.html" autocapitalize="none" autocomplete="off">
+        </div>
+        <div class="adm-field">
+          <label for="msg-libelle">Texte du bouton du lien (facultatif)</label>
+          <input id="msg-libelle" class="adm-input" type="text" maxlength="40" placeholder="Ex : Voir les conseils photos">
+        </div>
+        <div class="adm-field">
+          <label for="msg-jours">Durée d'affichage</label>
+          <select id="msg-jours" class="adm-select">
+            <option value="">Jusqu'à suppression</option>
+            <option value="1">1 jour</option>
+            <option value="3">3 jours</option>
+            <option value="7">7 jours</option>
+            <option value="30">30 jours</option>
+          </select>
+        </div>
+        <button type="button" id="btn-msg-send" class="adm-btn adm-btn-blue"><i class="fas fa-paper-plane"></i> Envoyer</button>
       </section>
       <div id="list" aria-live="polite"></div>
     </main>
