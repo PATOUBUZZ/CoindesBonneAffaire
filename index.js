@@ -79,11 +79,13 @@ const AFFICHER_BANNIERE_PROMO = true;
 //   bouton    : (facultatif, avec "lien") petit texte d'appel à l'action affiché
 //               dans la diapositive, ex : 'Devenir vendeur'.
 const SLIDES_BANNIERE_PROMO = [
-  {
-    image: 'BANNIERE/Og-image.webp',
-    titre: 'Offres Électroniques & Lunettes Anti-Lumière Bleue',
-    surligner: 'Lunettes Anti-Lumière Bleue',
-    texte: 'Économisez dès maintenant !'
+   {
+    // Diapositive cliquable : mène à l'espace vendeur (supprimez ce bloc pour la retirer)
+    titre: 'Vendez vos produits sur Nya-Market',
+    surligner: 'Vendez vos produits',
+    texte: 'Ouvrez votre boutique gratuitement',
+    lien: 'vendeur.html',
+    bouton: 'Devenir vendeur'
   },
   {
     image: 'BANNIERE/1555526558_compressed.webp',
