@@ -2011,3 +2011,26 @@ a.promo-slide:focus-visible { outline: 3px solid #f59e0b; outline-offset: -3px; 
   box-shadow: 0 4px 12px rgba(0,0,0,.25);
 }
 a.promo-slide:hover .promo-slide-cta, a.promo-slide:active .promo-slide-cta { filter: brightness(1.08); }
+
+/* ============================================================
+   AJOUT — Fiche détaillée (Galerie Focus) : cadre de la photo principale CARRÉ
+   Avant : cadre en 1,2/1 (plus large que haut) + object-fit: cover => photos coupées en haut et en bas.
+   Maintenant : cadre carré 1/1 et photo entière visible (object-fit: contain, fond clair sur les bords si la photo
+   n'est pas carrée). Pour remplir tout le cadre en rognant légèrement les bords, remplacez "contain" par "cover".
+   ============================================================ */
+.category-section.focus-mode .main-image-container {
+  aspect-ratio: 1 / 1;
+  max-height: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.category-section.focus-mode .main-img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: contain;
+}
+/* Ordinateur : carré limité à 520 px et centré (au lieu d'un rectangle étiré sur toute la carte) */
+@media (min-width: 700px) {
+  .category-section.focus-mode .main-image-container { width: min(100%, 520px); margin-inline: auto; max-height: none; }
+  .category-section.focus-mode .main-img { max-height: none; }
+}

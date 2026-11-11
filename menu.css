@@ -1,0 +1,97 @@
+/* ============================================================
+   MENU.CSS — Menu coulissant de l'en-tête (additif : toutes les classes commencent par "nmm-")
+   Aucune règle existante n'est modifiée. Le bouton réutilise le style rond "cart-icon-btn" du header.
+   ============================================================ */
+
+/* ---- Bouton du header (à gauche de la cloche) ---- */
+.nmm-btn i { transition: transform .28s ease, opacity .2s ease; }
+.nmm-btn[aria-expanded="true"] i { transform: rotate(90deg); }
+.nmm-btn:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+
+/* ---- Fond assombri ---- */
+.nmm-backdrop {
+  position: fixed; inset: 0; z-index: 1500;
+  background: rgba(15, 23, 42, .55);
+  opacity: 0; visibility: hidden;
+  transition: opacity .28s ease, visibility 0s linear .28s;   /* visibility retardée : rien de focalisable une fois fermé */
+  -webkit-tap-highlight-color: transparent;
+}
+.nmm-open .nmm-backdrop { opacity: 1; visibility: visible; transition: opacity .28s ease, visibility 0s; }
+
+/* ---- Panneau coulissant (depuis la droite, là où se trouve le bouton) ---- */
+.nmm-panel {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 1501;
+  width: min(86vw, 340px);
+  display: flex; flex-direction: column;
+  background: #fff; color: #0f172a;
+  box-shadow: -12px 0 40px rgba(2, 6, 23, .28);
+  border-radius: 22px 0 0 22px;
+  transform: translateX(104%);
+  visibility: hidden;
+  transition: transform .32s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .32s;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+.nmm-open .nmm-panel { transform: translateX(0); visibility: visible; transition: transform .32s cubic-bezier(.22, 1, .36, 1), visibility 0s; }
+.nmm-panel.nmm-dragging { transition: none; }
+
+.nmm-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 16px 16px 12px;
+}
+.nmm-title { display: flex; align-items: center; gap: 8px; font-weight: 800; letter-spacing: -.2px; color: #0b1f4d; text-transform: uppercase; font-size: .95rem; }
+.nmm-title i { color: #f59e0b; font-size: 1.2rem; }
+.nmm-close {
+  width: 42px; height: 42px; border: 0; border-radius: 50%; cursor: pointer;
+  background: #f1f5f9; color: #334155; font-size: 1.05rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nmm-close:active { transform: scale(.94); }
+
+.nmm-body { flex: 1; overflow-y: auto; padding: 0 12px 12px; -webkit-overflow-scrolling: touch; }
+
+/* ---- Appel à l'action vendeur ---- */
+.nmm-cta {
+  display: flex; align-items: center; gap: 12px; text-decoration: none;
+  margin: 2px 0 12px; padding: 14px;
+  border-radius: 16px; color: #fff;
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, .35);
+}
+.nmm-cta-ico { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 50%; background: rgba(255,255,255,.25); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.nmm-cta strong { display: block; font-size: .95rem; line-height: 1.25; }
+.nmm-cta small { display: block; font-size: .76rem; opacity: .92; margin-top: 2px; }
+.nmm-cta:active { transform: scale(.98); }
+
+/* ---- Liste de liens ---- */
+.nmm-list { list-style: none; margin: 0; padding: 0; }
+.nmm-sep { height: 1px; background: #e2e8f0; margin: 8px 6px; }
+.nmm-item {
+  width: 100%; display: flex; align-items: center; gap: 12px; text-align: left;
+  min-height: 52px; padding: 8px 10px; border: 0; border-radius: 14px; cursor: pointer;
+  background: transparent; color: #0f172a; text-decoration: none;
+  font: inherit; font-weight: 600; font-size: .95rem;
+  -webkit-tap-highlight-color: transparent;
+}
+.nmm-item:hover, .nmm-item:focus-visible { background: #f1f5f9; outline: none; }
+.nmm-item:focus-visible { box-shadow: inset 0 0 0 2px #2563eb; }
+.nmm-item:active { background: #e2e8f0; }
+.nmm-item-ico { width: 36px; height: 36px; flex: 0 0 36px; border-radius: 12px; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.nmm-item-ico.nmm-green { background: #dcfce7; color: #16a34a; }
+.nmm-item-ico.nmm-orange { background: #ffedd5; color: #ea580c; }
+.nmm-item-label { flex: 1; min-width: 0; }
+.nmm-item-label small { display: block; font-weight: 500; font-size: .74rem; color: #64748b; }
+.nmm-chev { color: #94a3b8; font-size: .8rem; }
+.nmm-count { min-width: 24px; padding: 2px 8px; border-radius: 999px; background: #f97316; color: #fff; font-size: .75rem; font-weight: 800; text-align: center; }
+
+.nmm-foot { padding: 10px 16px 14px; border-top: 1px solid #e2e8f0; font-size: .75rem; color: #64748b; text-align: center; }
+
+/* Bloque le défilement de la page derrière le panneau (sans décalage de mise en page) */
+html.nmm-lock, html.nmm-lock body { overflow: hidden; }
+
+@media (min-width: 700px) { .nmm-panel { width: 360px; } }
+@media (prefers-reduced-motion: reduce) {
+  .nmm-backdrop, .nmm-panel, .nmm-btn i { transition: none !important; }
+}
