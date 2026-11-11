@@ -249,7 +249,13 @@
 
     var top = el('div', 'adm-card-top');
     top.appendChild(el('h3', null, p.nom));
-    top.appendChild(el('div', 'adm-price', fcfa(p.prix)));
+    var priceBox = el('div', 'adm-price', fcfa(p.prix));
+    if (p.ancien_prix) {
+      var old = el('s', 'adm-old-price', fcfa(p.ancien_prix));
+      old.style.cssText = 'display:block;font-size:12px;font-weight:600;color:#94a3b8;text-align:right';
+      priceBox.appendChild(old);
+    }
+    top.appendChild(priceBox);
     card.appendChild(top);
 
     var badges = el('div', 'adm-badges');

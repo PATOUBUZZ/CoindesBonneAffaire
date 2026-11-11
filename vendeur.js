@@ -664,7 +664,8 @@
             '<div class="flex items-start justify-between gap-2">' +
               '<h4 class="font-extrabold text-slate-900 leading-tight truncate">' + esc(pr.nom) + '</h4>' + badge +
             '</div>' +
-            '<p class="font-extrabold text-deal mt-1">' + esc(fcfa(pr.prix)) + '</p>' + motif +
+            '<p class="font-extrabold text-deal mt-1">' + esc(fcfa(pr.prix)) +
+              (pr.ancien_prix ? ' <s class="text-xs font-semibold text-slate-400">' + esc(fcfa(pr.ancien_prix)) + '</s>' : '') + '</p>' + motif +
             '<div class="flex gap-2 mt-2">' +
               '<button type="button" class="prod-act prod-edit" data-action="edit"><i class="fas fa-pen"></i> Modifier</button>' +
               '<button type="button" class="prod-act prod-del" data-action="delete"><i class="fas fa-trash"></i> Supprimer</button>' +
@@ -781,12 +782,14 @@
     state.editing = {
       id: prod ? prod.id : null,
       originalUrls: prod ? (prod.images || []).slice() : [],
-      photos: prod ? (prod.images || []).map(function (u) { return { url: u }; }) : []
+      photos: prod ? (prod.images || []).map(function (u) { return { url: u }; }) : [],
+      hasOldCol: !!(prod && 'ancien_prix' in prod)    // la colonne existe côté base (script SQL 8 exécuté)
     };
     $('product-title').textContent = prod ? 'Modifier le produit' : 'Ajouter un produit';
     $('btn-product-label').textContent = prod ? 'Enregistrer les modifications' : 'Soumettre pour examen';
     $('f-nom').value = prod ? prod.nom : '';
     $('f-prix').value = prod ? prod.prix : '';
+    $('f-ancien-prix').value = (prod && prod.ancien_prix) ? prod.ancien_prix : '';
     $('f-desc').value = prod ? (prod.description || '') : '';
     $('f-carac').value = prod ? (prod.caracteristiques || '') : '';
     $('f-photos').value = '';
@@ -847,11 +850,16 @@
 
     var nom = $('f-nom').value.trim();
     var prix = parseInt($('f-prix').value, 10);
+    var ancienRaw = $('f-ancien-prix').value.trim();
+    var ancien = ancienRaw === '' ? null : parseInt(ancienRaw, 10);
     var desc = $('f-desc').value.trim();
     var carac = $('f-carac').value.trim();
 
     if (nom.length < 2) return showError('product-error', 'Indiquez le nom du produit.');
     if (!isFinite(prix) || prix < 1) return showError('product-error', 'Indiquez un prix valide en FCFA.');
+    if (ancien !== null && (!isFinite(ancien) || ancien <= prix))
+      return showError('product-error', 'L\'ancien prix doit être supérieur au prix de vente (ou laissez la case vide).');
+    if (ancien !== null && ancien > 100000000) return showError('product-error', 'Ancien prix trop élevé.');
     if (desc.length < 5) return showError('product-error', 'Ajoutez une description.');
     if (!ed.photos.length) return showError('product-error', 'Ajoutez au moins une photo.');
     if (!ed.id && state.products.length >= MAX_PRODUITS) return showError('product-error', 'Limite de produits atteinte.');
@@ -876,6 +884,8 @@
     })).then(function (urls) {
       // 2) Enregistrement (le statut est toujours "en_examen" : imposé aussi par la base)
       var row = { nom: nom, prix: prix, description: desc, caracteristiques: carac, images: urls, statut: 'en_examen' };
+      // Ancien prix (facultatif) : n'est envoyé que s'il est rempli, ou pour l'effacer sur un produit déjà géré par la colonne.
+      if (ancien !== null || (ed.id && ed.hasOldCol)) row.ancien_prix = ancien;
       if (ed.id) {
         return sb.from('produits_soumis').update(row).eq('id', ed.id).select().single()
           .then(function (res) { return { res: res, urls: urls }; });
@@ -900,6 +910,8 @@
     }).catch(function (err) {
       if (uploadedNow.length) sb.storage.from(BUCKET_PHOTOS).remove(uploadedNow);
       var m = (err && err.message) || 'réessayez.';
+      if (/ancien_prix/i.test(m) && /column|colonne|schema/i.test(m)) m = 'le champ « ancien prix » n\'est pas encore activé (script SQL 8). Laissez-le vide pour l\'instant.';
+      if (/ancien_prix_check/i.test(m)) m = 'l\'ancien prix doit être supérieur au prix de vente.';
       if (/limite/i.test(m)) m = 'Limite de ' + MAX_PRODUITS + ' produits atteinte.';
       showError('product-error', 'Échec : ' + m);
     }).then(function () { setBusy(btn, false); });

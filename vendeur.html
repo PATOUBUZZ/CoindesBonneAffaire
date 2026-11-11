@@ -41,7 +41,7 @@
     <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2 font-extrabold tracking-tight">
         <i class="fas fa-store-alt text-orange-300" data-brand-logo></i>
-        <span><Nya-Market></Nya-Market></span>
+        <span class="text-orange-300">Nya-Market</span>
         <span class="hidden sm:inline text-xs font-semibold bg-white/15 rounded-full px-2 py-0.5">Espace vendeur</span>
       </a>
       <button id="btn-logout" type="button" class="hidden items-center gap-2 text-sm font-semibold bg-white/15 border border-white/30 rounded-full px-4 min-h-[40px] active:scale-95 transition">
@@ -60,7 +60,7 @@
             <i class="fas fa-store text-orange-300"></i>
           </div>
           <h1 class="text-xl sm:text-2xl font-extrabold leading-snug text-balance">
-            <span class="text-orange-300">Nya-Market</span> votre plate-forme <span class="text-green-300">Multi-Vendeurs</span>, inscrivez-vous pour enregistrer votre boutique
+           <span class="text-orange-300"> Nya-Market</span> votre plate-forme <span class="text-green-300">Multi-Vendeurs</span>, inscrivez-vous pour enregistrer votre boutique
           </h1>
         </div>
 
@@ -77,13 +77,13 @@
           </button>
 
           <ul class="mt-6 space-y-3 text-sm text-slate-600">
-            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Jusqu'à 10 produits dans votre boutique</li>
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Jusqu'à 11 produits dans votre boutique</li>
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Aucune commission à l'inscription</li>
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Les clients vous contactent directement sur WhatsApp</li>
              <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Tout gérer depuis votre smartphone </li>
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Contrôle total de vos livraisons</li>
             <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Lancez votre activité sans aucune compétence technique.</li>
-            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Profitez de notre visibilité pour booster vos ventes</li>
+            <li class="flex gap-3"><i class="fas fa-check-circle text-ok mt-0.5"></i> Possibilité de partager le lien de votre boutique ou d'un produit spécifique de  votre boutique </li>
           </ul>
         </div>
       </div>
@@ -295,6 +295,11 @@
         <div>
           <label class="field-label" for="f-prix">Prix (FCFA)</label>
           <input class="field" id="f-prix" type="number" inputmode="numeric" min="1" max="100000000" step="1" required placeholder="Ex : 5000">
+        </div>
+        <div>
+          <label class="field-label" for="f-ancien-prix">Ancien prix / prix barré (FCFA) <span class="font-normal text-slate-400">(facultatif)</span></label>
+          <input class="field" id="f-ancien-prix" type="number" inputmode="numeric" min="2" max="100000000" step="1" placeholder="Ex : 8000">
+          <p class="text-xs text-slate-500 mt-1">Promotion : indiquez ici votre prix habituel (plus élevé que le prix ci-dessus). Il s'affichera barré à côté de votre prix pour motiver vos clients. Laissez vide s'il n'y a pas de promotion.</p>
         </div>
         <div>
           <label class="field-label" for="f-desc">Description</label>
