@@ -8,7 +8,7 @@
    ============================================================ */
 
 var DEFAULT_ICON = '/img/launchericon-192x192.png';  // logo du site : image affichée dans la notification
-var DEFAULT_BADGE = '/img/img/launchericon-96x96.png';             // petit symbole de la barre d'état Android (silhouette blanche sur fond transparent)
+var DEFAULT_BADGE = '/img/launchericon-96x96.png';             // petit symbole de la barre d'état Android (silhouette blanche sur fond transparent)
 var DEFAULT_URL = '/';
 
 self.addEventListener('install', function () { self.skipWaiting(); });
