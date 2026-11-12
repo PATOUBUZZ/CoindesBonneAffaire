@@ -7,7 +7,8 @@
    ("push" et "notificationclick") au lieu de remplacer votre fichier.
    ============================================================ */
 
-var DEFAULT_ICON = 'img/launchericon-96x96.png';   // adaptez au nom réel de votre icône (facultatif)
+var DEFAULT_ICON = '/img/launchericon-192x192.png';  // logo du site : image affichée dans la notification
+var DEFAULT_BADGE = '/img/badge-96.png';             // petit symbole de la barre d'état Android (silhouette blanche sur fond transparent)
 var DEFAULT_URL = '/';
 
 self.addEventListener('install', function () { self.skipWaiting(); });
@@ -23,7 +24,7 @@ self.addEventListener('push', function (event) {
   var options = {
     body: data.body || '',
     icon: data.icon || DEFAULT_ICON,          // petite image d'illustration (style Alibaba)
-    badge: data.badge || DEFAULT_ICON,
+    badge: data.badge || DEFAULT_BADGE,
     tag: data.tag || undefined,
     data: { url: data.url || DEFAULT_URL }
   };
