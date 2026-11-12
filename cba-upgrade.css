@@ -160,19 +160,38 @@ button, .btn, .cat-btn, .tous-card, .product-card { -webkit-tap-highlight-color:
   border-bottom: 1px solid rgba(255,255,255,.1);
 }
 
-/* ---------- 4. BADGES DE CONFIANCE ---------- */
+/* ---------- 4. BADGES DE CONFIANCE (compact : icône à GAUCHE du texte) ---------- */
 .trust-badges-bar {
   background: var(--cba-card);
   border: 1px solid var(--cba-line);
   border-radius: var(--cba-r-md);
   box-shadow: var(--cba-sh-1);
-  padding: 10px 8px;
+  display: flex; flex-direction: row; flex-wrap: nowrap;
+  align-items: center; justify-content: space-evenly;
+  gap: 8px;
+  padding: 6px 10px;
   margin-top: 4px;
+  margin-bottom: 12px;
 }
-.trust-badge-item { color: var(--cba-text); font-weight: 700; flex: 1; justify-content: center; flex-direction: column; gap: 3px; font-size: .64rem; line-height: 1.2; }
-.trust-badge-item i { color: var(--cba-green-600); font-size: 1rem; }
+.trust-badge-item {
+  color: var(--cba-text); font-weight: 700;
+  flex: 1 1 0; min-width: 0;
+  flex-direction: row;                 /* icône devant le texte, jamais au-dessus */
+  align-items: center; justify-content: center;
+  gap: 6px; text-align: left;
+  font-size: clamp(.64rem, 2.9vw, .76rem); line-height: 1.15;
+}
+.trust-badge-item i {
+  flex: 0 0 auto;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(5,150,105,.12);
+  color: var(--cba-green-600); font-size: .72rem; margin: 0;
+}
 @media (min-width: 700px) {
-  .trust-badge-item { flex-direction: row; flex: 0 1 auto; font-size: .85rem; gap: 8px; }
+  .trust-badges-bar { padding: 8px 16px; gap: 28px; }
+  .trust-badge-item { flex: 0 1 auto; font-size: .85rem; gap: 8px; }
+  .trust-badge-item i { width: 28px; height: 28px; font-size: .82rem; }
 }
 
 /* ---------- 5. CARROUSEL PROMO ---------- */
