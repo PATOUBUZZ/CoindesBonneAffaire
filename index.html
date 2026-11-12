@@ -27,6 +27,14 @@
   <!-- [PWA] Manifeste d'installation + couleur de la barre du navigateur -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
+ <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1CLTZT6L6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T1CLTZT6L6');
+  </script>
 </head>
 <body>
   <!-- [LOADER] Écran de chargement (retiré par index.js une fois le site prêt) -->
