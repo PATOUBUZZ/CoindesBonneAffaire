@@ -1,0 +1,40 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Garde le projet Supabase de CE dépôt actif (évite la pause après 7 jours d'inactivité, offre gratuite).
+#  Le MÊME fichier sert pour Nya-Market et Nya-Boutique : copiez-le tel quel dans chaque dépôt.
+#  Emplacement :  .github/workflows/supabase-keepalive.yml
+#  Secrets à créer dans CE dépôt (Settings > Secrets and variables > Actions > Secrets) :
+#     SUPABASE_URL   → https://VOTRE-REF.supabase.co
+#     SUPABASE_KEY   → la clé PUBLIQUE (publishable / anon), la même que dans config.js
+# ─────────────────────────────────────────────────────────────────────────────
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: '17 6 */3 * *'      # tous les 3 jours (heure UTC)
+  workflow_dispatch:            # bouton « Run workflow » pour tester à la main
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping Supabase
+        env:
+          SB_URL: ${{ secrets.SUPABASE_URL }}
+          SB_KEY: ${{ secrets.SUPABASE_KEY }}
+          TABLE: produits       # table lue par le ping (existe dans Nya-Market et Nya-Boutique)
+        run: |
+          set -euo pipefail
+          if [ -z "$SB_URL" ] || [ -z "$SB_KEY" ]; then echo "::error::Secrets SUPABASE_URL / SUPABASE_KEY manquants dans ce dépôt."; exit 1; fi
+          SB_URL="${SB_URL%/}"
+          CODE=$(curl -sS -o /tmp/rep.json -w '%{http_code}' --max-time 30 --retry 3 --retry-delay 10 \
+            -H "apikey: $SB_KEY" -H "Authorization: Bearer $SB_KEY" \
+            "$SB_URL/rest/v1/$TABLE?select=id&limit=1")
+          echo "Réponse HTTP : $CODE"
+          if [ "$CODE" -lt 200 ] || [ "$CODE" -ge 300 ]; then
+            echo "::error::Échec ($CODE). Réponse :"; head -c 400 /tmp/rep.json; echo; exit 1
+          fi
+          echo "✅ Projet Supabase actif."
